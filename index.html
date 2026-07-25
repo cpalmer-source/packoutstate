@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack Out State · NC State Homecoming 2026</title>
+<meta name="description" content="Pack Out State: an elevated NC State Homecoming weekend. The warm up, the block party, and everything in between. Get your tickets.">
+
+<!-- Social preview (Open Graph) -->
+<meta property="og:title" content="Pack Out State · NC State Homecoming 2026">
+<meta property="og:description" content="An elevated NC State Homecoming weekend.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css" rel="stylesheet">
+
+<style>
+:root{
+  --red:#CC0000;
+  --red-deep:#A30000;
+  --ink:#0B0B0C;
+  --carbon:#17181A;
+  --carbon-2:#212327;
+  --bone:#F4F0E8;
+  --bone-2:#E7E0D2;
+  --white:#FFFFFF;
+  --ash:#9A9CA1;
+  --line:rgba(255,255,255,.12);
+  --line-dark:rgba(11,11,12,.14);
+  --display:'Anton', Impact, sans-serif;
+  --sans:'Archivo', system-ui, -apple-system, sans-serif;
+  --wrap:1200px;
+  --pad:clamp(20px, 5vw, 64px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+
+body{
+  font-family:var(--sans);
+  background:var(--ink);
+  color:var(--white);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+
+.eyebrow{
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  font-weight:700;color:var(--red);
+}
+.eyebrow--light{color:var(--red-deep)}
+
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* ---------- STICKY NAV + WEEKEND RAIL (signature) ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,11,12,.82);
+  backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav__inner{
+  display:flex;align-items:center;gap:20px;
+  padding:12px var(--pad);max-width:var(--wrap);margin-inline:auto;
+}
+.nav__brand{
+  font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.nav__brand span{color:var(--red)}
+.nav__days{
+  display:flex;gap:6px;margin-left:auto;overflow-x:auto;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.nav__days::-webkit-scrollbar{display:none}
+.day-pill{
+  border:1px solid var(--line);background:transparent;color:var(--ash);
+  font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:8px 12px;border-radius:2px;cursor:pointer;
+  white-space:nowrap;transition:color .2s, border-color .2s, background .2s;
+}
+.day-pill small{display:block;font-weight:500;font-size:.62rem;color:var(--ash);letter-spacing:.06em;margin-top:2px}
+.day-pill:hover{color:var(--white);border-color:var(--ash)}
+.day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
+.day-pill.is-active small{color:rgba(255,255,255,.85)}
+.nav__cta{
+  display:none;background:var(--red);color:var(--white);border:none;
+  font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:10px 16px;border-radius:2px;cursor:pointer;white-space:nowrap;
+}
+@media(min-width:980px){ .nav__cta{display:inline-block} }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:92vh;display:flex;align-items:center;
+  padding-block:clamp(60px,12vh,140px);overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(11,11,12,.62) 0%, rgba(11,11,12,.28) 42%, rgba(11,11,12,.55) 78%, rgba(11,11,12,.92) 100%),
+    url('hero-carter-finley.jpg') center bottom / cover no-repeat,
+    var(--ink);
+}
+/* animated dusk sky */
+.sky{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.sky::before{
+  content:'';position:absolute;inset:-20%;
+  background:
+    radial-gradient(50% 42% at 18% 18%, rgba(204,0,0,.18), transparent 62%),
+    radial-gradient(46% 40% at 86% 8%, rgba(96,44,150,.15), transparent 60%),
+    radial-gradient(60% 50% at 58% 0%, rgba(255,124,64,.08), transparent 55%);
+  animation:skyShift 46s ease-in-out infinite alternate;
+}
+@keyframes skyShift{from{transform:translate3d(-2%,0,0) scale(1)}to{transform:translate3d(2.5%,3%,0) scale(1.07)}}
+.sky__stars{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1px 1px at 28% 34%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 44% 12%, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(1px 1px at 61% 26%, rgba(255,255,255,.6), transparent 60%),
+    radial-gradient(1.5px 1.5px at 74% 9%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(1px 1px at 86% 30%, rgba(255,255,255,.65), transparent 60%),
+    radial-gradient(1px 1px at 93% 15%, rgba(255,255,255,.7), transparent 60%);
+  animation:twinkle 7s ease-in-out infinite alternate;
+}
+@keyframes twinkle{from{opacity:.35}to{opacity:.95}}
+.sky__cloud{position:absolute;border-radius:50%;filter:blur(46px);background:#fff}
+.sky__cloud--1{width:520px;height:150px;top:10%;left:-30%;opacity:.05;animation:drift 85s linear infinite}
+.sky__cloud--2{width:700px;height:190px;top:26%;left:-45%;opacity:.035;animation:drift 125s linear infinite;animation-delay:-48s}
+.sky__cloud--3{width:420px;height:120px;top:4%;left:-25%;opacity:.03;background:#ffb199;animation:drift 100s linear infinite;animation-delay:-72s}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(165vw)}}
+.sky__beam{position:absolute;top:-12%;width:170px;height:72%;background:linear-gradient(180deg,rgba(255,255,255,.11),transparent 72%);filter:blur(18px)}
+.sky__beam--l{left:5%;transform:rotate(15deg);animation:beamGlow 11s ease-in-out infinite alternate}
+.sky__beam--r{right:7%;transform:rotate(-13deg);animation:beamGlow 14s ease-in-out infinite alternate-reverse}
+@keyframes beamGlow{from{opacity:.45}to{opacity:1}}
+.hero__ghost{
+  position:absolute;right:-4vw;bottom:-6vh;z-index:0;pointer-events:none;
+  font-family:var(--display);font-size:44vw;line-height:.8;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.05);
+  user-select:none;
+}
+.hero__inner{position:relative;z-index:1;max-width:900px}
+.hero__eyebrow{margin-bottom:22px}
+.hero h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.4rem, 8.5vw, 6.5rem);line-height:.92;letter-spacing:.01em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.hero h1 .accent{color:var(--red)}
+.hero__sub{
+  margin-top:24px;font-size:clamp(1rem,2vw,1.35rem);color:var(--white);
+  font-weight:600;letter-spacing:.01em;
+}
+.hero__sub .dot{color:var(--red);margin-inline:10px}
+.hero__meta{margin-top:8px;color:var(--ash);font-size:.95rem}
+
+/* countdown — stadium scoreboard */
+.board{margin-top:44px;max-width:680px}
+.board__plate{
+  display:inline-block;background:var(--red);color:var(--white);
+  font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;
+  font-size:clamp(.8rem,2vw,1rem);padding:8px 20px;border-radius:4px 4px 0 0;
+}
+.board__shell{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#1b1c20,#0d0e10);
+  border:1px solid #35373c;border-radius:0 8px 8px 8px;
+  padding:clamp(18px,4vw,30px) clamp(18px,4vw,36px);
+  box-shadow:0 0 0 4px #08090a, 0 26px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.07);
+}
+.board__shell::before{ /* LED pixel grid */
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:7px 7px;
+}
+.board__legs{display:flex;justify-content:space-evenly;height:26px;padding-inline:15%}
+.board__legs span{width:12px;background:linear-gradient(180deg,#2b2d31,#101113);border-radius:0 0 3px 3px}
+.count{display:flex;align-items:flex-start;gap:clamp(10px,2.6vw,26px)}
+.count__unit{text-align:center}
+.count__num{
+  font-family:'DSEG7-Classic', var(--display), monospace;font-weight:700;
+  font-size:clamp(1.7rem,5.5vw,3.4rem);line-height:1;
+  color:#FF3B30;
+  text-shadow:0 0 5px rgba(255,45,45,.35);
+}
+.count__num.tick{animation:tick .35s ease}
+@keyframes tick{from{transform:translateY(-9px);opacity:0}to{transform:none;opacity:1}}
+.count__colon{
+  font-family:'DSEG7-Classic', var(--display), monospace;font-weight:700;
+  font-size:clamp(1.7rem,5.5vw,3.4rem);line-height:1;align-self:flex-start;
+  color:#FF3B30;text-shadow:0 0 5px rgba(255,45,45,.35);
+  animation:blink 1s steps(2, jump-none) infinite;
+}
+@keyframes blink{50%{opacity:.25}}
+.count__label{
+  font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
+  color:#85888f;margin-top:10px;font-weight:700;
+}
+.count__live{
+  font-family:var(--display);font-size:clamp(1.7rem,5vw,3rem);
+  text-transform:uppercase;color:#FF3B30;line-height:1;
+  text-shadow:0 0 6px rgba(255,45,45,.35);
+}
+
+.btnrow{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+.btn{
+  font-family:var(--sans);font-weight:700;font-size:.8rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:15px 26px;border-radius:2px;cursor:pointer;
+  text-decoration:none;display:inline-block;transition:transform .15s, background .2s, color .2s;
+  border:1px solid transparent;
+}
+.btn--primary{background:var(--red);color:var(--white)}
+.btn--primary:hover{background:var(--red-deep)}
+.btn--ghost{background:transparent;color:var(--white);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--white)}
+.section--bone .btn--ghost{color:var(--ink);border-color:rgba(11,11,12,.3)}
+.section--bone .btn--ghost:hover{border-color:var(--ink)}
+.btn--dark{background:var(--ink);color:var(--white)}
+.btn--dark:hover{background:var(--carbon)}
+.btn:active{transform:translateY(1px)}
+
+/* ---------- RED MARQUEE TICKER ---------- */
+.ticker{background:var(--red);overflow:hidden;padding-block:12px;border-block:1px solid var(--red-deep)}
+.ticker__track{display:inline-flex;align-items:center;gap:34px;white-space:nowrap;will-change:transform;animation:ticker 26s linear infinite}
+.ticker span{
+  font-family:var(--display);font-size:1.05rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--white);
+}
+.ticker em{font-style:normal;color:rgba(255,255,255,.65);font-size:.8rem}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding-block:clamp(64px,10vw,120px)}
+.section--bone{background:var(--white);color:var(--ink)}
+#lineup{border-top:1px solid #ECE8E0}
+.section--bone .eyebrow{color:var(--red-deep)}
+.section__head{max-width:720px;margin-bottom:clamp(36px,6vw,64px)}
+.section__title{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.2rem,6vw,4rem);line-height:1.04;text-transform:uppercase;
+  margin-top:16px;
+}
+.section__lead{margin-top:18px;font-size:1.05rem;max-width:60ch}
+.section--dark .section__lead{color:var(--ash)}
+.section--bone .section__lead{color:#3a3a3c}
+
+/* ---------- WEEKEND AT A GLANCE ---------- */
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:start}
+.glance__col{
+  background:var(--white);border:1px solid #E9E5DD;border-top:4px solid var(--red);
+  padding:24px 24px 14px;box-shadow:0 2px 10px rgba(11,11,12,.04);
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+.glance__col:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(11,11,12,.12)}
+.reveal .glance__col{opacity:0;transform:translateY(16px)}
+.reveal.is-in .glance__col{opacity:1;transform:none;transition:opacity .55s ease, transform .55s ease, box-shadow .28s ease}
+.reveal.is-in .glance__col:nth-child(2){transition-delay:.1s}
+.reveal.is-in .glance__col:nth-child(3){transition-delay:.2s}
+.reveal.is-in .glance__col:nth-child(4){transition-delay:.3s}
+.reveal.is-in .glance__col:hover{transform:translateY(-6px);transition-delay:0s}
+.glance__day{font-family:var(--display);font-size:2.3rem;text-transform:uppercase;line-height:1}
+.glance__date{font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);font-weight:700;margin-top:6px;margin-bottom:14px}
+.glance__item{
+  display:block;position:relative;padding:12px 26px 12px 0;border-top:1px solid #EFEBE3;
+  text-decoration:none;color:var(--ink);
+  transition:color .2s, padding-left .22s ease;
+}
+.glance__item::after{
+  content:'\2192';position:absolute;right:2px;top:50%;transform:translateY(-50%) translateX(-6px);
+  color:var(--red);font-weight:700;opacity:0;transition:opacity .2s, transform .22s ease;
+}
+.glance__item:hover{color:var(--red);padding-left:10px}
+.glance__item:hover::after{opacity:1;transform:translateY(-50%)}
+.glance__time{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#6c6c6f;font-weight:700}
+.glance__name{font-weight:800;font-size:1.25rem;margin-top:4px;line-height:1.25}
+
+/* ---------- EVENT CARDS ---------- */
+.daygroup{padding-top:8px}
+.daygroup__label{
+  display:flex;align-items:baseline;gap:14px;
+  padding-block:22px;border-top:2px solid var(--ink);
+  font-family:var(--display);text-transform:uppercase;
+}
+.daygroup__label .d{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1}
+.daygroup__label .dt{font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.18em;color:var(--red)}
+
+.event{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);
+  align-items:center;padding-block:clamp(40px,6vw,72px);
+  border-top:1px solid #ECE8E0;
+}
+.event:nth-of-type(even) .event__media{order:2}
+@media(max-width:860px){
+  .event{grid-template-columns:1fr;gap:28px}
+  .event:nth-of-type(even) .event__media{order:0}
+}
+
+.event__tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  padding:7px 12px;border-radius:2px;border:1px solid #D8D3C8;color:#5a5a5e;
+}
+.chip--day{background:var(--red);border-color:var(--red);color:var(--white)}
+.chip--age{color:var(--ink);border-color:var(--ink)}
+
+.event__tagline{color:var(--red-deep);font-size:1.1rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-bottom:8px}
+.event__name{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2rem,5.5vw,3.6rem);line-height:1.06;text-transform:uppercase;
+}
+.event__desc{margin-top:18px;color:#333336;font-size:1.05rem;max-width:52ch}
+
+.event__details{list-style:none;margin-top:22px;display:grid;gap:10px}
+.event__details li{display:flex;gap:12px;font-size:1.02rem;color:#3a3a3c}
+.event__details .k{
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:#8a8a8e;min-width:74px;padding-top:3px;
+}
+.event__details a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+
+.event__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.event__onsale{margin-top:12px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+
+/* flyer well — real art keeps its native ratio; placeholders lock to 3:4 */
+.flyer{
+  width:100%;position:relative;overflow:hidden;
+  background:var(--white);border:1px solid #E5E1D8;
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.event__media:hover .flyer{
+  transform:perspective(1000px) rotateY(-3deg) rotateX(1.5deg) translateY(-8px);
+  box-shadow:0 30px 60px rgba(11,11,12,.22);
+}
+.flyer--ph{aspect-ratio:3/4}
+.flyer img{width:100%;height:auto;display:block}
+.flyer__placeholder{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:12px;
+  border:2px dashed rgba(204,0,0,.5);margin:14px;
+  background:
+    repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(11,11,12,.025) 14px, rgba(11,11,12,.025) 28px);
+}
+.flyer__ico{font-family:var(--display);font-size:2.4rem;color:var(--red);line-height:1}
+.flyer__ph-name{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;color:rgba(11,11,12,.5);padding-inline:16px;line-height:1.05}
+.flyer__ph-note{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8e;font-weight:700}
+
+/* ---------- EXPANDABLE INFO (Block Party details + FAQ) ---------- */
+.xtra{margin-top:26px;border:1px solid #E5E1D8;background:#FBFAF7}
+.xtra summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:16px 18px;font-weight:700;font-size:.88rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink);user-select:none;
+}
+.xtra summary::-webkit-details-marker{display:none}
+.xtra summary::after{
+  content:'+';font-family:var(--display);font-size:1.3rem;color:var(--red);
+  line-height:1;transition:transform .2s;
+}
+.xtra[open] summary::after{transform:rotate(45deg)}
+.xtra summary:hover{background:#F3F0E9}
+.xtra__body{padding:6px 18px 22px;border-top:1px solid #E5E1D8}
+.xtra__h{
+  font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--red);margin:20px 0 10px;
+}
+.xtra__body ul{list-style:none;display:grid;gap:8px}
+.xtra__body li{position:relative;padding-left:16px;color:#333336;font-size:1rem}
+.xtra__body li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--red)}
+.xtra__p{color:#333336;font-size:1rem;margin-bottom:8px}
+.faq{border-top:1px solid #E5E1D8}
+.faq summary{
+  list-style:none;cursor:pointer;padding:13px 0;font-weight:700;font-size:1.02rem;
+  color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--red);font-family:var(--display);font-size:1.1rem;line-height:1;transition:transform .2s}
+.faq[open] summary::after{transform:rotate(45deg)}
+.faq p{color:#3a3a3c;font-size:.98rem;padding:0 0 14px;max-width:56ch}
+
+/* ---------- FOOTER ---------- */
+.foot{background:var(--ink);border-top:1px solid var(--line);padding-block:56px}
+.foot__grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-end}
+.foot__brand{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;letter-spacing:.03em}
+.foot__brand span{color:var(--red)}
+.foot__links{display:flex;gap:20px;flex-wrap:wrap}
+.foot__links a{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ash);text-decoration:none}
+.foot__links a:hover{color:var(--white)}
+.foot__fine{margin-top:36px;color:#5a5b5e;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------- REVEAL ANIMATION ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease}
+.reveal.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  [data-animate]{opacity:1 !important;transform:none !important}
+  .sky::before,.sky__stars,.sky__cloud,.sky__beam{animation:none !important}
+  .ticker__track{animation:none !important}
+  .count__colon,.count__num.tick{animation:none !important}
+  .reveal .glance__col{opacity:1;transform:none;transition:none}
+  .event__media:hover .flyer{transform:none}
+}
+[data-animate]{opacity:0;transform:translateY(18px)}
+</style>
+</head>
+<body>
+
+<!-- ============================ NAV / WEEKEND RAIL ============================ -->
+<header class="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__brand">PACK OUT <span>STATE</span></a>
+    <nav class="nav__days" id="dayRail" aria-label="Jump to a day"></nav>
+    <a href="#lineup" class="nav__cta">Get tickets</a>
+  </div>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top">
+  <div class="sky" aria-hidden="true">
+    <div class="sky__stars"></div>
+    <div class="sky__cloud sky__cloud--1"></div>
+    <div class="sky__cloud sky__cloud--2"></div>
+    <div class="sky__cloud sky__cloud--3"></div>
+  </div>
+  <div class="hero__ghost" aria-hidden="true">'26</div>
+  <div class="wrap hero__inner">
+    <div class="eyebrow hero__eyebrow" data-animate>NC State Homecoming</div>
+    <h1 data-animate>Pack <span class="accent">Out</span> State</h1>
+    <p class="hero__sub" data-animate id="heroDates">NC State Homecoming <span class="dot">·</span> October 29 – 31, 2026</p>
+    <p class="hero__meta" data-animate>Raleigh, North Carolina</p>
+
+    <div class="board" data-animate>
+      <div class="board__plate">Kickoff countdown</div>
+      <div class="board__shell"><div class="count" id="countdown"></div></div>
+      <div class="board__legs" aria-hidden="true"><span></span><span></span></div>
+    </div>
+
+    <div class="btnrow" data-animate>
+      <a href="#lineup" class="btn btn--primary">See the lineup</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TICKER ============================ -->
+<div class="ticker"><div class="ticker__track"><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em></div></div>
+
+<!-- ============================ WEEKEND AT A GLANCE ============================ -->
+<section class="section section--bone">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">The weekend</div>
+      <h2 class="section__title">The weekend at a glance</h2>
+      <p class="section__lead">Everything happening across homecoming weekend, at a glance. Tap any event to jump to the details.</p>
+    </div>
+    <div class="glance reveal" id="glance"></div>
+  </div>
+</section>
+
+<!-- ============================ THE LINEUP ============================ -->
+<section class="section section--bone" id="lineup">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div class="eyebrow">The lineup</div>
+      <h2 class="section__title">Every event, every night</h2>
+      <p class="section__lead">From the Thursday warm up to the Saturday block party. Flyers drop as they are finalized.</p>
+    </div>
+    <div id="events"></div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">PACK OUT <span>STATE</span></div>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="#lineup">Lineup</a>
+        <a href="#top">Tickets</a>
+      </nav>
+    </div>
+    <p class="foot__fine">Pack Out State · DCC Social Inc. · NC State Homecoming 2026</p>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   EDIT ZONE 1 — DATES
+   Set your 2026 kickoff and end. The countdown, header line, and
+   end-states all read from these. Times are Eastern.
+   Format: 'YYYY-MM-DDTHH:MM:SS-04:00'  (-04:00 = EDT, -05:00 = EST)
+   ================================================================ */
+const EVENT_START = new Date('2026-10-29T21:00:00-04:00'); // The Warm Up, Thu 9 PM EDT
+const EVENT_END   = new Date('2026-10-31T23:59:00-04:00'); // weekend closes Sat Oct 31
+
+/* ================================================================
+   EDIT ZONE 2 — LINEUP
+   Add / remove / reorder by editing this array. Order here = order
+   on the page. 'day' groups events under THU/FRI/SAT/SUN.
+   Set 'flyer' to an image path/URL when ready; null shows the
+   3:4 placeholder well and keeps the layout from shifting.
+   ================================================================ */
+const DAYS = [
+  {key:'thu', label:'Thu', date:'Oct 29'},
+  {key:'fri', label:'Fri', date:'Oct 30'},
+  {key:'sat', label:'Sat', date:'Oct 31'}
+];
+
+const EVENTS = [
+  {
+    id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',    name:'The Warm Up', tagline:'Homecoming Starts Here',
+    desc:'Enjoy craft cocktails, vibes, and a curated experience at the all-new Primrose location in downtown Durham. Owned and operated by two fellow Pack alums, Primrose opens its doors for a night that celebrates the Pack and sets the tone for the weekend ahead. Get warmed up for Homecoming with us. Homecoming starts here.',
+    venue:'Primrose Bar & Lounge', address:'111 W Main St. Durham, NC',
+    mapUrl:'https://www.google.com/maps/search/?api=1&query=Primrose+Bar+%26+Lounge+111+W+Main+St+Durham+NC',
+    detailsUrl:'https://www.handstamp.com/e/ncsh-homecoming-kickoff-4qvqve9f',
+    ticketsUrl:'https://tickets.venuepilot.com/e/ncsh-homecoming-kickoff-2026-10-29-primrose-bar-lounge-durham-9265aa',
+    ticketsLabel:'RSVP free',
+    flyer:'flyer-warm-up.jpg'
+  },
+  {
+    id:'clocked-out', day:'fri', time:'4 PM – 9 PM',
+    name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
+    desc:[
+      'Official Alumni kick-off. Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year\u2019s homecoming album. Reserve a 20-minute photo session for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend',
+      'Part homecoming content shoot, part reunion, and part night out. Come dressed, gather your people, and get the group photo before the weekend gets away from you. Reserve your time. Meet your friends. Get this year\u2019s homecoming picture. Then stay and Kick-it!'
+    ],
+    venue:'District Bar & Lounge', address:'Raleigh, NC',
+    mapUrl:'https://www.google.com/maps/search/?api=1&query=District+Bar+%26+Lounge+Raleigh+NC',
+    detailsUrl:null, ticketsUrl:null,
+    flyer:null, flyerNote:'Coming soon'
+  },
+  {
+    id:'talley-tapes', day:'fri', time:'10:00 PM – 2:00 AM',    name:'The Talley Tapes [Untold]', tagline:'A Homecoming Original',
+    desc:[
+      'Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it. Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best. No matter the era, the nostalgia takes over, and one phrase emerges: Damn\u2026 I remember them Talley parties.',
+      'Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at [ Location TBA ]. A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.'
+    ],
+    venue:'[ Location TBA ]', address:null, mapUrl:null,
+    detailsUrl:'https://www.handstamp.com/e/the-talley-tapes-wkuetvyk',
+    ticketsUrl:'https://tickets.venuepilot.com/e/the-talley-tapes-2026-10-30-downtown-raleigh-raleigh-7a0918',
+    onSaleNote:'Tickets on sale Sept 1',
+    flyer:'flyer-talley-tapes.jpg'
+  },
+  {
+    id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
+    desc:'The Pack Out State Block Party is taking over Killjoy and the parking lot for an all-day Homecoming celebration. Pull up for an all-day experience that captures the essence of Homecoming in one event; tailgate, watch party, day party turned night party all in one. DJ sets running all day long with food, vendors, and curated vibes for you and your crew to celebrate together.',
+    venue:'Killjoy Kitchen & Cocktails', address:'116 N West St. Raleigh, NC',
+    mapUrl:'https://www.google.com/maps/search/?api=1&query=Killjoy+116+N+West+St+Raleigh+NC',
+    detailsUrl:'https://www.handstamp.com/e/the-downtown-block-party-tailgate-ryle4rds',
+    ticketsUrl:'https://tickets.venuepilot.com/e/the-downtown-block-party-tailgate-2026-10-31-killjoy-cocktail-lounge-raleigh-8c97cf',
+    onSaleNote:'Tickets on sale Sept 1',
+    flyer:'flyer-block-party.jpg',
+    extra:{
+      label:'Full details, schedule & FAQ',
+      schedule:[
+        'Format: All-day, come-and-go access'
+      ],
+      highlights:[
+        'Outdoor lot party with music and vendors',
+        'Indoor lounge vibes at Killjoy',
+        'Come through after the tailgate, before the game, or stay and cheer with us',
+        'One band = flexible re-entry all day'
+      ],
+      why:[
+        'Celebrate Homecoming with an event that lasts all day and into the night.',
+        'Enjoy a mix of culture, fashion, music, and food that feels like a cookout and family reunion combined.',
+        'Flexibility to join when it fits your Homecoming flow\u2026 tailgate, game, afterparty! This event covers it all.'
+      ],
+      faq:[
+        {q:'Where should I park?', a:'The best option is the N West St. parking deck, just steps from Killjoy. We also encourage Uber or Lyft for convenience and safety.'},
+        {q:'What does admission include?', a:'Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you\u2019re ready. We recommend purchasing tickets in advance\u2014capacity is limited and may sell out.'},
+        {q:'Can I bring my own stuff?', a:'Yes, you can bring a chair. No coolers, no outside food or drink. This is a rain-or-shine event.'},
+        {q:'Will there be food?', a:'Yes. BBQn4U will be onsite serving fried chicken, fried fish, and all the fixins\u2019.'},
+        {q:'Who\u2019s providing the music?', a:'The energy will be set by DJ Fredo, Brint City, and DJ JMar\u2014guaranteed to keep the vibes right all day and night.'},
+        {q:'Is there security?', a:'Yes. Security will be on site. Bags are allowed but will be searched upon entry.'},
+        {q:'Could it sell out?', a:'Yes. Once we hit capacity, tickets will no longer be available. Secure yours early.'},
+        {q:'What\u2019s the occasion?', a:'We\u2019re celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.'}
+      ]
+    }
+  }
+];
+
+/* ================================================================
+   RENDER — no edits needed below this line
+   ================================================================ */
+const $ = (s, r=document)=>r.querySelector(s);
+const esc = (s)=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// group events by day, preserving day order
+const grouped = DAYS.map(d => ({...d, items: EVENTS.filter(e => e.day === d.key)}))
+                    .filter(d => d.items.length);
+
+// ---- Day rail (sticky nav) ----
+$('#dayRail').innerHTML = grouped.map(d =>
+  `<button class="day-pill" data-target="day-${d.key}">${esc(d.label)}<small>${esc(d.date)}</small></button>`
+).join('');
+$('#dayRail').addEventListener('click', e=>{
+  const b = e.target.closest('.day-pill'); if(!b) return;
+  const t = document.getElementById(b.dataset.target);
+  if(t) t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth', block:'start'});
+});
+
+// ---- Weekend at a glance ----
+$('#glance').innerHTML = grouped.map(d=>{
+  const items = d.items.map(e=>
+    `<a class="glance__item" href="#${e.id}">
+       <span class="glance__time">${esc(e.time)}</span>
+       <span class="glance__name">${esc(e.name)}</span>
+     </a>`).join('');
+  return `<div class="glance__col">
+    <div class="glance__day">${esc(d.label)}</div>
+    <div class="glance__date">${esc(d.date)}</div>
+    ${items || '<div class="glance__empty">No events</div>'}
+  </div>`;
+}).join('');
+
+// ---- Event cards, grouped by day ----
+$('#events').innerHTML = grouped.map(d=>{
+  const label = `<div class="daygroup__label" id="day-${d.key}">
+      <span class="d">${esc(d.label)}</span>
+      <span class="dt">${esc(d.date)}</span>
+    </div>`;
+  const cards = d.items.map(e=>{
+    // description: string or array of paragraphs, rendered verbatim
+    const paras = (Array.isArray(e.desc) ? e.desc : [e.desc])
+      .map(p=>`<p class="event__desc">${esc(p)}</p>`).join('');
+
+    // age chip only if provided
+    const ageChip = e.ages ? `<span class="chip chip--age">${esc(e.ages)}</span>` : '';
+
+    // address row only if provided; link only with a valid mapUrl
+    const addrRow = e.address
+      ? `<li><span class="k">Address</span><span>${
+          e.mapUrl ? `<a href="${esc(e.mapUrl)}" target="_blank" rel="noopener">${esc(e.address)}</a>` : esc(e.address)
+        }</span></li>` : '';
+
+    // CTA buttons render only when links exist
+    const ctas = [
+      e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
+      e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : ''
+    ].join('');
+    const ctaRow = ctas ? `<div class="event__cta">${ctas}</div>` : '';
+    const onSale = e.onSaleNote ? `<p class="event__onsale">${esc(e.onSaleNote)}</p>` : '';
+
+    // flyer: real art at native ratio, else 3:4 placeholder well
+    const flyer = e.flyer
+      ? `<div class="flyer"><img src="${esc(e.flyer)}" alt="${esc(e.name)} flyer"></div>`
+      : `<div class="flyer flyer--ph"><div class="flyer__placeholder">
+           <span class="flyer__ico">+</span>
+           <span class="flyer__ph-name">${esc(e.name)}</span>
+           <span class="flyer__ph-note">${esc(e.flyerNote || 'Flyer coming soon')}</span>
+         </div></div>`;
+
+    // expandable extended info (schedule / highlights / why / FAQ)
+    let extra = '';
+    if(e.extra){
+      const x = e.extra;
+      const list = (arr)=>`<ul>${arr.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`;
+      const faqs = (x.faq||[]).map(f=>
+        `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
+      extra = `<details class="xtra">
+        <summary>${esc(x.label || 'More details')}</summary>
+        <div class="xtra__body">
+          ${x.schedule ? `<div class="xtra__h">Schedule</div>${list(x.schedule)}` : ''}
+          ${x.highlights ? `<div class="xtra__h">Highlights</div>${list(x.highlights)}` : ''}
+          ${x.why ? `<div class="xtra__h">Why you should pull up</div>${list(x.why)}` : ''}
+          ${faqs ? `<div class="xtra__h">FAQ</div>${faqs}` : ''}
+        </div>
+      </details>`;
+    }
+
+    return `<article class="event reveal" id="${esc(e.id)}">
+      <div class="event__body">
+        <div class="event__tags">
+          <span class="chip chip--day">${esc(d.label)} · ${esc(e.time)}</span>
+          ${ageChip}
+        </div>
+        <p class="event__tagline">${esc(e.tagline)}</p>
+        <h3 class="event__name">${esc(e.name)}</h3>
+        ${paras}
+        <ul class="event__details">
+          <li><span class="k">When</span><span>${esc(d.label)}, ${esc(d.date)} · ${esc(e.time)}</span></li>
+          <li><span class="k">Where</span><span>${esc(e.venue)}</span></li>
+          ${addrRow}
+        </ul>
+        ${extra}
+        ${ctaRow}
+        ${onSale}
+      </div>
+      <div class="event__media">${flyer}</div>
+    </article>`;
+  }).join('');
+  return label + cards;
+}).join('');
+
+// ---- Countdown ----
+const cd = $('#countdown');
+const prevCount = {};
+function pad(n){return String(n).padStart(2,'0')}
+function renderCountdown(){
+  const now = new Date();
+  if(now >= EVENT_START && now <= EVENT_END){
+    cd.innerHTML = `<div class="count__live">The weekend is live</div>`;
+    return;
+  }
+  if(now > EVENT_END){
+    cd.innerHTML = `<div class="count__live">That's a wrap. See you next year.</div>`;
+    return;
+  }
+  let diff = Math.floor((EVENT_START - now)/1000);
+  const dys = Math.floor(diff/86400); diff-=dys*86400;
+  const hrs = Math.floor(diff/3600);  diff-=hrs*3600;
+  const min = Math.floor(diff/60);    const sec = diff-min*60;
+  const units = [[dys,'Days','d'],[hrs,'Hours','h'],[min,'Minutes','m'],[sec,'Seconds','s']];
+  cd.innerHTML = units.map((u,i)=>{
+    const val = pad(u[0]);
+    const changed = prevCount[u[2]] !== undefined && prevCount[u[2]] !== val;
+    prevCount[u[2]] = val;
+    return `<div class="count__unit"><div class="count__num${changed?' tick':''}">${val}</div><div class="count__label">${u[1]}</div></div>`
+      + (i<3?'<div class="count__colon" aria-hidden="true">:</div>':'');
+  }).join('');
+}
+renderCountdown();
+setInterval(renderCountdown, 1000);
+
+// ---- Hero date line auto-fill from constants ----
+(function(){
+  const opt={month:'long', day:'numeric'};
+  const s=EVENT_START, e=EVENT_END;
+  const sameMonth = s.getMonth()===e.getMonth();
+  const startStr = s.toLocaleDateString('en-US', opt);
+  const endStr = e.toLocaleDateString('en-US', sameMonth?{day:'numeric'}:opt);
+  $('#heroDates').innerHTML =
+    `NC State Homecoming <span class="dot">·</span> ${startStr} – ${endStr}, ${e.getFullYear()}`;
+})();
+
+// ---- Scroll reveal ----
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---- Hero load-in sequence ----
+window.addEventListener('load', ()=>{
+  const items=[...document.querySelectorAll('[data-animate]')];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ items.forEach(el=>{el.style.opacity=1;el.style.transform='none';}); return; }
+  items.forEach((el,i)=>{
+    el.style.transition='opacity .6s ease, transform .6s ease';
+    setTimeout(()=>{ el.style.opacity=1; el.style.transform='none'; }, 120*i);
+  });
+});
+
+// ---- Scrollspy: highlight active day in rail ----
+const dayAnchors = grouped.map(d=>document.getElementById('day-'+d.key)).filter(Boolean);
+const spy = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      const key = en.target.id.replace('day-','');
+      document.querySelectorAll('.day-pill').forEach(p=>
+        p.classList.toggle('is-active', p.dataset.target==='day-'+key));
+    }
+  });
+},{rootMargin:'-45% 0px -50% 0px'});
+dayAnchors.forEach(a=>spy.observe(a));
+</script>
+</body>
+</html>
