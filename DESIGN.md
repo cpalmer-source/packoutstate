@@ -104,6 +104,11 @@ The script on the Block Party flyer (*"This is how we Homecoming"*). It's a love
 but it's one line, and a whole family for one line is indulgence. Set it in Anybody
 italic at a large size instead, or let the flyer own it.
 
+### Hosting
+All three are self-hosted from `fonts/` (latin subset, ~92 KB total) rather than
+loaded from Google Fonts. One less render-blocking third-party request, no
+dependency on a CDN staying up, and the page works offline. All three are OFL.
+
 ### Scale
 ```
 Hero          Anybody Expanded 800    clamp(2.8rem, 9vw, 7rem)     line-height .88
@@ -200,12 +205,19 @@ site is dark everywhere, which means nothing is set apart.
 ```
 1  Hero              chenille lockup, stitch-in
 2  The Patch Wall    signature — the whole weekend in one screen
-3  The Lineup        itinerary spine, four events
-4  The Talley Tapes  the dark chapter, tradition
-5  Who's In          class-year patches + the alumni who built it
-6  Block Party FAQ   the practical layer, already well written
-7  Footer            wine ground, wordmark, credits
+3  The Lineup        itinerary spine, four events in chronological order,
+                     with the Talley Tapes dark chapter breaking full-bleed
+                     in place at Friday 10 PM
+4  Every Class       class-year patches + the credits
+5  Footer            wine ground, wordmark
 ```
+
+**Built note — the dark chapter stays in sequence.** The first draft pulled The
+Talley Tapes out into its own section after the lineup. It stays where it is
+instead: the weekend runs strictly in the order it happens, and the tonal drop
+lands at Friday 10 PM, which is when it actually happens. Better than the
+original plan — the break now marks a moment in time rather than a change of
+subject. Set with `tone: 'dark'` on the event, so it's one field to move.
 
 ---
 
@@ -296,7 +308,24 @@ carry a gold outline *and* a text label.
 
 1. **Light ground — confirm.** Moving off near-black is the load-bearing decision here.
    If there's a reason the site is dark that isn't in the repo, this plan needs a rework.
-2. **Class years for "Who's in."** Real numbers would be better than a decorative range —
-   is there RSVP data with grad years?
+2. **Class years.** The band runs '80 to '26 as a decorative, inclusive range — it is
+   deliberately *not* presented as who has RSVP'd, because that data isn't in the repo.
+   If real attendee class years exist, showing those would be far stronger.
 3. **The script face.** Cut above. Worth a second look only if *"This is how we
    Homecoming"* is meant to be the standing tagline rather than a Vol. 3 flyer line.
+4. **Credits.** Darryl Coleman, Colton Palmer, and The Slim Creative are credited on
+   all four flyers with no stated role, so the site credits them the same way. If
+   they should read as organizers, photographers, or design, say which.
+
+## Verified before shipping
+
+Measured in Chromium at 1440, 1280, 390, and 360 wide:
+
+- All three fonts load and render (checked by glyph metrics, not `document.fonts.check`,
+  which returns a false positive for absent families)
+- No horizontal overflow at 360px
+- `prefers-reduced-motion` leaves every element at full opacity with no animation
+- Patches take keyboard focus with a visible 3px outline, and every patch anchor
+  resolves to a real element
+- Dates render from Eastern time, so a 9 PM Thursday kickoff reads "October 29"
+  from any timezone

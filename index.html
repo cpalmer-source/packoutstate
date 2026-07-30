@@ -4,35 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack Out State · NC State Homecoming 2026</title>
-<meta name="description" content="Pack Out State: an elevated NC State Homecoming weekend. The warm up, the block party, and everything in between. Get your tickets.">
+<meta name="description" content="Pack Out State: NC State Homecoming weekend, Oct 29–31 in Raleigh. Four events, four patches. The Warm Up, Clocked Out, The Talley Tapes, and the Block Party.">
 
 <!-- Social preview (Open Graph) -->
 <meta property="og:title" content="Pack Out State · NC State Homecoming 2026">
-<meta property="og:description" content="An elevated NC State Homecoming weekend.">
+<meta property="og:description" content="Four events. Four patches. Earn them all.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="flyer-block-party.jpg">
+<meta name="theme-color" content="#F2EEE5">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css" rel="stylesheet">
+<link rel="preload" href="fonts/ultra-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/anybody-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+/* Self-hosted (latin subset, ~92 KB total). No third-party font CDN:
+   one less render-blocking dependency, and the page works offline. */
+@font-face{
+  font-family:'Ultra';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/ultra-latin.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Anybody';font-style:normal;font-weight:400 900;
+  font-stretch:75% 150%;font-display:swap;
+  src:url('fonts/anybody-var-latin.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Figtree';font-style:normal;font-weight:400 800;font-display:swap;
+  src:url('fonts/figtree-var-latin.woff2') format('woff2');
+}
+
+/* ============================================================
+   TOKENS — see DESIGN.md for the reasoning behind every value
+   ============================================================ */
 :root{
-  --red:#CC0000;
-  --red-deep:#A30000;
-  --ink:#0B0B0C;
-  --carbon:#17181A;
-  --carbon-2:#212327;
-  --bone:#F4F0E8;
-  --bone-2:#E7E0D2;
-  --white:#FFFFFF;
-  --ash:#9A9CA1;
-  --line:rgba(255,255,255,.12);
-  --line-dark:rgba(11,11,12,.14);
-  --display:'Anton', Impact, sans-serif;
-  --sans:'Archivo', system-ui, -apple-system, sans-serif;
-  --wrap:1200px;
-  --pad:clamp(20px, 5vw, 64px);
+  /* palette */
+  --red:#D91F26;        /* Chenille Red  — display + UI only (4.33:1 on bone) */
+  --wine:#8E1116;       /* Jacket Wine   — all small red text (8.1:1 on bone) */
+  --ring:#C9973F;       /* Class Ring    — decoration on light, text OK on ink */
+  --bone:#F2EEE5;       /* Talley Bone   — page ground */
+  --cream:#E3DCCB;      /* Chenille Cream— second ground, ghost wordmark */
+  --ink:#171412;        /* Ink Wool      — body text + the one dark chapter */
+  --muted:#5C554E;      /* 6.3:1 on bone */
+  --ash:#A99E92;        /* 7.1:1 on ink  */
+  --line:rgba(23,20,18,.16);
+  --line-lt:rgba(242,238,229,.18);
+
+  /* type */
+  --patch-face:'Ultra', 'Anybody', Georgia, serif;
+  --display:'Anybody', 'Archivo', system-ui, sans-serif;
+  --body:'Figtree', system-ui, -apple-system, sans-serif;
+
+  --wrap:1180px;
+  --pad:clamp(20px, 5vw, 60px);
+  --rail:clamp(48px, 8vw, 92px);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -40,450 +65,560 @@ html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 
 body{
-  font-family:var(--sans);
-  background:var(--ink);
-  color:var(--white);
-  line-height:1.5;
+  font-family:var(--body);
+  background:var(--bone);
+  color:var(--ink);
+  line-height:1.62;
+  font-size:1.0625rem;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
 
-.eyebrow{
-  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
-  font-weight:700;color:var(--red);
-}
-.eyebrow--light{color:var(--red-deep)}
-
 a{color:inherit}
-:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:2px}
+img{max-width:100%;display:block}
 
-/* ---------- STICKY NAV + WEEKEND RAIL (signature) ---------- */
-.nav{
+.eyebrow{
+  font-family:var(--body);font-weight:700;
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--wine);
+}
+.eyebrow--lt{color:var(--ring)}
+
+.dataline{
+  font-family:var(--body);font-weight:600;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ============================================================
+   CHENILLE PATCH — the signature. Pure CSS so it stays crisp
+   and editable when the lineup changes.
+   ============================================================ */
+.chen{
+  position:relative;
+  background:var(--red);
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(255,255,255,.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgba(23,20,18,.05)    0 1px, transparent 1px 3px);
+  color:var(--bone);
+  border-radius:12px;
+  box-shadow:
+    0 0 0 4px var(--wine),
+    0 10px 20px rgba(23,20,18,.20),
+    inset 0 2px 0 rgba(255,255,255,.16),
+    inset 0 -3px 0 rgba(23,20,18,.18);
+}
+.chen::before{               /* running stitch */
+  content:'';position:absolute;inset:var(--stitch,7px);
+  border:2px dashed rgba(242,238,229,.9);
+  border-radius:6px;pointer-events:none;
+}
+
+/* ============================================================
+   STICKY BAR
+   ============================================================ */
+.bar{
   position:sticky;top:0;z-index:50;
-  background:rgba(11,11,12,.82);
+  background:rgba(242,238,229,.90);
   backdrop-filter:saturate(140%) blur(10px);
   border-bottom:1px solid var(--line);
 }
-.nav__inner{
-  display:flex;align-items:center;gap:20px;
-  padding:12px var(--pad);max-width:var(--wrap);margin-inline:auto;
+.bar__in{
+  display:flex;align-items:center;gap:18px;
+  max-width:var(--wrap);margin-inline:auto;padding:11px var(--pad);
 }
-.nav__brand{
-  font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
-  text-transform:uppercase;white-space:nowrap;
+.bar__brand{
+  font-family:var(--display);font-weight:800;font-stretch:125%;
+  font-size:.95rem;letter-spacing:.02em;text-transform:uppercase;
+  text-decoration:none;white-space:nowrap;
 }
-.nav__brand span{color:var(--red)}
-.nav__days{
-  display:flex;gap:6px;margin-left:auto;overflow-x:auto;
-  scrollbar-width:none;-ms-overflow-style:none;
+.bar__brand span{color:var(--red)}
+/* only once the hero's own countdown has scrolled away — no duplicate at the top */
+.bar__clock{
+  display:none;margin-inline:auto;color:var(--muted);
+  font-family:var(--body);font-weight:600;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+  opacity:0;transition:opacity .3s ease;
 }
-.nav__days::-webkit-scrollbar{display:none}
-.day-pill{
-  border:1px solid var(--line);background:transparent;color:var(--ash);
-  font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.12em;
-  text-transform:uppercase;padding:8px 12px;border-radius:2px;cursor:pointer;
-  white-space:nowrap;transition:color .2s, border-color .2s, background .2s;
+@media(min-width:840px){ .bar__clock{display:block} }
+.is-past-hero .bar__clock{opacity:1}
+.bar__nav{display:flex;gap:16px;margin-left:auto;align-items:center}
+@media(min-width:840px){ .bar__nav{margin-left:0} }
+.bar__link{
+  display:none;font-weight:700;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;color:var(--muted);
 }
-.day-pill small{display:block;font-weight:500;font-size:.62rem;color:var(--ash);letter-spacing:.06em;margin-top:2px}
-.day-pill:hover{color:var(--white);border-color:var(--ash)}
-.day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
-.day-pill.is-active small{color:rgba(255,255,255,.85)}
-.nav__cta{
-  display:none;background:var(--red);color:var(--white);border:none;
-  font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.1em;
-  text-transform:uppercase;padding:10px 16px;border-radius:2px;cursor:pointer;white-space:nowrap;
-}
-@media(min-width:980px){ .nav__cta{display:inline-block} }
+.bar__link:hover{color:var(--ink)}
+@media(min-width:600px){ .bar__link{display:inline-block} }
 
-/* ---------- HERO ---------- */
-.hero{
-  position:relative;min-height:92vh;display:flex;align-items:center;
-  padding-block:clamp(60px,12vh,140px);overflow:hidden;
-  background:
-    linear-gradient(180deg, rgba(11,11,12,.62) 0%, rgba(11,11,12,.28) 42%, rgba(11,11,12,.55) 78%, rgba(11,11,12,.92) 100%),
-    url('hero-carter-finley.jpg') center bottom / cover no-repeat,
-    var(--ink);
-}
-/* animated dusk sky */
-.sky{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.sky::before{
-  content:'';position:absolute;inset:-20%;
-  background:
-    radial-gradient(50% 42% at 18% 18%, rgba(204,0,0,.18), transparent 62%),
-    radial-gradient(46% 40% at 86% 8%, rgba(96,44,150,.15), transparent 60%),
-    radial-gradient(60% 50% at 58% 0%, rgba(255,124,64,.08), transparent 55%);
-  animation:skyShift 46s ease-in-out infinite alternate;
-}
-@keyframes skyShift{from{transform:translate3d(-2%,0,0) scale(1)}to{transform:translate3d(2.5%,3%,0) scale(1.07)}}
-.sky__stars{
-  position:absolute;inset:0;
-  background-image:
-    radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,.9), transparent 60%),
-    radial-gradient(1px 1px at 28% 34%, rgba(255,255,255,.7), transparent 60%),
-    radial-gradient(1.5px 1.5px at 44% 12%, rgba(255,255,255,.8), transparent 60%),
-    radial-gradient(1px 1px at 61% 26%, rgba(255,255,255,.6), transparent 60%),
-    radial-gradient(1.5px 1.5px at 74% 9%, rgba(255,255,255,.85), transparent 60%),
-    radial-gradient(1px 1px at 86% 30%, rgba(255,255,255,.65), transparent 60%),
-    radial-gradient(1px 1px at 93% 15%, rgba(255,255,255,.7), transparent 60%);
-  animation:twinkle 7s ease-in-out infinite alternate;
-}
-@keyframes twinkle{from{opacity:.35}to{opacity:.95}}
-.sky__cloud{position:absolute;border-radius:50%;filter:blur(46px);background:#fff}
-.sky__cloud--1{width:520px;height:150px;top:10%;left:-30%;opacity:.05;animation:drift 85s linear infinite}
-.sky__cloud--2{width:700px;height:190px;top:26%;left:-45%;opacity:.035;animation:drift 125s linear infinite;animation-delay:-48s}
-.sky__cloud--3{width:420px;height:120px;top:4%;left:-25%;opacity:.03;background:#ffb199;animation:drift 100s linear infinite;animation-delay:-72s}
-@keyframes drift{from{transform:translateX(0)}to{transform:translateX(165vw)}}
-.sky__beam{position:absolute;top:-12%;width:170px;height:72%;background:linear-gradient(180deg,rgba(255,255,255,.11),transparent 72%);filter:blur(18px)}
-.sky__beam--l{left:5%;transform:rotate(15deg);animation:beamGlow 11s ease-in-out infinite alternate}
-.sky__beam--r{right:7%;transform:rotate(-13deg);animation:beamGlow 14s ease-in-out infinite alternate-reverse}
-@keyframes beamGlow{from{opacity:.45}to{opacity:1}}
-.hero__ghost{
-  position:absolute;right:-4vw;bottom:-6vh;z-index:0;pointer-events:none;
-  font-family:var(--display);font-size:44vw;line-height:.8;letter-spacing:-.02em;
-  color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.05);
-  user-select:none;
-}
-.hero__inner{position:relative;z-index:1;max-width:900px}
-.hero__eyebrow{margin-bottom:22px}
-.hero h1{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(2.4rem, 8.5vw, 6.5rem);line-height:.92;letter-spacing:.01em;
-  text-transform:uppercase;white-space:nowrap;
-}
-.hero h1 .accent{color:var(--red)}
-.hero__sub{
-  margin-top:24px;font-size:clamp(1rem,2vw,1.35rem);color:var(--white);
-  font-weight:600;letter-spacing:.01em;
-}
-.hero__sub .dot{color:var(--red);margin-inline:10px}
-.hero__meta{margin-top:8px;color:var(--ash);font-size:.95rem}
-
-/* countdown — stadium scoreboard */
-.board{margin-top:44px;max-width:680px}
-.board__plate{
-  display:inline-block;background:var(--red);color:var(--white);
-  font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;
-  font-size:clamp(.8rem,2vw,1rem);padding:8px 20px;border-radius:4px 4px 0 0;
-}
-.board__shell{
-  position:relative;overflow:hidden;
-  background:linear-gradient(180deg,#1b1c20,#0d0e10);
-  border:1px solid #35373c;border-radius:0 8px 8px 8px;
-  padding:clamp(18px,4vw,30px) clamp(18px,4vw,36px);
-  box-shadow:0 0 0 4px #08090a, 0 26px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.07);
-}
-.board__shell::before{ /* LED pixel grid */
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:7px 7px;
-}
-.board__legs{display:flex;justify-content:space-evenly;height:26px;padding-inline:15%}
-.board__legs span{width:12px;background:linear-gradient(180deg,#2b2d31,#101113);border-radius:0 0 3px 3px}
-.count{display:flex;align-items:flex-start;gap:clamp(10px,2.6vw,26px)}
-.count__unit{text-align:center}
-.count__num{
-  font-family:'DSEG7-Classic', var(--display), monospace;font-weight:700;
-  font-size:clamp(1.7rem,5.5vw,3.4rem);line-height:1;
-  color:#FF3B30;
-  text-shadow:0 0 5px rgba(255,45,45,.35);
-}
-.count__num.tick{animation:tick .35s ease}
-@keyframes tick{from{transform:translateY(-9px);opacity:0}to{transform:none;opacity:1}}
-.count__colon{
-  font-family:'DSEG7-Classic', var(--display), monospace;font-weight:700;
-  font-size:clamp(1.7rem,5.5vw,3.4rem);line-height:1;align-self:flex-start;
-  color:#FF3B30;text-shadow:0 0 5px rgba(255,45,45,.35);
-  animation:blink 1s steps(2, jump-none) infinite;
-}
-@keyframes blink{50%{opacity:.25}}
-.count__label{
-  font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
-  color:#85888f;margin-top:10px;font-weight:700;
-}
-.count__live{
-  font-family:var(--display);font-size:clamp(1.7rem,5vw,3rem);
-  text-transform:uppercase;color:#FF3B30;line-height:1;
-  text-shadow:0 0 6px rgba(255,45,45,.35);
-}
-
-.btnrow{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+/* ============================================================
+   BUTTONS
+   ============================================================ */
 .btn{
-  font-family:var(--sans);font-weight:700;font-size:.8rem;letter-spacing:.1em;
-  text-transform:uppercase;padding:15px 26px;border-radius:2px;cursor:pointer;
-  text-decoration:none;display:inline-block;transition:transform .15s, background .2s, color .2s;
-  border:1px solid transparent;
+  font-family:var(--body);font-weight:700;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:14px 24px;border-radius:4px;cursor:pointer;
+  text-decoration:none;display:inline-block;border:2px solid transparent;
+  transition:transform .14s ease, background .2s, color .2s, border-color .2s;
 }
-.btn--primary{background:var(--red);color:var(--white)}
-.btn--primary:hover{background:var(--red-deep)}
-.btn--ghost{background:transparent;color:var(--white);border-color:var(--line)}
-.btn--ghost:hover{border-color:var(--white)}
-.section--bone .btn--ghost{color:var(--ink);border-color:rgba(11,11,12,.3)}
-.section--bone .btn--ghost:hover{border-color:var(--ink)}
-.btn--dark{background:var(--ink);color:var(--white)}
-.btn--dark:hover{background:var(--carbon)}
+.btn--go{background:var(--red);color:var(--bone);border-color:var(--red)}
+.btn--go:hover{background:var(--wine);border-color:var(--wine)}
+.btn--out{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn--out:hover{border-color:var(--ink)}
+.btn--sm{padding:10px 18px;font-size:.7rem}
 .btn:active{transform:translateY(1px)}
+.ev--dark .btn--out{color:var(--bone);border-color:var(--line-lt)}
+.ev--dark .btn--out:hover{border-color:var(--bone)}
 
-/* ---------- RED MARQUEE TICKER ---------- */
-.ticker{background:var(--red);overflow:hidden;padding-block:12px;border-block:1px solid var(--red-deep)}
-.ticker__track{display:inline-flex;align-items:center;gap:34px;white-space:nowrap;will-change:transform;animation:ticker 26s linear infinite}
-.ticker span{
-  font-family:var(--display);font-size:1.05rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--white);
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;overflow:hidden;
+  padding-block:clamp(56px,11vh,120px) clamp(48px,9vh,96px);
 }
-.ticker em{font-style:normal;color:rgba(255,255,255,.65);font-size:.8rem}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ghosted vertical wordmark — lifted from the flyers */
+.hero__spine{
+  position:absolute;left:calc(var(--pad) * -.15);top:0;bottom:0;z-index:0;
+  display:none;align-items:center;pointer-events:none;user-select:none;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:var(--display);font-weight:800;font-stretch:110%;
+  /* sized off viewport height too — it runs vertically, so height is what
+     it can actually overflow */
+  font-size:min(4.4vw, 7.6vh, 4.4rem);
+  letter-spacing:.02em;text-transform:uppercase;
+  color:var(--cream);line-height:1;
+}
+@media(min-width:1080px){ .hero__spine{display:flex} }
+.hero__in{position:relative;z-index:1}
 
-/* ---------- SECTION SHELL ---------- */
-.section{padding-block:clamp(64px,10vw,120px)}
-.section--bone{background:var(--white);color:var(--ink)}
-#lineup{border-top:1px solid #ECE8E0}
-.section--bone .eyebrow{color:var(--red-deep)}
-.section__head{max-width:720px;margin-bottom:clamp(36px,6vw,64px)}
-.section__title{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(2.2rem,6vw,4rem);line-height:1.04;text-transform:uppercase;
-  margin-top:16px;
+.lockup{margin:22px 0 0;line-height:.82}
+.lockup__l{
+  display:block;position:relative;width:max-content;max-width:100%;
+  font-family:var(--patch-face);font-weight:400;
+  font-size:clamp(2.9rem,12.5vw,8.4rem);
+  letter-spacing:.005em;text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:2px var(--wine);
 }
-.section__lead{margin-top:18px;font-size:1.05rem;max-width:60ch}
-.section--dark .section__lead{color:var(--ash)}
-.section--bone .section__lead{color:#3a3a3c}
-
-/* ---------- WEEKEND AT A GLANCE ---------- */
-.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:start}
-.glance__col{
-  background:var(--white);border:1px solid #E9E5DD;border-top:4px solid var(--red);
-  padding:24px 24px 14px;box-shadow:0 2px 10px rgba(11,11,12,.04);
-  transition:transform .28s ease, box-shadow .28s ease;
+.lockup__l::after{                       /* the felt fill, drops in after the outline */
+  content:attr(data-t);position:absolute;left:0;top:0;
+  color:var(--red);-webkit-text-stroke:0;
+  opacity:0;transition:opacity .5s ease;
 }
-.glance__col:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(11,11,12,.12)}
-.reveal .glance__col{opacity:0;transform:translateY(16px)}
-.reveal.is-in .glance__col{opacity:1;transform:none;transition:opacity .55s ease, transform .55s ease, box-shadow .28s ease}
-.reveal.is-in .glance__col:nth-child(2){transition-delay:.1s}
-.reveal.is-in .glance__col:nth-child(3){transition-delay:.2s}
-.reveal.is-in .glance__col:nth-child(4){transition-delay:.3s}
-.reveal.is-in .glance__col:hover{transform:translateY(-6px);transition-delay:0s}
-.glance__day{font-family:var(--display);font-size:2.3rem;text-transform:uppercase;line-height:1}
-.glance__date{font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);font-weight:700;margin-top:6px;margin-bottom:14px}
-.glance__item{
-  display:block;position:relative;padding:12px 26px 12px 0;border-top:1px solid #EFEBE3;
-  text-decoration:none;color:var(--ink);
-  transition:color .2s, padding-left .22s ease;
-}
-.glance__item::after{
-  content:'\2192';position:absolute;right:2px;top:50%;transform:translateY(-50%) translateX(-6px);
-  color:var(--red);font-weight:700;opacity:0;transition:opacity .2s, transform .22s ease;
-}
-.glance__item:hover{color:var(--red);padding-left:10px}
-.glance__item:hover::after{opacity:1;transform:translateY(-50%)}
-.glance__time{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#6c6c6f;font-weight:700}
-.glance__name{font-weight:800;font-size:1.25rem;margin-top:4px;line-height:1.25}
-
-/* ---------- EVENT CARDS ---------- */
-.daygroup{padding-top:8px}
-.daygroup__label{
-  display:flex;align-items:baseline;gap:14px;
-  padding-block:22px;border-top:2px solid var(--ink);
-  font-family:var(--display);text-transform:uppercase;
-}
-.daygroup__label .d{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1}
-.daygroup__label .dt{font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.18em;color:var(--red)}
-
-.event{
-  display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);
-  align-items:center;padding-block:clamp(40px,6vw,72px);
-  border-top:1px solid #ECE8E0;
-}
-.event:nth-of-type(even) .event__media{order:2}
-@media(max-width:860px){
-  .event{grid-template-columns:1fr;gap:28px}
-  .event:nth-of-type(even) .event__media{order:0}
+.is-ready .lockup__l::after{opacity:1}
+.is-ready .lockup__l--2::after{transition-delay:.14s}
+/* if text-stroke is unsupported the outline layer would vanish — fill it instead */
+@supports not (-webkit-text-stroke: 1px red){
+  .lockup__l{color:var(--red)}
+  .lockup__l::after{display:none}
 }
 
-.event__tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.chip{
-  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  padding:7px 12px;border-radius:2px;border:1px solid #D8D3C8;color:#5a5a5e;
+.hero__meta{
+  display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;
+  margin-top:26px;
 }
-.chip--day{background:var(--red);border-color:var(--red);color:var(--white)}
-.chip--age{color:var(--ink);border-color:var(--ink)}
-
-.event__tagline{color:var(--red-deep);font-size:1.1rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-bottom:8px}
-.event__name{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(2rem,5.5vw,3.6rem);line-height:1.06;text-transform:uppercase;
+.hero__26{
+  --stitch:5px;
+  font-family:var(--patch-face);font-size:clamp(1.7rem,4vw,2.2rem);line-height:1;
+  padding:16px 20px 13px;transform:rotate(-4deg);
+  letter-spacing:.02em;flex:none;
 }
-.event__desc{margin-top:18px;color:#333336;font-size:1.05rem;max-width:52ch}
+.hero__where{color:var(--muted)}
+.hero__clock{margin-top:20px;color:var(--wine)}
+.hero__cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
 
-.event__details{list-style:none;margin-top:22px;display:grid;gap:10px}
-.event__details li{display:flex;gap:12px;font-size:1.02rem;color:#3a3a3c}
-.event__details .k{
-  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  color:#8a8a8e;min-width:74px;padding-top:3px;
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+.sec{padding-block:clamp(56px,9vw,104px)}
+.sec--ink{background:var(--ink);color:var(--bone)}
+.sec__head{max-width:640px;margin-bottom:clamp(32px,5vw,52px)}
+.sec__t{
+  font-family:var(--display);font-weight:800;font-stretch:125%;
+  font-size:clamp(2rem,5.5vw,3.5rem);line-height:1.02;
+  text-transform:uppercase;margin-top:14px;
 }
-.event__details a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+.sec__lead{margin-top:16px;color:var(--muted);max-width:56ch}
+.sec--ink .sec__lead{color:var(--ash)}
 
-.event__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.event__onsale{margin-top:12px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+/* ============================================================
+   THE PATCH WALL — signature
+   ============================================================ */
+.wall{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(16px,3vw,28px);
+}
+@media(min-width:860px){ .wall{grid-template-columns:repeat(4,1fr)} }
 
-/* flyer well — real art keeps its native ratio; placeholders lock to 3:4 */
+.patch{
+  display:flex;flex-direction:column;justify-content:space-between;gap:18px;
+  min-height:clamp(190px,26vw,238px);
+  padding:clamp(18px,2.4vw,24px);
+  text-decoration:none;text-align:center;
+  transition:transform .28s cubic-bezier(.2,.8,.3,1), box-shadow .28s ease;
+}
+.patch__day{
+  font-family:var(--body);font-weight:700;font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(242,238,229,.88);
+}
+.patch__name{
+  font-family:var(--patch-face);font-weight:400;line-height:.98;
+  font-size:clamp(1.05rem,2.5vw,1.55rem);text-transform:uppercase;
+  letter-spacing:.01em;
+}
+.patch__time{
+  font-family:var(--body);font-weight:700;font-size:.66rem;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(242,238,229,.88);
+  font-variant-numeric:tabular-nums;
+}
+.patch:hover,.patch:focus-visible{
+  transform:translateY(-6px);
+  box-shadow:
+    0 0 0 4px var(--wine),
+    0 20px 34px rgba(23,20,18,.28),
+    inset 0 2px 0 rgba(255,255,255,.16),
+    inset 0 -3px 0 rgba(23,20,18,.18);
+}
+.patch__note{
+  display:block;margin-top:12px;text-align:center;
+  font-family:var(--body);font-weight:700;font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+/* passed / sold out — earned, not gone. Never colour alone: the note carries it too */
+.patch--done{
+  background:var(--cream);background-image:none;color:var(--muted);
+  box-shadow:0 0 0 4px var(--ring), inset 0 -3px 0 rgba(23,20,18,.06);
+}
+.patch--done::before{border-color:rgba(201,151,63,.85)}
+.patch--done .patch__day,.patch--done .patch__time{color:var(--muted)}
+.patch--done:hover,.patch--done:focus-visible{
+  box-shadow:0 0 0 4px var(--ring), 0 20px 34px rgba(23,20,18,.16);
+}
+
+/* stitch-in: felt lands, then the stitching appears */
+.wall .patch{opacity:0;transform:translateY(16px)}
+.wall .patch::before{opacity:0}
+.wall.is-in .patch{
+  opacity:1;transform:none;
+  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1), box-shadow .28s ease;
+}
+.wall.is-in .patch::before{opacity:1;transition:opacity .4s ease .34s}
+.wall.is-in .patch:nth-child(2){transition-delay:.12s}
+.wall.is-in .patch:nth-child(3){transition-delay:.24s}
+.wall.is-in .patch:nth-child(4){transition-delay:.36s}
+.wall.is-in .patch:nth-child(2)::before{transition-delay:.46s}
+.wall.is-in .patch:nth-child(3)::before{transition-delay:.58s}
+.wall.is-in .patch:nth-child(4)::before{transition-delay:.70s}
+.wall.is-in .patch:hover,.wall.is-in .patch:focus-visible{transform:translateY(-6px);transition-delay:0s}
+
+/* ============================================================
+   LINEUP — the itinerary spine (tick marks, from the Warm Up flyer)
+   ============================================================ */
+.day{
+  display:grid;grid-template-columns:var(--rail) 1fr;
+  align-items:baseline;gap:0;
+  padding-top:clamp(38px,5vw,62px);
+}
+.day__k{
+  font-family:var(--display);font-weight:800;font-stretch:125%;
+  font-size:clamp(1.3rem,3vw,1.9rem);text-transform:uppercase;line-height:1;
+}
+.day__d{
+  font-family:var(--body);font-weight:700;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--wine);
+  padding-bottom:12px;border-bottom:2px solid var(--ink);
+}
+
+.ev{
+  display:grid;grid-template-columns:var(--rail) 1fr;
+  padding-block:clamp(30px,4.5vw,54px);
+}
+.ev__rail{position:relative}
+.ev__rail::before{                       /* the hairline */
+  content:'';position:absolute;left:7px;top:0;bottom:calc(-1 * clamp(30px,4.5vw,54px));
+  width:1px;background:var(--line);
+}
+.ev:last-child .ev__rail::before{bottom:50%}
+.ev__tick{                               /* the square tick */
+  position:absolute;left:0;top:.5em;width:15px;height:15px;
+  background:var(--red);border-radius:2px;
+}
+.ev__body{min-width:0;padding-bottom:4px}
+
+.ev__time{color:var(--wine);margin-bottom:6px}
+.ev__tag{
+  font-family:var(--body);font-weight:700;font-size:.9rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--red);margin-bottom:6px;
+}
+.ev__name{
+  font-family:var(--display);font-weight:800;font-stretch:125%;
+  font-size:clamp(1.7rem,4.4vw,2.9rem);line-height:1.02;text-transform:uppercase;
+}
+.ev__grid{
+  display:grid;grid-template-columns:1fr;gap:clamp(22px,4vw,44px);
+  margin-top:22px;align-items:start;
+}
+@media(min-width:820px){ .ev__grid{grid-template-columns:1fr minmax(240px,340px)} }
+.ev__copy p + p{margin-top:14px}
+.ev__copy p{color:var(--muted);max-width:62ch}
+.ev--dark .ev__copy p{color:var(--ash)}
+
+.facts{list-style:none;margin-top:22px;display:grid;gap:9px}
+.facts li{display:flex;gap:14px}
+.facts .k{
+  font-family:var(--body);font-weight:700;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);min-width:66px;padding-top:5px;flex:none;
+}
+.ev--dark .facts .k{color:var(--ash)}
+.facts a{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+
+.ev__cta{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+.ev__onsale{margin-top:12px;color:var(--wine);font-weight:700}
+.ev--dark .ev__onsale{color:var(--ring)}
+
 .flyer{
-  width:100%;position:relative;overflow:hidden;
-  background:var(--white);border:1px solid #E5E1D8;
+  border:1px solid var(--line);background:var(--bone);
   transition:transform .4s ease, box-shadow .4s ease;
 }
-.event__media:hover .flyer{
-  transform:perspective(1000px) rotateY(-3deg) rotateX(1.5deg) translateY(-8px);
-  box-shadow:0 30px 60px rgba(11,11,12,.22);
+.ev--dark .flyer{border-color:var(--line-lt)}
+.ev__art:hover .flyer{transform:translateY(-6px);box-shadow:0 24px 44px rgba(23,20,18,.22)}
+.flyer--ph{aspect-ratio:3/4;position:relative}
+.flyer__ph{
+  position:absolute;inset:12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:10px;padding:16px;
+  border:2px dashed rgba(217,31,38,.5);
 }
-.flyer--ph{aspect-ratio:3/4}
-.flyer img{width:100%;height:auto;display:block}
-.flyer__placeholder{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;gap:12px;
-  border:2px dashed rgba(204,0,0,.5);margin:14px;
-  background:
-    repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(11,11,12,.025) 14px, rgba(11,11,12,.025) 28px);
+.flyer__ph-n{
+  font-family:var(--patch-face);font-size:1.3rem;text-transform:uppercase;
+  color:var(--muted);line-height:1.05;
 }
-.flyer__ico{font-family:var(--display);font-size:2.4rem;color:var(--red);line-height:1}
-.flyer__ph-name{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;color:rgba(11,11,12,.5);padding-inline:16px;line-height:1.05}
-.flyer__ph-note{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8e;font-weight:700}
+.flyer__ph-s{
+  font-family:var(--body);font-weight:700;font-size:.68rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
 
-/* ---------- EXPANDABLE INFO (Block Party details + FAQ) ---------- */
-.xtra{margin-top:26px;border:1px solid #E5E1D8;background:#FBFAF7}
+/* the one dark chapter — full-bleed, in place at Friday 10 PM */
+.bleed{width:100vw;margin-left:calc(50% - 50vw);background:var(--ink);color:var(--bone)}
+.bleed__in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+.bleed{position:relative;overflow:hidden}
+.ev--dark{padding-block:clamp(48px,7vw,88px)}
+.ev--dark .ev__rail::before{background:var(--line-lt)}
+.ev--dark .ev__tick{background:var(--ring)}
+.ev--dark .ev__tag{color:var(--ring)}
+.ev--dark .ev__time{color:var(--ring)}
+.ev--dark .facts a{text-decoration-color:var(--ring)}
+
+@media(max-width:640px){
+  .day,.ev{grid-template-columns:26px 1fr}
+  .ev__rail::before{left:6px}
+  .ev__tick{width:13px;height:13px}
+  .day__k{font-size:1.15rem}
+}
+
+/* ============================================================
+   EXPANDABLE DETAIL + FAQ
+   ============================================================ */
+.xtra{margin-top:24px;border:1px solid var(--line);background:var(--cream)}
+.ev--dark .xtra{border-color:var(--line-lt);background:rgba(242,238,229,.05)}
 .xtra summary{
-  list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-  gap:12px;padding:16px 18px;font-weight:700;font-size:.88rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ink);user-select:none;
+  list-style:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:15px 17px;
+  font-family:var(--body);font-weight:700;font-size:.76rem;letter-spacing:.14em;
+  text-transform:uppercase;user-select:none;
 }
 .xtra summary::-webkit-details-marker{display:none}
 .xtra summary::after{
-  content:'+';font-family:var(--display);font-size:1.3rem;color:var(--red);
-  line-height:1;transition:transform .2s;
+  content:'+';font-family:var(--display);font-weight:800;font-size:1.2rem;
+  color:var(--red);line-height:1;transition:transform .2s;
 }
+.ev--dark .xtra summary::after{color:var(--ring)}
 .xtra[open] summary::after{transform:rotate(45deg)}
-.xtra summary:hover{background:#F3F0E9}
-.xtra__body{padding:6px 18px 22px;border-top:1px solid #E5E1D8}
+.xtra__b{padding:4px 17px 20px;border-top:1px solid var(--line)}
+.ev--dark .xtra__b{border-color:var(--line-lt)}
 .xtra__h{
-  font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
-  color:var(--red);margin:20px 0 10px;
+  font-family:var(--body);font-weight:700;font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--wine);margin:18px 0 9px;
 }
-.xtra__body ul{list-style:none;display:grid;gap:8px}
-.xtra__body li{position:relative;padding-left:16px;color:#333336;font-size:1rem}
-.xtra__body li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--red)}
-.xtra__p{color:#333336;font-size:1rem;margin-bottom:8px}
-.faq{border-top:1px solid #E5E1D8}
+.ev--dark .xtra__h{color:var(--ring)}
+.xtra__b ul{list-style:none;display:grid;gap:7px}
+.xtra__b li{position:relative;padding-left:16px;color:var(--muted)}
+.ev--dark .xtra__b li{color:var(--ash)}
+.xtra__b li::before{content:'';position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--red);border-radius:1px}
+.ev--dark .xtra__b li::before{background:var(--ring)}
+
+.faq{border-top:1px solid var(--line)}
+.ev--dark .faq{border-color:var(--line-lt)}
 .faq summary{
-  list-style:none;cursor:pointer;padding:13px 0;font-weight:700;font-size:1.02rem;
-  color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;
+  list-style:none;cursor:pointer;padding:12px 0;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;
 }
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:'+';color:var(--red);font-family:var(--display);font-size:1.1rem;line-height:1;transition:transform .2s}
+.faq summary::after{content:'+';font-family:var(--display);font-weight:800;color:var(--red);line-height:1;transition:transform .2s}
+.ev--dark .faq summary::after{color:var(--ring)}
 .faq[open] summary::after{transform:rotate(45deg)}
-.faq p{color:#3a3a3c;font-size:.98rem;padding:0 0 14px;max-width:56ch}
+.faq p{color:var(--muted);padding-bottom:13px;max-width:60ch}
+.ev--dark .faq p{color:var(--ash)}
 
-/* ---------- FOOTER ---------- */
-.foot{background:var(--ink);border-top:1px solid var(--line);padding-block:56px}
-.foot__grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-end}
-.foot__brand{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;letter-spacing:.03em}
-.foot__brand span{color:var(--red)}
-.foot__links{display:flex;gap:20px;flex-wrap:wrap}
-.foot__links a{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ash);text-decoration:none}
-.foot__links a:hover{color:var(--white)}
-.foot__fine{margin-top:36px;color:#5a5b5e;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
-
-/* ---------- REVEAL ANIMATION ---------- */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease}
-.reveal.is-in{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  [data-animate]{opacity:1 !important;transform:none !important}
-  .sky::before,.sky__stars,.sky__cloud,.sky__beam{animation:none !important}
-  .ticker__track{animation:none !important}
-  .count__colon,.count__num.tick{animation:none !important}
-  .reveal .glance__col{opacity:1;transform:none;transition:none}
-  .event__media:hover .flyer{transform:none}
+/* ============================================================
+   EVERY CLASS — community band
+   ============================================================ */
+.class{position:relative;overflow:hidden;background:var(--ink);color:var(--bone)}
+.class__bg{
+  position:absolute;inset:0;z-index:0;
+  background:linear-gradient(180deg,rgba(23,20,18,.86),rgba(23,20,18,.94)),
+             url('hero-carter-finley.jpg') center / cover no-repeat;
 }
-[data-animate]{opacity:0;transform:translateY(18px)}
+.class__in{position:relative;z-index:1}
+.years{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+.year{
+  font-family:var(--patch-face);font-size:.94rem;line-height:1;
+  padding:11px 11px 9px;border-radius:8px;letter-spacing:.02em;
+  background:transparent;color:var(--ring);
+  box-shadow:0 0 0 2px rgba(201,151,63,.55);
+}
+.year--now{background:var(--red);color:var(--bone);box-shadow:0 0 0 2px var(--wine)}
+.credits{
+  margin-top:clamp(34px,5vw,52px);padding-top:26px;border-top:1px solid var(--line-lt);
+  display:flex;flex-wrap:wrap;gap:10px 30px;align-items:baseline;
+}
+.credits__k{
+  font-family:var(--body);font-weight:700;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ash);
+}
+.credits__n{
+  font-family:var(--display);font-weight:700;font-stretch:112%;
+  font-size:1rem;letter-spacing:.04em;text-transform:uppercase;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{background:var(--wine);color:var(--bone);padding-block:48px}
+.foot__g{display:flex;flex-wrap:wrap;justify-content:space-between;gap:22px;align-items:flex-end}
+.foot__b{
+  font-family:var(--display);font-weight:800;font-stretch:125%;
+  font-size:1.5rem;text-transform:uppercase;letter-spacing:.02em;
+}
+.foot__l{display:flex;gap:20px;flex-wrap:wrap}
+.foot__l a{
+  font-weight:700;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;color:rgba(242,238,229,.75);
+}
+.foot__l a:hover{color:var(--bone)}
+.foot__f{margin-top:30px;color:rgba(242,238,229,.6);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+
+/* ============================================================
+   REVEAL + REDUCED MOTION
+   ============================================================ */
+.rev{opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease}
+.rev.is-in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  .rev,.wall .patch{opacity:1 !important;transform:none !important;transition:none !important}
+  .wall .patch::before{opacity:1 !important;transition:none !important}
+  .lockup__l::after{opacity:1 !important;transition:none !important}
+  .patch:hover,.patch:focus-visible,.ev__art:hover .flyer{transform:none !important}
+  .btn{transition:none}
+}
 </style>
 </head>
 <body>
 
-<!-- ============================ NAV / WEEKEND RAIL ============================ -->
-<header class="nav">
-  <div class="nav__inner">
-    <a href="#top" class="nav__brand">PACK OUT <span>STATE</span></a>
-    <nav class="nav__days" id="dayRail" aria-label="Jump to a day"></nav>
-    <a href="#lineup" class="nav__cta">Get tickets</a>
+<!-- ============================ STICKY BAR ============================ -->
+<header class="bar">
+  <div class="bar__in">
+    <a href="#top" class="bar__brand">Pack Out <span>State</span></a>
+    <div class="bar__clock dataline" id="barClock" aria-hidden="true"></div>
+    <nav class="bar__nav" aria-label="Primary">
+      <a href="#weekend" class="bar__link">The weekend</a>
+      <a href="#lineup" class="btn btn--go btn--sm">Get tickets</a>
+    </nav>
   </div>
 </header>
 
 <!-- ============================ HERO ============================ -->
 <section class="hero" id="top">
-  <div class="sky" aria-hidden="true">
-    <div class="sky__stars"></div>
-    <div class="sky__cloud sky__cloud--1"></div>
-    <div class="sky__cloud sky__cloud--2"></div>
-    <div class="sky__cloud sky__cloud--3"></div>
-  </div>
-  <div class="hero__ghost" aria-hidden="true">'26</div>
-  <div class="wrap hero__inner">
-    <div class="eyebrow hero__eyebrow" data-animate>NC State Homecoming</div>
-    <h1 data-animate>Pack <span class="accent">Out</span> State</h1>
-    <p class="hero__sub" data-animate id="heroDates">NC State Homecoming <span class="dot">·</span> October 29 – 31, 2026</p>
-    <p class="hero__meta" data-animate>Raleigh, North Carolina</p>
+  <div class="hero__spine" aria-hidden="true">Homecoming</div>
+  <div class="wrap hero__in">
+    <p class="eyebrow">NC State Homecoming · Raleigh, NC</p>
 
-    <div class="board" data-animate>
-      <div class="board__plate">Kickoff countdown</div>
-      <div class="board__shell"><div class="count" id="countdown"></div></div>
-      <div class="board__legs" aria-hidden="true"><span></span><span></span></div>
+    <h1 class="lockup">
+      <span class="lockup__l" data-t="Pack Out">Pack Out</span>
+      <span class="lockup__l lockup__l--2" data-t="State">State</span>
+    </h1>
+
+    <div class="hero__meta">
+      <span class="chen hero__26" aria-hidden="true">'26</span>
+      <span class="hero__where dataline" id="heroDates">Oct 29 – 31, 2026</span>
     </div>
 
-    <div class="btnrow" data-animate>
-      <a href="#lineup" class="btn btn--primary">See the lineup</a>
+    <p class="hero__clock dataline" id="heroClock">&nbsp;</p>
+
+    <div class="hero__cta">
+      <a href="#weekend" class="btn btn--go">See the weekend</a>
+      <a href="#lineup" class="btn btn--out">Every event</a>
     </div>
   </div>
 </section>
 
-<!-- ============================ TICKER ============================ -->
-<div class="ticker"><div class="ticker__track"><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em><span>Pack Out State</span><em>&#10022;</em><span>NC State Homecoming &rsquo;26</span><em>&#10022;</em><span>Oct 29 &ndash; 31</span><em>&#10022;</em><span>Raleigh, NC</span><em>&#10022;</em></div></div>
-
-<!-- ============================ WEEKEND AT A GLANCE ============================ -->
-<section class="section section--bone">
+<!-- ============================ THE PATCH WALL ============================ -->
+<section class="sec" id="weekend">
   <div class="wrap">
-    <div class="section__head reveal">
-      <div class="eyebrow">The weekend</div>
-      <h2 class="section__title">The weekend at a glance</h2>
-      <p class="section__lead">Everything happening across homecoming weekend, at a glance. Tap any event to jump to the details.</p>
+    <div class="sec__head rev">
+      <p class="eyebrow">The weekend</p>
+      <h2 class="sec__t">Four patches.<br>Earn them all.</h2>
+      <p class="sec__lead">Four events, Thursday to Saturday, across Durham and Raleigh. Pick one, or run the whole weekend.</p>
     </div>
-    <div class="glance reveal" id="glance"></div>
+    <div class="wall" id="wall"></div>
   </div>
 </section>
 
 <!-- ============================ THE LINEUP ============================ -->
-<section class="section section--bone" id="lineup">
+<section class="sec" id="lineup" style="padding-top:0">
   <div class="wrap">
-    <div class="section__head reveal">
-      <div class="eyebrow">The lineup</div>
-      <h2 class="section__title">Every event, every night</h2>
-      <p class="section__lead">From the Thursday warm up to the Saturday block party. Flyers drop as they are finalized.</p>
+    <div class="sec__head rev">
+      <p class="eyebrow">The lineup</p>
+      <h2 class="sec__t">Every event, in order</h2>
+      <p class="sec__lead">Times, rooms, and how to get in. Flyers drop as they are finalized.</p>
     </div>
     <div id="events"></div>
+  </div>
+</section>
+
+<!-- ============================ EVERY CLASS ============================ -->
+<section class="sec class" id="who">
+  <div class="class__bg" aria-hidden="true"></div>
+  <div class="wrap class__in">
+    <div class="sec__head rev">
+      <p class="eyebrow eyebrow--lt">Every class</p>
+      <h2 class="sec__t">Whatever year is on your ring</h2>
+      <p class="sec__lead">Pack Out State is open to every NC State alum, plus the people you bring with you. No class year gets left off the list.</p>
+    </div>
+    <div class="years rev" id="years" aria-hidden="true"></div>
+    <div class="credits rev">
+      <span class="credits__k">Credits</span>
+      <span class="credits__n">Darryl Coleman</span>
+      <span class="credits__n">Colton Palmer</span>
+      <span class="credits__n">The Slim Creative</span>
+    </div>
   </div>
 </section>
 
 <!-- ============================ FOOTER ============================ -->
 <footer class="foot" id="contact">
   <div class="wrap">
-    <div class="foot__grid">
-      <div class="foot__brand">PACK OUT <span>STATE</span></div>
-      <nav class="foot__links" aria-label="Footer">
+    <div class="foot__g">
+      <div class="foot__b">Pack Out State</div>
+      <nav class="foot__l" aria-label="Footer">
+        <a href="#weekend">The weekend</a>
         <a href="#lineup">Lineup</a>
-        <a href="#top">Tickets</a>
+        <a href="#who">Every class</a>
       </nav>
     </div>
-    <p class="foot__fine">Pack Out State · DCC Social Inc. · NC State Homecoming 2026</p>
+    <p class="foot__f">Pack Out State · DCC Social Inc. · NC State Homecoming 2026</p>
   </div>
 </footer>
 
@@ -500,9 +635,18 @@ const EVENT_END   = new Date('2026-10-31T23:59:00-04:00'); // weekend closes Sat
 /* ================================================================
    EDIT ZONE 2 — LINEUP
    Add / remove / reorder by editing this array. Order here = order
-   on the page. 'day' groups events under THU/FRI/SAT/SUN.
-   Set 'flyer' to an image path/URL when ready; null shows the
-   3:4 placeholder well and keeps the layout from shifting.
+   on the page, and the order of the patches. Events are listed in
+   the order they happen — keep it that way. 'day' groups events
+   under THU/FRI/SAT/SUN.
+
+   Per-event fields worth knowing:
+     short     — the name on the patch (keep it to ~2 short words)
+     patchNote — the line under the patch; falls back to the ticket
+                 label or the on-sale note if you leave it out
+     tone      — 'dark' gives the event a full-bleed dark chapter.
+                 Use it once. Right now it belongs to Talley.
+     flyer     — image path; null shows the 3:4 placeholder well and
+                 keeps the layout from shifting
    ================================================================ */
 const DAYS = [
   {key:'thu', label:'Thu', date:'Oct 29'},
@@ -512,7 +656,7 @@ const DAYS = [
 
 const EVENTS = [
   {
-    id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',    name:'The Warm Up', tagline:'Homecoming Starts Here',
+    id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',    name:'The Warm Up', short:'The Warm Up', tagline:'Homecoming Starts Here',
     desc:'Enjoy craft cocktails, vibes, and a curated experience at the all-new Primrose location in downtown Durham. Owned and operated by two fellow Pack alums, Primrose opens its doors for a night that celebrates the Pack and sets the tone for the weekend ahead. Get warmed up for Homecoming with us. Homecoming starts here.',
     venue:'Primrose Bar & Lounge', address:'111 W Main St. Durham, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=Primrose+Bar+%26+Lounge+111+W+Main+St+Durham+NC',
@@ -523,20 +667,22 @@ const EVENTS = [
   },
   {
     id:'clocked-out', day:'fri', time:'4:00 PM – 8:00 PM',
-    name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
+    name:'Clocked Out', short:'Clocked Out', tagline:'It’s a Photoshoot',
     desc:[
-      'Official Alumni kick-off. Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year\u2019s homecoming album. Reserve a 20-minute photo session for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend',
-      'Come dressed, gather your people, and get the group photo before the weekend gets away from you. Reserve your time. Meet your friends. Get this year\u2019s homecoming picture. Then stay and Kick-it!'
+      'Official Alumni kick-off. Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year’s homecoming album. Reserve a 20-minute photo session for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend',
+      'Come dressed, gather your people, and get the group photo before the weekend gets away from you. Reserve your time. Meet your friends. Get this year’s homecoming picture. Then stay and Kick-it!'
     ],
     venue:'District Bar & Lounge', address:'222 Glenwood Ave, Apt 109, Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=District+Bar+%26+Lounge+222+Glenwood+Ave+Apt+109+Raleigh+NC',
     detailsUrl:null, ticketsUrl:null,
+    patchNote:'Details soon',
     flyer:'flyer-clocked-out.jpg'
   },
   {
-    id:'talley-tapes', day:'fri', time:'10:00 PM – 2:00 AM',    name:'The Talley Tapes [Untold]', tagline:'A Homecoming Original',
+    id:'talley-tapes', day:'fri', time:'10:00 PM – 2:00 AM',    name:'The Talley Tapes [Untold]', short:'Talley Tapes', tagline:'A Homecoming Original',
+    tone:'dark',
     desc:[
-      'Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it. Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best. No matter the era, the nostalgia takes over, and one phrase emerges: Damn\u2026 I remember them Talley parties.',
+      'Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it. Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best. No matter the era, the nostalgia takes over, and one phrase emerges: Damn… I remember them Talley parties.',
       'Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at [ Location TBA ]. A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.'
     ],
     venue:'[ Location TBA ]', address:null, mapUrl:null,
@@ -546,7 +692,7 @@ const EVENTS = [
     flyer:'flyer-talley-tapes.jpg'
   },
   {
-    id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
+    id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',    name:'Pack Out State Block Party', short:'Block Party', tagline:'This is How We Homecoming Vol. 3',
     desc:'The Pack Out State Block Party is taking over Killjoy and the parking lot for an all-day Homecoming celebration. Pull up for an all-day experience that captures the essence of Homecoming in one event; tailgate, watch party, day party turned night party all in one. DJ sets running all day long with food, vendors, and curated vibes for you and your crew to celebrate together.',
     venue:'Killjoy Kitchen & Cocktails', address:'116 N West St. Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=Killjoy+116+N+West+St+Raleigh+NC',
@@ -568,17 +714,17 @@ const EVENTS = [
       why:[
         'Celebrate Homecoming with an event that lasts all day and into the night.',
         'Enjoy a mix of culture, fashion, music, and food that feels like a cookout and family reunion combined.',
-        'Flexibility to join when it fits your Homecoming flow\u2026 tailgate, game, afterparty! This event covers it all.'
+        'Flexibility to join when it fits your Homecoming flow… tailgate, game, afterparty! This event covers it all.'
       ],
       faq:[
         {q:'Where should I park?', a:'The best option is the N West St. parking deck, just steps from Killjoy. We also encourage Uber or Lyft for convenience and safety.'},
-        {q:'What does admission include?', a:'Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you\u2019re ready. We recommend purchasing tickets in advance\u2014capacity is limited and may sell out.'},
+        {q:'What does admission include?', a:'Your ticket gets you one wristband with in-and-out access all day and night. Go back to your hotel, freshen up, and pull back up when you’re ready. We recommend purchasing tickets in advance—capacity is limited and may sell out.'},
         {q:'Can I bring my own stuff?', a:'Yes, you can bring a chair. No coolers, no outside food or drink. This is a rain-or-shine event.'},
-        {q:'Will there be food?', a:'Yes. BBQn4U will be onsite serving fried chicken, fried fish, and all the fixins\u2019.'},
-        {q:'Who\u2019s providing the music?', a:'The energy will be set by DJ Fredo, Brint City, and DJ JMar\u2014guaranteed to keep the vibes right all day and night.'},
+        {q:'Will there be food?', a:'Yes. BBQn4U will be onsite serving fried chicken, fried fish, and all the fixins’.'},
+        {q:'Who’s providing the music?', a:'The energy will be set by DJ Fredo, Brint City, and DJ JMar—guaranteed to keep the vibes right all day and night.'},
         {q:'Is there security?', a:'Yes. Security will be on site. Bags are allowed but will be searched upon entry.'},
         {q:'Could it sell out?', a:'Yes. Once we hit capacity, tickets will no longer be available. Secure yours early.'},
-        {q:'What\u2019s the occasion?', a:'We\u2019re celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.'}
+        {q:'What’s the occasion?', a:'We’re celebrating NC State Homecoming, and the Pack Out State Block Party is the place to be all day long.'}
       ]
     }
   }
@@ -589,48 +735,43 @@ const EVENTS = [
    ================================================================ */
 const $ = (s, r=document)=>r.querySelector(s);
 const esc = (s)=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dayOf = (k)=>DAYS.find(d=>d.key===k) || {label:'', date:''};
+const reduced = ()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// group events by day, preserving day order
+// group by day for the lineup, preserving the order events are listed in
 const grouped = DAYS.map(d => ({...d, items: EVENTS.filter(e => e.day === d.key)}))
                     .filter(d => d.items.length);
 
-// ---- Day rail (sticky nav) ----
-$('#dayRail').innerHTML = grouped.map(d =>
-  `<button class="day-pill" data-target="day-${d.key}">${esc(d.label)}<small>${esc(d.date)}</small></button>`
-).join('');
-$('#dayRail').addEventListener('click', e=>{
-  const b = e.target.closest('.day-pill'); if(!b) return;
-  const t = document.getElementById(b.dataset.target);
-  if(t) t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth', block:'start'});
-});
+/* ---- The patch wall ---- */
+// start time only, trimmed: '9:00 PM – 1:00 AM' -> '9 PM'
+const startTime = (t)=>String(t).split(/[–—-]/)[0].trim().replace(':00','');
+const patchNote = (e)=> e.patchNote || e.ticketsLabel || (e.onSaleNote
+  ? e.onSaleNote.replace(/^Tickets\s+/i,'').replace(/^on sale/i,'On sale')
+  : 'Details soon');
 
-// ---- Weekend at a glance ----
-$('#glance').innerHTML = grouped.map(d=>{
-  const items = d.items.map(e=>
-    `<a class="glance__item" href="#${e.id}">
-       <span class="glance__time">${esc(e.time)}</span>
-       <span class="glance__name">${esc(e.name)}</span>
-     </a>`).join('');
-  return `<div class="glance__col">
-    <div class="glance__day">${esc(d.label)}</div>
-    <div class="glance__date">${esc(d.date)}</div>
-    ${items || '<div class="glance__empty">No events</div>'}
+$('#wall').innerHTML = EVENTS.map(e=>{
+  const d = dayOf(e.day);
+  return `<div>
+    <a class="chen patch" href="#${esc(e.id)}">
+      <span class="patch__day">${esc(d.label)} · ${esc(d.date)}</span>
+      <span class="patch__name">${esc(e.short || e.name)}</span>
+      <span class="patch__time">${esc(startTime(e.time))}</span>
+    </a>
+    <span class="patch__note">${esc(patchNote(e))}</span>
   </div>`;
 }).join('');
 
-// ---- Event cards, grouped by day ----
+/* ---- Event cards, grouped by day, in listed order ---- */
 $('#events').innerHTML = grouped.map(d=>{
-  const label = `<div class="daygroup__label" id="day-${d.key}">
-      <span class="d">${esc(d.label)}</span>
-      <span class="dt">${esc(d.date)}</span>
+  const head = `<div class="day" id="day-${esc(d.key)}">
+      <span class="day__k">${esc(d.label)}</span>
+      <span class="day__d">${esc(d.date)}</span>
     </div>`;
+
   const cards = d.items.map(e=>{
     // description: string or array of paragraphs, rendered verbatim
     const paras = (Array.isArray(e.desc) ? e.desc : [e.desc])
-      .map(p=>`<p class="event__desc">${esc(p)}</p>`).join('');
-
-    // age chip only if provided
-    const ageChip = e.ages ? `<span class="chip chip--age">${esc(e.ages)}</span>` : '';
+      .map(p=>`<p>${esc(p)}</p>`).join('');
 
     // address row only if provided; link only with a valid mapUrl
     const addrRow = e.address
@@ -640,19 +781,18 @@ $('#events').innerHTML = grouped.map(d=>{
 
     // CTA buttons render only when links exist
     const ctas = [
-      e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
-      e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : ''
+      e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--go" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
+      e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--out" target="_blank" rel="noopener">Event details</a>` : ''
     ].join('');
-    const ctaRow = ctas ? `<div class="event__cta">${ctas}</div>` : '';
-    const onSale = e.onSaleNote ? `<p class="event__onsale">${esc(e.onSaleNote)}</p>` : '';
+    const ctaRow = ctas ? `<div class="ev__cta">${ctas}</div>` : '';
+    const onSale = e.onSaleNote ? `<p class="ev__onsale dataline">${esc(e.onSaleNote)}</p>` : '';
 
     // flyer: real art at native ratio, else 3:4 placeholder well
     const flyer = e.flyer
-      ? `<div class="flyer"><img src="${esc(e.flyer)}" alt="${esc(e.name)} flyer"></div>`
-      : `<div class="flyer flyer--ph"><div class="flyer__placeholder">
-           <span class="flyer__ico">+</span>
-           <span class="flyer__ph-name">${esc(e.name)}</span>
-           <span class="flyer__ph-note">${esc(e.flyerNote || 'Flyer coming soon')}</span>
+      ? `<div class="flyer"><img src="${esc(e.flyer)}" alt="${esc(e.name)} flyer" loading="lazy"></div>`
+      : `<div class="flyer flyer--ph"><div class="flyer__ph">
+           <span class="flyer__ph-n">${esc(e.name)}</span>
+           <span class="flyer__ph-s">${esc(e.flyerNote || 'Flyer coming soon')}</span>
          </div></div>`;
 
     // expandable extended info (schedule / highlights / why / FAQ)
@@ -664,7 +804,7 @@ $('#events').innerHTML = grouped.map(d=>{
         `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('');
       extra = `<details class="xtra">
         <summary>${esc(x.label || 'More details')}</summary>
-        <div class="xtra__body">
+        <div class="xtra__b">
           ${x.schedule ? `<div class="xtra__h">Schedule</div>${list(x.schedule)}` : ''}
           ${x.highlights ? `<div class="xtra__h">Highlights</div>${list(x.highlights)}` : ''}
           ${x.why ? `<div class="xtra__h">Why you should pull up</div>${list(x.why)}` : ''}
@@ -673,99 +813,102 @@ $('#events').innerHTML = grouped.map(d=>{
       </details>`;
     }
 
-    return `<article class="event reveal" id="${esc(e.id)}">
-      <div class="event__body">
-        <div class="event__tags">
-          <span class="chip chip--day">${esc(d.label)} · ${esc(e.time)}</span>
-          ${ageChip}
+    const card = `<article class="ev rev${e.tone==='dark'?' ev--dark':''}" id="${esc(e.id)}">
+      <div class="ev__rail" aria-hidden="true"><span class="ev__tick"></span></div>
+      <div class="ev__body">
+        <p class="ev__time dataline">${esc(d.label)} ${esc(d.date)} · ${esc(e.time)}</p>
+        <p class="ev__tag">${esc(e.tagline)}</p>
+        <h3 class="ev__name">${esc(e.name)}</h3>
+        <div class="ev__grid">
+          <div class="ev__copy">
+            ${paras}
+            <ul class="facts">
+              <li><span class="k">Where</span><span>${esc(e.venue)}</span></li>
+              ${addrRow}
+            </ul>
+            ${extra}
+            ${ctaRow}
+            ${onSale}
+          </div>
+          <div class="ev__art">${flyer}</div>
         </div>
-        <p class="event__tagline">${esc(e.tagline)}</p>
-        <h3 class="event__name">${esc(e.name)}</h3>
-        ${paras}
-        <ul class="event__details">
-          <li><span class="k">When</span><span>${esc(d.label)}, ${esc(d.date)} · ${esc(e.time)}</span></li>
-          <li><span class="k">Where</span><span>${esc(e.venue)}</span></li>
-          ${addrRow}
-        </ul>
-        ${extra}
-        ${ctaRow}
-        ${onSale}
       </div>
-      <div class="event__media">${flyer}</div>
     </article>`;
+
+    // the dark chapter breaks full-bleed, in place
+    return e.tone==='dark'
+      ? `<div class="bleed"><div class="bleed__in">${card}</div></div>`
+      : card;
   }).join('');
-  return label + cards;
+
+  return head + cards;
 }).join('');
 
-// ---- Countdown ----
-const cd = $('#countdown');
-const prevCount = {};
-function pad(n){return String(n).padStart(2,'0')}
-function renderCountdown(){
-  const now = new Date();
-  if(now >= EVENT_START && now <= EVENT_END){
-    cd.innerHTML = `<div class="count__live">The weekend is live</div>`;
-    return;
-  }
-  if(now > EVENT_END){
-    cd.innerHTML = `<div class="count__live">That's a wrap. See you next year.</div>`;
-    return;
-  }
-  let diff = Math.floor((EVENT_START - now)/1000);
-  const dys = Math.floor(diff/86400); diff-=dys*86400;
-  const hrs = Math.floor(diff/3600);  diff-=hrs*3600;
-  const min = Math.floor(diff/60);    const sec = diff-min*60;
-  const units = [[dys,'Days','d'],[hrs,'Hours','h'],[min,'Minutes','m'],[sec,'Seconds','s']];
-  cd.innerHTML = units.map((u,i)=>{
-    const val = pad(u[0]);
-    const changed = prevCount[u[2]] !== undefined && prevCount[u[2]] !== val;
-    prevCount[u[2]] = val;
-    return `<div class="count__unit"><div class="count__num${changed?' tick':''}">${val}</div><div class="count__label">${u[1]}</div></div>`
-      + (i<3?'<div class="count__colon" aria-hidden="true">:</div>':'');
-  }).join('');
-}
-renderCountdown();
-setInterval(renderCountdown, 1000);
-
-// ---- Hero date line auto-fill from constants ----
+/* ---- Class years ---- */
 (function(){
-  const opt={month:'long', day:'numeric'};
-  const s=EVENT_START, e=EVENT_END;
-  const sameMonth = s.getMonth()===e.getMonth();
-  const startStr = s.toLocaleDateString('en-US', opt);
-  const endStr = e.toLocaleDateString('en-US', sameMonth?{day:'numeric'}:opt);
-  $('#heroDates').innerHTML =
-    `NC State Homecoming <span class="dot">·</span> ${startStr} – ${endStr}, ${e.getFullYear()}`;
+  const end = EVENT_END.getFullYear();
+  const out = [];
+  for(let y = 1980; y <= end; y++){
+    const yy = String(y).slice(2);
+    out.push(`<span class="year${y===end?' year--now':''}">'${yy}</span>`);
+  }
+  $('#years').innerHTML = out.join('');
 })();
 
-// ---- Scroll reveal ----
+/* ---- Countdown — one line of type, hero + sticky bar ---- */
+const heroClock = $('#heroClock'), barClock = $('#barClock');
+function renderClock(){
+  const now = new Date();
+  let text;
+  if(now >= EVENT_START && now <= EVENT_END){
+    text = 'The weekend is live';
+  } else if(now > EVENT_END){
+    text = "That's a wrap. See you next year.";
+  } else {
+    let diff = Math.floor((EVENT_START - now)/1000);
+    const dys = Math.floor(diff/86400); diff -= dys*86400;
+    const hrs = Math.floor(diff/3600);  diff -= hrs*3600;
+    const min = Math.floor(diff/60);    const sec = diff - min*60;
+    const pad = n=>String(n).padStart(2,'0');
+    text = `${dys} days · ${pad(hrs)} hrs · ${pad(min)} min · ${pad(sec)} sec`;
+  }
+  heroClock.textContent = text;
+  barClock.textContent = text;
+}
+renderClock();
+setInterval(renderClock, 1000);
+
+/* ---- Hero date line, from the constants above ----
+   Formatted in Eastern time, not the visitor's. The event is in North
+   Carolina, so a 9 PM Thursday kickoff must read "October 29" whether
+   you open this in Raleigh or in London. */
+(function(){
+  const TZ = 'America/New_York';
+  const fmt = (d, opt)=>d.toLocaleDateString('en-US', {timeZone:TZ, ...opt});
+  const s = EVENT_START, e = EVENT_END;
+  const sameMonth = fmt(s,{month:'numeric'}) === fmt(e,{month:'numeric'});
+  const startStr = fmt(s, {month:'long', day:'numeric'});
+  const endStr   = fmt(e, sameMonth ? {day:'numeric'} : {month:'long', day:'numeric'});
+  $('#heroDates').textContent = `${startStr} – ${endStr}, ${fmt(e,{year:'numeric'})}`;
+})();
+
+/* ---- Sticky-bar countdown appears only after the hero leaves ---- */
+new IntersectionObserver(([e])=>{
+  document.body.classList.toggle('is-past-hero', !e.isIntersecting);
+},{rootMargin:'-70px 0px 0px 0px'}).observe($('#heroClock'));
+
+/* ---- Reveal on scroll ---- */
 const io = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target);} });
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); } });
 },{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.rev, .wall').forEach(el=>io.observe(el));
 
-// ---- Hero load-in sequence ----
-window.addEventListener('load', ()=>{
-  const items=[...document.querySelectorAll('[data-animate]')];
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ items.forEach(el=>{el.style.opacity=1;el.style.transform='none';}); return; }
-  items.forEach((el,i)=>{
-    el.style.transition='opacity .6s ease, transform .6s ease';
-    setTimeout(()=>{ el.style.opacity=1; el.style.transform='none'; }, 120*i);
-  });
-});
-
-// ---- Scrollspy: highlight active day in rail ----
-const dayAnchors = grouped.map(d=>document.getElementById('day-'+d.key)).filter(Boolean);
-const spy = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      const key = en.target.id.replace('day-','');
-      document.querySelectorAll('.day-pill').forEach(p=>
-        p.classList.toggle('is-active', p.dataset.target==='day-'+key));
-    }
-  });
-},{rootMargin:'-45% 0px -50% 0px'});
-dayAnchors.forEach(a=>spy.observe(a));
+/* ---- Hero lockup: outline draws, then the felt fill drops in ---- */
+if(reduced()){
+  document.body.classList.add('is-ready');
+}else{
+  requestAnimationFrame(()=>setTimeout(()=>document.body.classList.add('is-ready'), 260));
+}
 </script>
 </body>
 </html>
