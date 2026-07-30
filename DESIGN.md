@@ -11,13 +11,24 @@ NC State Homecoming · Oct 29–31, 2026 · packoutstate.com
 > headings, the original type scale, margins, dark ground, day-pill dates in the
 > header, scoreboard countdown and ticker, all unchanged.
 >
-> **Only two things from this document survive in the build:**
-> 1. The ghosted vertical `HOMECOMING` spine in the hero (kept — client liked it).
-> 2. A timezone fix to the hero date line, which is a bug fix, not a design change.
+> **Nothing in this document is currently applied.** Treat it as a menu to
+> discuss, not a record of what shipped. **The heading typeface is Anton and does
+> not change without explicit agreement.**
 >
-> Nothing else here has been applied. Treat it as a menu to discuss, not a record
-> of what shipped. **The heading typeface is Anton and does not change without
-> explicit agreement.**
+> ### Parked — not deleted
+> The ghosted vertical `HOMECOMING` spine was built, kept briefly, then removed
+> with "we may come back to it." It lives in commit `257f610` and is one command
+> to restore:
+> ```
+> git show 257f610 -- index.html   # the spine is the .hero__spine block
+> ```
+>
+> ### Changes to the live site that are NOT from this document
+> - Hero date line formats in `America/New_York` rather than the visitor's
+>   timezone. A bug fix: the Oct 29 kickoff previously displayed as Oct 30
+>   outside North America while the header day pills still read Oct 29.
+> - The red radial in `.sky::before` (`rgba(204,0,0,.18)` at 18% 18%) was removed
+>   at the client's request. The purple and orange radials remain.
 
 ---
 

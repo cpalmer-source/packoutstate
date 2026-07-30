@@ -111,7 +111,6 @@ a{color:inherit}
 .sky::before{
   content:'';position:absolute;inset:-20%;
   background:
-    radial-gradient(50% 42% at 18% 18%, rgba(204,0,0,.18), transparent 62%),
     radial-gradient(46% 40% at 86% 8%, rgba(96,44,150,.15), transparent 60%),
     radial-gradient(60% 50% at 58% 0%, rgba(255,124,64,.08), transparent 55%);
   animation:skyShift 46s ease-in-out infinite alternate;
@@ -145,23 +144,6 @@ a{color:inherit}
   color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.05);
   user-select:none;
 }
-/* ghosted vertical wordmark, as on the Warm Up + Clocked Out flyers.
-   Sits in the gutter left of .wrap, so it only shows when there's room. */
-.hero__spine{
-  position:absolute;left:0;top:0;bottom:0;z-index:0;
-  /* writing-mode:vertical-rl flips the flex axes — the main axis runs
-     vertically here, so justify-content is what centres it. */
-  display:none;justify-content:center;align-items:center;
-  pointer-events:none;user-select:none;
-  writing-mode:vertical-rl;transform:rotate(180deg);
-  font-family:var(--display);font-size:min(5.5vw, 9vh, 6rem);
-  letter-spacing:.03em;text-transform:uppercase;line-height:1;
-  /* the halo is invisible against the dark sky and only does work where the
-     word crosses the lit stadium, so it reads at a consistent weight */
-  color:rgba(255,255,255,.12);
-  text-shadow:0 0 30px rgba(11,11,12,.65);
-}
-@media(min-width:1280px){ .hero__spine{display:flex} }
 .hero__inner{position:relative;z-index:1;max-width:900px}
 .hero__eyebrow{margin-bottom:22px}
 .hero h1{
@@ -444,7 +426,6 @@ a{color:inherit}
     <div class="sky__cloud sky__cloud--2"></div>
     <div class="sky__cloud sky__cloud--3"></div>
   </div>
-  <div class="hero__spine" aria-hidden="true">Homecoming</div>
   <div class="hero__ghost" aria-hidden="true">'26</div>
   <div class="wrap hero__inner">
     <div class="eyebrow hero__eyebrow" data-animate>NC State Homecoming</div>
