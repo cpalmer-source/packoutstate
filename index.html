@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pack Out State · NC State Homecoming 2026</title>
-<meta name="description" content="Pack Out State: NC State Homecoming weekend, Oct 29–31 in Raleigh. Four events, four patches. The Warm Up, Clocked Out, The Talley Tapes, and the Block Party.">
+<meta name="description" content="Pack Out State: an elevated NC State Homecoming weekend. The warm up, the block party, and everything in between. Get your tickets.">
 
 <!-- Social preview (Open Graph) -->
 <meta property="og:title" content="Pack Out State · NC State Homecoming 2026">
-<meta property="og:description" content="Four events. Four patches. Earn them all.">
+<meta property="og:description" content="An elevated NC State Homecoming weekend.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="flyer-block-party.jpg">
 <meta name="theme-color" content="#F2EEE5">
@@ -44,10 +44,12 @@
   --ring:#C9973F;       /* Class Ring    — decoration on light, text OK on ink */
   --bone:#F2EEE5;       /* Talley Bone   — page ground */
   --cream:#E3DCCB;      /* Chenille Cream— second ground, ghost wordmark */
-  --ink:#171412;        /* Ink Wool      — body text + the one dark chapter */
+  --ink:#15171A;        /* Charcoal      — body text + the dark chapter. Neutral,
+                           very slightly cool. Deliberately NOT warm-shifted:
+                           a warm near-black reads yellow at full-bleed size. */
   --muted:#5C554E;      /* 6.3:1 on bone */
-  --ash:#A99E92;        /* 7.1:1 on ink  */
-  --line:rgba(23,20,18,.16);
+  --ash:#A2A5AA;        /* 7.4:1 on charcoal */
+  --line:rgba(21,23,26,.16);
   --line-lt:rgba(242,238,229,.18);
 
   /* type */
@@ -94,7 +96,7 @@ img{max-width:100%;display:block}
 }
 
 /* ============================================================
-   CHENILLE PATCH — the signature. Pure CSS so it stays crisp
+   CHENILLE BADGE — the signature. Pure CSS so it stays crisp
    and editable when the lineup changes.
    ============================================================ */
 .chen{
@@ -102,14 +104,14 @@ img{max-width:100%;display:block}
   background:var(--red);
   background-image:
     repeating-linear-gradient(45deg,  rgba(255,255,255,.05) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgba(23,20,18,.05)    0 1px, transparent 1px 3px);
+    repeating-linear-gradient(-45deg, rgba(21,23,26,.05)    0 1px, transparent 1px 3px);
   color:var(--bone);
   border-radius:12px;
   box-shadow:
     0 0 0 4px var(--wine),
-    0 10px 20px rgba(23,20,18,.20),
+    0 10px 20px rgba(21,23,26,.20),
     inset 0 2px 0 rgba(255,255,255,.16),
-    inset 0 -3px 0 rgba(23,20,18,.18);
+    inset 0 -3px 0 rgba(21,23,26,.18);
 }
 .chen::before{               /* running stitch */
   content:'';position:absolute;inset:var(--stitch,7px);
@@ -226,8 +228,10 @@ img{max-width:100%;display:block}
   padding:16px 20px 13px;transform:rotate(-4deg);
   letter-spacing:.02em;flex:none;
 }
-.hero__where{color:var(--muted)}
+.hero__sub,.hero__where{display:block}
+.hero__where{color:var(--muted);margin-top:4px}
 .hero__clock{margin-top:20px;color:var(--wine)}
+.hero__clock-k{color:var(--muted);margin-right:10px}
 .hero__cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
 
 /* ============================================================
@@ -245,7 +249,7 @@ img{max-width:100%;display:block}
 .sec--ink .sec__lead{color:var(--ash)}
 
 /* ============================================================
-   THE PATCH WALL — signature
+   THE LETTERMAN WALL — signature
    ============================================================ */
 .wall{
   display:grid;grid-template-columns:repeat(2,1fr);
@@ -278,9 +282,9 @@ img{max-width:100%;display:block}
   transform:translateY(-6px);
   box-shadow:
     0 0 0 4px var(--wine),
-    0 20px 34px rgba(23,20,18,.28),
+    0 20px 34px rgba(21,23,26,.28),
     inset 0 2px 0 rgba(255,255,255,.16),
-    inset 0 -3px 0 rgba(23,20,18,.18);
+    inset 0 -3px 0 rgba(21,23,26,.18);
 }
 .patch__note{
   display:block;margin-top:12px;text-align:center;
@@ -290,12 +294,12 @@ img{max-width:100%;display:block}
 /* passed / sold out — earned, not gone. Never colour alone: the note carries it too */
 .patch--done{
   background:var(--cream);background-image:none;color:var(--muted);
-  box-shadow:0 0 0 4px var(--ring), inset 0 -3px 0 rgba(23,20,18,.06);
+  box-shadow:0 0 0 4px var(--ring), inset 0 -3px 0 rgba(21,23,26,.06);
 }
 .patch--done::before{border-color:rgba(201,151,63,.85)}
 .patch--done .patch__day,.patch--done .patch__time{color:var(--muted)}
 .patch--done:hover,.patch--done:focus-visible{
-  box-shadow:0 0 0 4px var(--ring), 0 20px 34px rgba(23,20,18,.16);
+  box-shadow:0 0 0 4px var(--ring), 0 20px 34px rgba(21,23,26,.16);
 }
 
 /* stitch-in: felt lands, then the stitching appears */
@@ -384,7 +388,7 @@ img{max-width:100%;display:block}
   transition:transform .4s ease, box-shadow .4s ease;
 }
 .ev--dark .flyer{border-color:var(--line-lt)}
-.ev__art:hover .flyer{transform:translateY(-6px);box-shadow:0 24px 44px rgba(23,20,18,.22)}
+.ev__art:hover .flyer{transform:translateY(-6px);box-shadow:0 24px 44px rgba(21,23,26,.22)}
 .flyer--ph{aspect-ratio:3/4;position:relative}
 .flyer__ph{
   position:absolute;inset:12px;display:flex;flex-direction:column;
@@ -468,7 +472,7 @@ img{max-width:100%;display:block}
 .class{position:relative;overflow:hidden;background:var(--ink);color:var(--bone)}
 .class__bg{
   position:absolute;inset:0;z-index:0;
-  background:linear-gradient(180deg,rgba(23,20,18,.86),rgba(23,20,18,.94)),
+  background:linear-gradient(180deg,rgba(21,23,26,.86),rgba(21,23,26,.94)),
              url('hero-carter-finley.jpg') center / cover no-repeat;
 }
 .class__in{position:relative;z-index:1}
@@ -533,7 +537,7 @@ img{max-width:100%;display:block}
     <a href="#top" class="bar__brand">Pack Out <span>State</span></a>
     <div class="bar__clock dataline" id="barClock" aria-hidden="true"></div>
     <nav class="bar__nav" aria-label="Primary">
-      <a href="#weekend" class="bar__link">The weekend</a>
+      <a href="#lineup" class="bar__link">Lineup</a>
       <a href="#lineup" class="btn btn--go btn--sm">Get tickets</a>
     </nav>
   </div>
@@ -543,7 +547,7 @@ img{max-width:100%;display:block}
 <section class="hero" id="top">
   <div class="hero__spine" aria-hidden="true">Homecoming</div>
   <div class="wrap hero__in">
-    <p class="eyebrow">NC State Homecoming · Raleigh, NC</p>
+    <p class="eyebrow">NC State Homecoming</p>
 
     <h1 class="lockup">
       <span class="lockup__l" data-t="Pack Out">Pack Out</span>
@@ -552,25 +556,30 @@ img{max-width:100%;display:block}
 
     <div class="hero__meta">
       <span class="chen hero__26" aria-hidden="true">'26</span>
-      <span class="hero__where dataline" id="heroDates">Oct 29 – 31, 2026</span>
+      <span>
+        <span class="hero__sub dataline" id="heroDates">NC State Homecoming · October 29 – 31, 2026</span>
+        <span class="hero__where dataline">Raleigh, North Carolina</span>
+      </span>
     </div>
 
-    <p class="hero__clock dataline" id="heroClock">&nbsp;</p>
+    <p class="hero__clock dataline">
+      <span class="hero__clock-k">Kickoff countdown</span>
+      <span id="heroClock">&nbsp;</span>
+    </p>
 
     <div class="hero__cta">
-      <a href="#weekend" class="btn btn--go">See the weekend</a>
-      <a href="#lineup" class="btn btn--out">Every event</a>
+      <a href="#lineup" class="btn btn--go">See the lineup</a>
     </div>
   </div>
 </section>
 
-<!-- ============================ THE PATCH WALL ============================ -->
+<!-- ============================ THE LETTERMAN WALL ============================ -->
 <section class="sec" id="weekend">
   <div class="wrap">
     <div class="sec__head rev">
       <p class="eyebrow">The weekend</p>
-      <h2 class="sec__t">Four patches.<br>Earn them all.</h2>
-      <p class="sec__lead">Four events, Thursday to Saturday, across Durham and Raleigh. Pick one, or run the whole weekend.</p>
+      <h2 class="sec__t">The weekend at a glance</h2>
+      <p class="sec__lead">Everything happening across homecoming weekend, at a glance. Tap any event to jump to the details.</p>
     </div>
     <div class="wall" id="wall"></div>
   </div>
@@ -581,8 +590,8 @@ img{max-width:100%;display:block}
   <div class="wrap">
     <div class="sec__head rev">
       <p class="eyebrow">The lineup</p>
-      <h2 class="sec__t">Every event, in order</h2>
-      <p class="sec__lead">Times, rooms, and how to get in. Flyers drop as they are finalized.</p>
+      <h2 class="sec__t">Every event, every night</h2>
+      <p class="sec__lead">From the Thursday warm up to the Saturday block party. Flyers drop as they are finalized.</p>
     </div>
     <div id="events"></div>
   </div>
@@ -613,9 +622,8 @@ img{max-width:100%;display:block}
     <div class="foot__g">
       <div class="foot__b">Pack Out State</div>
       <nav class="foot__l" aria-label="Footer">
-        <a href="#weekend">The weekend</a>
         <a href="#lineup">Lineup</a>
-        <a href="#who">Every class</a>
+        <a href="#top">Tickets</a>
       </nav>
     </div>
     <p class="foot__f">Pack Out State · DCC Social Inc. · NC State Homecoming 2026</p>
@@ -641,7 +649,7 @@ const EVENT_END   = new Date('2026-10-31T23:59:00-04:00'); // weekend closes Sat
 
    Per-event fields worth knowing:
      short     — the name on the patch (keep it to ~2 short words)
-     patchNote — the line under the patch; falls back to the ticket
+     note — the line under the patch; falls back to the ticket
                  label or the on-sale note if you leave it out
      tone      — 'dark' gives the event a full-bleed dark chapter.
                  Use it once. Right now it belongs to Talley.
@@ -675,7 +683,7 @@ const EVENTS = [
     venue:'District Bar & Lounge', address:'222 Glenwood Ave, Apt 109, Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=District+Bar+%26+Lounge+222+Glenwood+Ave+Apt+109+Raleigh+NC',
     detailsUrl:null, ticketsUrl:null,
-    patchNote:'Details soon',
+    note:'Details soon',
     flyer:'flyer-clocked-out.jpg'
   },
   {
@@ -745,7 +753,7 @@ const grouped = DAYS.map(d => ({...d, items: EVENTS.filter(e => e.day === d.key)
 /* ---- The patch wall ---- */
 // start time only, trimmed: '9:00 PM – 1:00 AM' -> '9 PM'
 const startTime = (t)=>String(t).split(/[–—-]/)[0].trim().replace(':00','');
-const patchNote = (e)=> e.patchNote || e.ticketsLabel || (e.onSaleNote
+const note = (e)=> e.note || e.ticketsLabel || (e.onSaleNote
   ? e.onSaleNote.replace(/^Tickets\s+/i,'').replace(/^on sale/i,'On sale')
   : 'Details soon');
 
@@ -757,7 +765,7 @@ $('#wall').innerHTML = EVENTS.map(e=>{
       <span class="patch__name">${esc(e.short || e.name)}</span>
       <span class="patch__time">${esc(startTime(e.time))}</span>
     </a>
-    <span class="patch__note">${esc(patchNote(e))}</span>
+    <span class="patch__note">${esc(note(e))}</span>
   </div>`;
 }).join('');
 
@@ -889,7 +897,8 @@ setInterval(renderClock, 1000);
   const sameMonth = fmt(s,{month:'numeric'}) === fmt(e,{month:'numeric'});
   const startStr = fmt(s, {month:'long', day:'numeric'});
   const endStr   = fmt(e, sameMonth ? {day:'numeric'} : {month:'long', day:'numeric'});
-  $('#heroDates').textContent = `${startStr} – ${endStr}, ${fmt(e,{year:'numeric'})}`;
+  $('#heroDates').textContent =
+    `NC State Homecoming · ${startStr} – ${endStr}, ${fmt(e,{year:'numeric'})}`;
 })();
 
 /* ---- Sticky-bar countdown appears only after the hero leaves ---- */

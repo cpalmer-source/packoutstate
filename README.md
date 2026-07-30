@@ -14,13 +14,13 @@ Open `index.html` and edit the two labeled zones at the top of the `<script>`:
 
 1. **EVENT_START / EVENT_END** — countdown dates. Times are Eastern.
 2. **EVENTS** — the lineup. Order in this array is the order on the page and
-   the order of the patches. Keep events in the order they actually happen.
+   the order of the badges. Keep events in the order they actually happen.
 
 ### Per-event fields
 | Field | What it does |
 |---|---|
-| `short` | The name on the patch. Keep it to about two short words. |
-| `patchNote` | The line under the patch. Falls back to `ticketsLabel`, then `onSaleNote`. |
+| `short` | The name on the badge. Keep it to about two short words. |
+| `note` | The line under the badge. Falls back to `ticketsLabel`, then `onSaleNote`. |
 | `tone` | `'dark'` gives the event a full-bleed dark chapter. Use it once — it only works because it's rare. Currently on The Talley Tapes. |
 | `flyer` | Image filename. `null` shows a 3:4 placeholder so the layout doesn't shift. |
 | `extra` | Optional expandable block: `schedule`, `highlights`, `why`, `faq`. |
@@ -38,5 +38,5 @@ Ultra, Anybody, and Figtree are all licensed under the SIL Open Font License.
 ## Checks worth re-running after edits
 - Dates render in Eastern time regardless of the visitor's timezone
 - No horizontal scroll at 360px wide
-- Patches are reachable by keyboard and visibly focused
+- Badges are reachable by keyboard and visibly focused
 - `prefers-reduced-motion` leaves everything visible with no animation

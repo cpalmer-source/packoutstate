@@ -9,7 +9,7 @@ NC State Homecoming · Oct 29–31, 2026 · packoutstate.com
 The flyers and the website are two different brands right now.
 
 Three of the four flyers sit on a **warm bone ground** with a hot scarlet and a lot of
-air. The block party flyer is a **chenille varsity patch** — embroidered letterman
+air. The block party flyer is a **chenille varsity badge** — embroidered letterman
 lettering, a giant stitched "26." The current site is near-black `#0B0B0C` with an LED
 scoreboard countdown and a scrolling red marquee. That's sports-broadcast. It's a
 stadium jumbotron.
@@ -29,8 +29,8 @@ This is the one big call in this document. Everything else follows from it.
 | Ghosted vertical `HOMECOMING` wordmark, tonal, running up the right edge | Warm Up, Clocked Out | **Keep** — becomes the page spine |
 | Vertical credits rail (Darryl Coleman / Colton Palmer / The Slim Creative) in tracked caps | All four | **Keep** — this is community proof, not a byline |
 | Tick-mark itinerary: small squares on a hairline rule, one per fact | Warm Up | **Keep** — becomes the event timeline |
-| Chenille varsity patch, stitched outline, felt applique | Block Party | **Promote to signature** |
-| Repeating ghosted word-stack resolving to solid | Block Party | Keep as a texture, used once |
+| Chenille varsity badge, stitched outline, felt applique | Block Party | **Promote to signature** |
+| Repeating ghosted word-stack resolving to solid | Block Party | **Cut in build** — as a flat stripe texture it read as an artifact, not a device |
 | Hot scarlet, brighter than official Wolfpack `#CC0000` | All four | **Adopt** — the flyers are right |
 
 ---
@@ -42,12 +42,12 @@ from reading like a 1997 alumni newsletter.
 
 | | Hex | Name | Job |
 |---|---|---|---|
-| ■ | `#D91F26` | **Chenille Red** | Primary. The flyers' scarlet — hotter and more celebratory than official `#CC0000`. Display type, patches, CTAs. |
+| ■ | `#D91F26` | **Chenille Red** | Primary. The flyers' scarlet — hotter and more celebratory than official `#CC0000`. Display type, badges, CTAs. |
 | ■ | `#8E1116` | **Jacket Wine** | Deep oxblood. Stitch shadow, pressed states, footer, and **all small red text**. Replaces black as the "dark red" — wool, not ink. |
 | ■ | `#C9973F` | **Class Ring** | The alumni artifact. Class years, the "26," earned/complete states. The only non-red accent, used sparingly. |
 | □ | `#F2EEE5` | **Talley Bone** | Page ground. Lifted straight off the Warm Up and Clocked Out flyers. |
 | □ | `#E3DCCB` | **Chenille Cream** | Second ground. Card fills, and the tint of the ghosted spine wordmark. |
-| ■ | `#171412` | **Ink Wool** | Body text, and the single dark section. Warm-shifted near-black, not the current cold `#0B0B0C`. |
+| ■ | `#15171A` | **Charcoal** | Body text, and the single dark section. Neutral, very slightly cool. A warm-shifted near-black was tried first and rejected — at full-bleed size it reads yellow. |
 
 **Why this isn't the default cream-and-terracotta look.** It shares one axis with it — a
 warm off-white ground — but that ground is taken from the client's own artwork, and
@@ -56,12 +56,15 @@ serif, a hot scarlet instead of terracotta, and gold instead of a gradient. The 
 inherited, not chosen.
 
 **Contrast, measured against Talley Bone `#F2EEE5`:**
-- Ink Wool — 13.2:1. Body text.
+- Charcoal — 15.7:1. Body text.
 - Jacket Wine — 8.1:1. Any red text below 24px, all red links.
 - Chenille Red — 4.33:1. **Large text and UI only.** Passes AA Large (3:1), misses AA
   body (4.5:1). Never set body copy in it.
 - Class Ring — 2.26:1 on bone. **Decoration and large numerals only** on light grounds.
-  On Ink Wool it's 7.1:1 and fine for text.
+  On charcoal it's 6.9:1 and fine for text.
+
+On the charcoal ground, body copy is `#A2A5AA` at 7.4:1 — also neutral, so it doesn't
+drag warmth back in through the text.
 
 ---
 
@@ -71,13 +74,13 @@ Three families, three clearly separated jobs. Notably **not** Anton — the curr
 display face is the single most common condensed-caps default on the web, and it's
 doing nothing here that a face with actual athletic DNA couldn't do better.
 
-### 1. `Ultra` — the patch face
+### 1. `Ultra` — the badge face
 A fat 1970s slab with genuine athletic-department character. Used **only** on chenille
-elements: the wordmark lockup, the "26," the four event patches. Maybe six appearances
+elements: the wordmark lockup, the "26," the four event badges. Maybe six appearances
 on the whole page.
 
 It's a costume font if you let it run loose — which is exactly why it's leashed to the
-patch. On its own it's loud; wrapped in a stitched outline at 8rem it stops being type
+badge. On its own it's loud; wrapped in a stitched outline at 8rem it stops being type
 and becomes an object.
 
 ### 2. `Anybody` — the voice
@@ -112,7 +115,7 @@ dependency on a CDN staying up, and the page works offline. All three are OFL.
 ### Scale
 ```
 Hero          Anybody Expanded 800    clamp(2.8rem, 9vw, 7rem)     line-height .88
-Patch name    Ultra                   clamp(1.4rem, 3vw, 2.2rem)   tracking .01em
+Badge name    Ultra                   clamp(1.4rem, 3vw, 2.2rem)   tracking .01em
 Section       Anybody Expanded 700    clamp(2rem, 5.5vw, 3.6rem)   line-height 1.02
 Event name    Anybody Expanded 700    clamp(1.8rem, 4.5vw, 3rem)
 Body          Figtree 400             1.0625rem / 1.62             max 62ch
@@ -125,7 +128,7 @@ Data / time   Figtree 600 caps        .78rem, tracking .14em
 ## LAYOUT APPROACH
 
 **The concept: the jacket.** The page reads top to bottom the way a letterman jacket
-does — crest, patches, sleeve stripes, the story on the back, the people who wore it.
+does — crest, badges, sleeve stripes, the story on the back, the people who wore it.
 
 ### Hero — the wordmark stitches itself in
 Not a countdown. The hero is the chenille lockup on bone, and on page load the stitch
@@ -141,7 +144,7 @@ outline draws first, then the felt fill drops in behind it. One orchestrated mom
 │ C │   ║           〔 2 6 〕              ║ stitch-in │
 │ O │   ╚══════════════════════════════════╝           │
 │ M │                                                  │
-│ I │   Oct 29–31. Four nights, one weekend.           │
+│ I │   Oct 29 – 31, 2026                              │
 │ N │                                                  │
 │ G │   90 DAYS · 04 HRS · 22 MIN   ← tracked caps,    │
 │   │                                  one line        │
@@ -179,7 +182,7 @@ feel organized. The flyer sits inside the rhythm rather than alternating left-ri
 which is the current layout's most templated move.
 
 ### How community shines — "Who's in"
-A band of small chenille **class-year patches** — `'04 '09 '12 '15 '18 '21 '25` — in
+A band of small chenille **class-year badges** — `'04 '09 '12 '15 '18 '21 '25` — in
 Class Ring gold on Ink Wool. You scan it and find your year. Below it, the credits rail
 from the flyers promoted to full size: Darryl Coleman, Colton Palmer, The Slim Creative,
 named as the alumni who built this. On every flyer they're a 90°-rotated whisper. On the
@@ -193,7 +196,7 @@ its own flyer, which is the only dark flyer in the set.
 That copy — *"Before the posts, before the stories, before nights became content… Damn,
 I remember them Talley parties"* — is the emotional center of this entire site, and it's
 currently buried in an event card between two others. Give it a full-bleed break: the
-ghosted word-stack texture from the Block Party flyer behind it, the pull quote large in
+the pull quote large in
 Anybody, the body in Figtree at a comfortable reading measure.
 
 **This is the nostalgia/modern balance.** Warm bone is the present tense — the weekend
@@ -204,11 +207,11 @@ site is dark everywhere, which means nothing is set apart.
 ### Section order
 ```
 1  Hero              chenille lockup, stitch-in
-2  The Patch Wall    signature — the whole weekend in one screen
+2  The Letterman Wall    signature — the whole weekend in one screen
 3  The Lineup        itinerary spine, four events in chronological order,
                      with the Talley Tapes dark chapter breaking full-bleed
                      in place at Friday 10 PM
-4  Every Class       class-year patches + the credits
+4  Every Class       class-year badges + the credits
 5  Footer            wine ground, wordmark
 ```
 
@@ -223,18 +226,18 @@ subject. Set with `tone: 'dark'` on the event, so it's one field to move.
 
 ## SIGNATURE ELEMENT
 
-# The Patch Wall
+# The Letterman Wall
 
-**Four chenille patches. One per event. Earn them all.**
+**Four chenille badges. One per event.**
 
 Not invented — lifted from their own Block Party flyer, where the "26" is already a
 stitched varsity applique. The letterman jacket is *the* object of college nostalgia:
-you earned it, you kept it, it's in a closet somewhere. A jacket covered in patches is
+you earned it, you kept it, it's in a closet somewhere. A jacket covered in badges is
 literally what a weekend of events looks like.
 
 ```
         THE WEEKEND
-        Four patches. Earn them all.
+        The weekend at a glance
 
   ╭──────────╮  ╭──────────╮  ╭──────────╮  ╭──────────╮
   │ ~~THU 29~│  │ ~~FRI 30~│  │ ~~FRI 30~│  │ ~~SAT 31~│
@@ -249,27 +252,27 @@ literally what a weekend of events looks like.
 **How it's built.** Not an image — CSS, so it stays crisp and editable when the lineup
 changes. Chenille Red felt fill, a stitched outline via layered `text-shadow` in Talley
 Bone, a fine dashed border inset 3px for the running stitch, a soft `filter: drop-shadow`
-underneath so the patch has real applique thickness, and a subtle repeating-gradient
+underneath so the badge has real applique thickness, and a subtle repeating-gradient
 noise for felt nap. Name in `Ultra`, day and time in tracked Figtree caps.
 
 **How it behaves.**
-- **On scroll in** — patches stitch on one at a time, 120ms apart. Outline first, then
+- **On scroll in** — badges stitch on one at a time, 120ms apart. Outline first, then
   fill. Same motion language as the hero wordmark.
-- **On hover / focus** — the patch lifts 6px off the felt and its shadow spreads. It's an
+- **On hover / focus** — the badge lifts 6px off the felt and its shadow spreads. It's an
   applique with thickness, not a card.
 - **On click** — jumps to that event on the spine.
-- **Sold out / passed** — the patch desaturates to Chenille Cream with a Class Ring gold
+- **Sold out / passed** — the badge desaturates to Chenille Cream with a Class Ring gold
   outline. Earned, not gone.
 
 **Why this and not a scoreboard.**
 
-| Brief asks for | The patch wall delivers |
+| Brief asks for | The badge wall delivers |
 |---|---|
-| College tradition | A letterman patch is the tradition, worn |
+| College tradition | A letterman badge is the tradition, worn |
 | Alumni community | You earned it by being there |
 | Nostalgia | The jacket in the closet |
 | Celebration but organized | It's decorative *and* it's the index of all four events |
-| Shareable | "Got all four patches" is a screenshot |
+| Shareable | "Got all four badges" is a screenshot |
 | Interactive | Stitch-in, lift, jump-to-event |
 | Specific to NC State | Wolfpack red chenille, and it's already on their flyer |
 
@@ -280,7 +283,7 @@ the day-pill nav rail collapse into one object that does both jobs better.
 
 ## Restraint
 
-The patch is the one loud thing. Everything else stays disciplined:
+The badge is the one loud thing. Everything else stays disciplined:
 
 - **Cut the red marquee ticker.** It's decoration that repeats information already on
   screen, and a scrolling banner is the most templated element on the page.
@@ -291,18 +294,36 @@ The patch is the one loud thing. Everything else stays disciplined:
 - **Keep** the flyer artwork at native ratio. It's good work and it should be the most
   photographic thing on the page.
 
-Three deletions, one addition. If the patch wall is going to be the memorable thing,
+Three deletions, one addition. If the badge wall is going to be the memorable thing,
 nothing near it can be competing for attention.
 
 ## Quality floor
 
-Responsive to 360px (patch wall goes 2×2, then a single scroll-snap row). Visible
-keyboard focus in Chenille Red at 3px offset. Every patch reachable by tab and
+Responsive to 360px (badge wall goes 2×2, then a single scroll-snap row). Visible
+keyboard focus in Chenille Red at 3px offset. Every badge reachable by tab and
 activated by enter. `prefers-reduced-motion` kills the stitch-in, the lift, and the
-countdown tick — the patches simply appear. No color-only state: sold-out patches
+countdown tick — the badges simply appear. No color-only state: sold-out badges
 carry a gold outline *and* a text label.
 
 ---
+
+## Copy
+
+**All site copy is the client's, unchanged.** Event descriptions, taglines, FAQ answers,
+section headings, leads, meta descriptions, and button labels are carried over verbatim
+from the previous build. This document proposes visual direction only — it does not
+rewrite words.
+
+The one exception is the "Every class" band, which is a new section with no prior copy
+to inherit. Those three lines are placeholder and should be rewritten in the client's
+voice.
+
+Two things worth a look, both inherited rather than introduced:
+- "NC State Homecoming" appears twice in the hero — once as the eyebrow, once at the
+  head of the date line. Left as-is.
+- The ticker copy (*"Pack Out State · NC State Homecoming '26 · Oct 29–31 · Raleigh,
+  NC"*) has no home now that the marquee is cut. Nothing was lost that isn't already
+  stated elsewhere on the page, but the strings are in git history if wanted.
 
 ## Open questions
 
@@ -325,7 +346,7 @@ Measured in Chromium at 1440, 1280, 390, and 360 wide:
   which returns a false positive for absent families)
 - No horizontal overflow at 360px
 - `prefers-reduced-motion` leaves every element at full opacity with no animation
-- Patches take keyboard focus with a visible 3px outline, and every patch anchor
+- Badges take keyboard focus with a visible 3px outline, and every badge anchor
   resolves to a real element
 - Dates render from Eastern time, so a 9 PM Thursday kickoff reads "October 29"
   from any timezone
