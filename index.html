@@ -20,6 +20,8 @@
 :root{
   --red:#CC0000;
   --red-deep:#A30000;
+  --red-bright:#FF3B30;  /* for red text on the near-black hero; same value the
+                            scoreboard digits already use */
   --ink:#0B0B0C;
   --carbon:#17181A;
   --carbon-2:#212327;
@@ -101,21 +103,16 @@ a{color:inherit}
 .hero{
   position:relative;min-height:92vh;display:flex;align-items:center;
   padding-block:clamp(60px,12vh,140px);overflow:hidden;
+  /* night game: solid black at the top edge, opening up over the lit stadium */
   background:
-    linear-gradient(180deg, rgba(11,11,12,.62) 0%, rgba(11,11,12,.28) 42%, rgba(11,11,12,.55) 78%, rgba(11,11,12,.92) 100%),
+    linear-gradient(180deg,
+      rgba(11,11,12,1) 0%, rgba(11,11,12,.88) 15%, rgba(11,11,12,.30) 45%,
+      rgba(11,11,12,.55) 78%, rgba(11,11,12,.92) 100%),
     url('hero-carter-finley.jpg') center bottom / cover no-repeat,
     var(--ink);
 }
 /* animated dusk sky */
 .sky{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.sky::before{
-  content:'';position:absolute;inset:-20%;
-  background:
-    radial-gradient(46% 40% at 86% 8%, rgba(96,44,150,.15), transparent 60%),
-    radial-gradient(60% 50% at 58% 0%, rgba(255,124,64,.08), transparent 55%);
-  animation:skyShift 46s ease-in-out infinite alternate;
-}
-@keyframes skyShift{from{transform:translate3d(-2%,0,0) scale(1)}to{transform:translate3d(2.5%,3%,0) scale(1.07)}}
 .sky__stars{
   position:absolute;inset:0;
   background-image:
@@ -145,7 +142,9 @@ a{color:inherit}
   user-select:none;
 }
 .hero__inner{position:relative;z-index:1;max-width:900px}
-.hero__eyebrow{margin-bottom:22px}
+/* --red on a now-solid-black top edge only reaches 3.3:1, which fails for
+   text this small. --red-bright clears 5.5:1 and still reads as the accent. */
+.hero__eyebrow{margin-bottom:22px;color:var(--red-bright)}
 .hero h1{
   font-family:var(--display);font-weight:400;
   font-size:clamp(2.4rem, 8.5vw, 6.5rem);line-height:.92;letter-spacing:.01em;
@@ -398,7 +397,7 @@ a{color:inherit}
 @media (prefers-reduced-motion: reduce){
   .reveal{opacity:1;transform:none;transition:none}
   [data-animate]{opacity:1 !important;transform:none !important}
-  .sky::before,.sky__stars,.sky__cloud,.sky__beam{animation:none !important}
+  .sky__stars,.sky__cloud,.sky__beam{animation:none !important}
   .ticker__track{animation:none !important}
   .count__colon,.count__num.tick{animation:none !important}
   .reveal .glance__col{opacity:1;transform:none;transition:none}

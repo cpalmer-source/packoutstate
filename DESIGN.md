@@ -27,8 +27,16 @@ NC State Homecoming · Oct 29–31, 2026 · packoutstate.com
 > - Hero date line formats in `America/New_York` rather than the visitor's
 >   timezone. A bug fix: the Oct 29 kickoff previously displayed as Oct 30
 >   outside North America while the header day pills still read Oct 29.
-> - The red radial in `.sky::before` (`rgba(204,0,0,.18)` at 18% 18%) was removed
->   at the client's request. The purple and orange radials remain.
+> - **Night-game hero.** The hero overlay now starts at solid `#0B0B0C` and opens
+>   up over the lit stadium. The whole `.sky::before` colour wash was removed —
+>   red, then purple and orange — because a coloured bloom at the top edge is
+>   exactly what "fade to black" rules out. Stars, clouds and light beams stay.
+> - **Hero eyebrow is `--red-bright` (`#FF3B30`).** Against the now-solid black
+>   top, `--red` (`#CC0000`) measured **3.36:1** — under the 4.5:1 AA needs at
+>   11.5px. `#FF3B30` measures **5.58:1** and is the value the scoreboard digits
+>   already use, so it reads as the same accent. Sampled from rendered pixels,
+>   not computed against an assumed backdrop. Eyebrows on the bone sections are
+>   unaffected — they use `--red-deep` on light grounds.
 
 ---
 
