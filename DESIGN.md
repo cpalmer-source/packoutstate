@@ -4,6 +4,23 @@ NC State Homecoming · Oct 29–31, 2026 · packoutstate.com
 
 ---
 
+> ## ⚠ Status: proposal, not the built site
+>
+> This document describes a direction that was built and then **reverted at the
+> client's direction**. The live `index.html` is the original design — Anton
+> headings, the original type scale, margins, dark ground, day-pill dates in the
+> header, scoreboard countdown and ticker, all unchanged.
+>
+> **Only two things from this document survive in the build:**
+> 1. The ghosted vertical `HOMECOMING` spine in the hero (kept — client liked it).
+> 2. A timezone fix to the hero date line, which is a bug fix, not a design change.
+>
+> Nothing else here has been applied. Treat it as a menu to discuss, not a record
+> of what shipped. **The heading typeface is Anton and does not change without
+> explicit agreement.**
+
+---
+
 ## The argument
 
 The flyers and the website are two different brands right now.
