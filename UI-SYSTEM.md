@@ -278,7 +278,8 @@ Every component below: existing tokens only, spacing scale only, mobile-first,
 .btn--dark:hover{ background:var(--carbon) }
 
 /* sizes */
-.btn--sm { padding:var(--sp-sm) var(--sp-md); font-size:.72rem; min-height:36px }
+/* smaller type and padding — but 44px stays, it is a tap target not a style */
+.btn--sm { padding:var(--sp-sm) var(--sp-md); font-size:.72rem; min-height:44px }
 .btn--lg { padding:var(--sp-lg) var(--sp-xl); font-size:.9rem }
 .btn--block { display:flex; width:100% }
 
