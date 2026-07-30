@@ -15,6 +15,11 @@
 /* ===========================================================
    TOKENS — copied verbatim from index.html. Nothing redefined.
    Fonts: Anton + Archivo. Palette unchanged.
+
+   GROUND STRUCTURE mirrors the live site:
+     nav / hero / countdown / footer  = --ink        (dark)
+     all content sections             = --white      (#FFFFFF)
+   The site is NOT all black. Content is white.
    =========================================================== */
 :root{
   --red:#CC0000;
@@ -34,11 +39,16 @@
   --wrap:1200px;
   --pad:clamp(20px, 5vw, 64px);
 
-  /* NEW — the spacing scale from UI-SYSTEM.md */
+  /* named from values ALREADY in index.html — not new colors */
+  --ink-2:#3a3a3c;      /* .section--bone .section__lead */
+  --ink-3:#6c6c6f;      /* .glance__time                 */
+  --rule :#ECE8E0;      /* #lineup border-top            */
+  --rule-2:#E5E1D8;     /* .xtra border                  */
+
+  /* NEW — spacing + layout only, no color or type */
   --sp-xs:4px; --sp-sm:8px; --sp-md:16px; --sp-lg:24px;
   --sp-xl:32px; --sp-2xl:48px; --sp-3xl:64px;
   --sp-4xl:96px; --sp-5xl:128px;
-
   --wrap-narrow:760px;
   --rail:clamp(32px, 6vw, 88px);
   --section-y:var(--sp-3xl);
@@ -49,8 +59,9 @@
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 
+/* page ground = WHITE, same as the live content sections */
 body{
-  font-family:var(--sans); background:var(--ink); color:var(--white);
+  font-family:var(--sans); background:var(--white); color:var(--ink);
   line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
 a{color:inherit}
@@ -58,13 +69,10 @@ img{max-width:100%;display:block}
 :focus-visible{outline:3px solid var(--red);outline-offset:3px}
 
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
-.wrap--narrow{max-width:var(--wrap-narrow);margin-inline:auto;padding-inline:var(--pad)}
 
 /* ---------- PREVIEW CHROME (not part of the system) ---------- */
-.pv-bar{
-  position:sticky;top:0;z-index:100;background:rgba(11,11,12,.92);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
-}
+.pv-bar{position:sticky;top:0;z-index:100;background:rgba(11,11,12,.94);
+  backdrop-filter:blur(10px);color:var(--white)}
 .pv-bar__in{display:flex;align-items:center;gap:var(--sp-md);flex-wrap:wrap;
   max-width:var(--wrap);margin-inline:auto;padding:var(--sp-md) var(--pad)}
 .pv-bar__t{font-family:var(--display);text-transform:uppercase;font-size:1rem;
@@ -75,43 +83,34 @@ img{max-width:100%;display:block}
   color:var(--ash);text-decoration:none}
 .pv-nav a:hover{color:var(--white)}
 
-.pv-note{
-  background:#1d1400;border:1px solid #6b4e00;color:#ffd479;
-  padding:var(--sp-md) var(--sp-lg);margin-bottom:var(--sp-2xl);
-  font-size:.9rem;border-radius:2px;max-width:80ch;
-}
-.pv-note b{color:#ffe9b8}
+.pv-note{background:#FFF8E1;border:1px solid #E8D18A;color:#5c4708;
+  padding:var(--sp-md) var(--sp-lg);font-size:.92rem;max-width:80ch}
+.pv-note b{color:#3d2f00}
 
-.pv-sec{padding-block:var(--section-y);border-top:1px solid var(--line)}
-.pv-sec__n{
-  font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--red-bright);margin-bottom:var(--sp-sm);
-}
+.pv-sec{padding-block:var(--section-y);border-top:1px solid var(--rule)}
+.pv-sec__n{font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--red-deep);margin-bottom:var(--sp-sm)}
 .pv-sec__h{font-family:var(--display);text-transform:uppercase;line-height:1.05;
   font-size:clamp(1.8rem,4.5vw,2.8rem)}
-.pv-sec__d{color:var(--ash);margin-top:var(--sp-md);max-width:62ch;font-size:.98rem}
+.pv-sec__d{color:var(--ink-2);margin-top:var(--sp-md);max-width:62ch;font-size:.98rem}
 .pv-sec__body{margin-top:var(--sp-2xl)}
 
-.pv-tag{
-  display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.16em;
+.pv-tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.16em;
   text-transform:uppercase;padding:var(--sp-xs) var(--sp-sm);border-radius:2px;
-  vertical-align:middle;margin-left:var(--sp-md);
-}
+  vertical-align:middle;margin-left:var(--sp-md)}
 .pv-tag--new{background:var(--red);color:var(--white)}
-.pv-tag--has{background:transparent;color:var(--ash);border:1px solid var(--line)}
+.pv-tag--has{background:transparent;color:var(--ink-3);border:1px solid var(--line-dark)}
 
-.pv-lab{
-  font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ash);margin-bottom:var(--sp-md);padding-bottom:var(--sp-sm);
-  border-bottom:1px solid var(--line);
-}
+.pv-lab{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:var(--sp-md);padding-bottom:var(--sp-sm);
+  border-bottom:1px solid var(--rule)}
 .pv-row{margin-bottom:var(--sp-2xl)}
 .pv-row:last-child{margin-bottom:0}
 
-/* light-ground demo panel */
-.pv-bone{background:var(--bone);color:var(--ink);padding:var(--sp-xl);
-  margin-top:var(--sp-md)}
-.pv-bone .pv-lab{color:#6c6c6f;border-color:var(--line-dark)}
+/* dark panel — only for components that are dark on the real site */
+.on-dark{background:var(--ink);color:var(--white);padding:var(--sp-xl)}
+.on-dark .pv-lab{color:var(--ash);border-color:var(--line)}
+.on-dark .pv-sec__d{color:var(--ash)}
 
 /* ===========================================================
    1  BUTTONS
@@ -129,279 +128,232 @@ img{max-width:100%;display:block}
 .btn[aria-disabled="true"],.btn:disabled{opacity:.45;pointer-events:none}
 .btn--primary{background:var(--red);color:var(--white)}
 .btn--primary:hover{background:var(--red-deep)}
-.btn--ghost{background:transparent;color:var(--white);border-color:var(--line)}
-.btn--ghost:hover{border-color:var(--white)}
-.btn--dark{background:var(--ink);color:var(--white)}
-.btn--dark:hover{background:var(--carbon)}
-/* smaller type and padding, but the 44px tap target is never negotiable */
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line-dark)}
+.btn--ghost:hover{border-color:var(--ink)}
+.on-dark .btn--ghost{color:var(--white);border-color:var(--line)}
+.on-dark .btn--ghost:hover{border-color:var(--white)}
+/* smaller type and padding — but the 44px tap target is never negotiable */
 .btn--sm{padding:var(--sp-sm) var(--sp-md);font-size:.72rem;min-height:44px}
 .btn--lg{padding:var(--sp-lg) var(--sp-xl);font-size:.9rem}
 .btn--block{display:flex;width:100%}
-.pv-bone .btn--ghost{color:var(--ink);border-color:var(--line-dark)}
-.pv-bone .btn--ghost:hover{border-color:var(--ink)}
-
 .btnrow{display:flex;flex-wrap:wrap;gap:var(--sp-md)}
 @media(max-width:479px){ .btnrow .btn{flex:1 1 100%} }
 
 /* ===========================================================
-   2  NAVIGATION
+   2  NAVIGATION  (dark on the live site)
    =========================================================== */
-.demo-nav{background:rgba(11,11,12,.82);border:1px solid var(--line)}
 .nav__inner{display:flex;align-items:center;gap:var(--sp-lg);
-  padding:var(--sp-md) var(--sp-lg)}
+  padding:var(--sp-md) var(--sp-lg);border:1px solid var(--line)}
 .nav__brand{font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;
   text-transform:uppercase;white-space:nowrap;text-decoration:none}
 .nav__brand span{color:var(--red)}
 .nav__days{display:flex;gap:var(--sp-sm);margin-left:auto;overflow-x:auto;
   scrollbar-width:none}
 .nav__days::-webkit-scrollbar{display:none}
-.day-pill{
-  border:1px solid var(--line);background:transparent;color:var(--ash);
+.day-pill{border:1px solid var(--line);background:transparent;color:var(--ash);
   font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.12em;
   text-transform:uppercase;padding:var(--sp-sm) var(--sp-md);border-radius:2px;
   cursor:pointer;white-space:nowrap;min-height:44px;
-  transition:color .2s,border-color .2s,background .2s;
-}
+  transition:color .2s,border-color .2s,background .2s}
 .day-pill small{display:block;font-weight:500;font-size:.62rem;letter-spacing:.06em;
   margin-top:2px}
 .day-pill:hover{color:var(--white);border-color:var(--ash)}
 .day-pill.is-active{background:var(--red);border-color:var(--red);color:var(--white)}
-.day-pill.is-active small{color:rgba(255,255,255,.85)}
-
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:var(--pad);top:var(--sp-sm);z-index:200;padding:var(--sp-md);
   background:var(--red);color:var(--white)}
 
 /* ===========================================================
-   3  HERO (scaled-down structural demo)
+   3  HERO  (dark on the live site)
    =========================================================== */
-.demo-hero{
-  position:relative;overflow:hidden;border:1px solid var(--line);
-  padding:var(--sp-3xl) var(--sp-xl);
+.demo-hero{position:relative;overflow:hidden;padding:var(--sp-3xl) var(--sp-xl);
   background:linear-gradient(180deg,rgba(11,11,12,1) 0%,rgba(11,11,12,.88) 15%,
-    rgba(11,11,12,.55) 45%,rgba(11,11,12,.75) 78%,rgba(11,11,12,.95) 100%),
-    var(--carbon);
-}
-.demo-hero__ghost{
-  position:absolute;right:-2vw;bottom:-30%;z-index:0;pointer-events:none;
-  font-family:var(--display);font-size:22vw;line-height:.8;
-  color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.05);user-select:none;
-}
+    rgba(11,11,12,.55) 45%,rgba(11,11,12,.75) 78%,rgba(11,11,12,.95) 100%),var(--carbon)}
+.demo-hero__ghost{position:absolute;right:-2vw;bottom:-30%;z-index:0;pointer-events:none;
+  font-family:var(--display);font-size:22vw;line-height:.8;color:transparent;
+  -webkit-text-stroke:2px rgba(255,255,255,.05);user-select:none}
 .hero__inner{position:relative;z-index:1;max-width:900px}
-.eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
-  font-weight:700;color:var(--red-bright)}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;font-weight:700;
+  color:var(--red-bright)}
 .hero__eyebrow{margin-bottom:var(--sp-lg)}
-.demo-hero h2{font-family:var(--display);font-weight:400;
-  font-size:clamp(2rem,7vw,4.4rem);line-height:.92;letter-spacing:.01em;
-  text-transform:uppercase}
-.demo-hero h2 .accent{color:var(--red)}
+.demo-hero h3{font-family:var(--display);font-weight:400;
+  font-size:clamp(2rem,7vw,4.4rem);line-height:.92;text-transform:uppercase}
+.demo-hero h3 .accent{color:var(--red)}
 .hero__sub{margin-top:var(--sp-lg);font-size:clamp(1rem,2vw,1.2rem);font-weight:600}
 .hero__sub .dot{color:var(--red);margin-inline:var(--sp-sm)}
 .hero__meta{margin-top:var(--sp-sm);color:var(--ash);font-size:.95rem}
 
 /* ===========================================================
-   4  COUNTDOWN
+   4  COUNTDOWN  (dark on the live site)
    =========================================================== */
-.board{margin-top:var(--sp-2xl);max-width:680px}
-.board__plate{
-  display:inline-block;background:var(--red);color:var(--white);
+.board{max-width:680px}
+.board__plate{display:inline-block;background:var(--red);color:var(--white);
   font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;
   font-size:clamp(.8rem,2vw,1rem);padding:var(--sp-sm) var(--sp-lg);
-  border-radius:4px 4px 0 0;
-}
-.board__shell{
-  position:relative;overflow:hidden;
+  border-radius:4px 4px 0 0}
+.board__shell{position:relative;overflow:hidden;
   background:linear-gradient(180deg,#1b1c20,#0d0e10);
   border:1px solid #35373c;border-radius:0 8px 8px 8px;
   padding:var(--sp-lg) var(--sp-xl);
-  box-shadow:0 0 0 4px #08090a, inset 0 1px 0 rgba(255,255,255,.07);
-}
+  box-shadow:0 0 0 4px #08090a, inset 0 1px 0 rgba(255,255,255,.07)}
 .board__shell::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);
   background-size:7px 7px}
 .count{display:flex;align-items:flex-start;gap:var(--sp-lg)}
 .count__unit{text-align:center}
-.count__num{
-  font-family:var(--display);font-size:clamp(1.7rem,5.5vw,3rem);line-height:1;
-  color:var(--red-bright);text-shadow:0 0 5px rgba(255,45,45,.35);
-  font-variant-numeric:tabular-nums;
-}
-.count__colon{font-family:var(--display);font-size:clamp(1.7rem,5.5vw,3rem);
-  line-height:1;color:var(--red-bright)}
+.count__num,.count__colon{font-family:var(--display);
+  font-size:clamp(1.7rem,5.5vw,3rem);line-height:1;color:var(--red-bright);
+  text-shadow:0 0 5px rgba(255,45,45,.35);font-variant-numeric:tabular-nums}
 .count__label{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
   color:#85888f;margin-top:var(--sp-sm);font-weight:700}
 .count__state{font-family:var(--display);font-size:clamp(1.3rem,4vw,2rem);
   text-transform:uppercase;color:var(--red-bright);line-height:1}
 
 /* ===========================================================
-   5  EVENT CARD
+   5  EVENT CARD  (white ground on the live site)
    =========================================================== */
-.event{
-  display:grid;gap:var(--sp-lg);grid-template-columns:1fr;
-  padding-block:var(--sp-2xl);border-top:1px solid var(--line);
-}
+.event{display:grid;gap:var(--sp-lg);grid-template-columns:1fr;
+  padding-block:var(--sp-2xl);border-top:1px solid var(--rule)}
 @media(min-width:768px){
   .event{gap:var(--sp-3xl);grid-template-columns:1fr 1fr;
     padding-block:var(--sp-3xl);align-items:center}
 }
 .event__body{min-width:0}
 .event__tags{display:flex;flex-wrap:wrap;gap:var(--sp-sm);margin-bottom:var(--sp-md)}
-.chip{
-  display:inline-flex;align-items:center;
-  padding:var(--sp-sm) var(--sp-md);
+.chip{display:inline-flex;align-items:center;padding:var(--sp-sm) var(--sp-md);
   font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid var(--line);border-radius:2px;color:var(--ash);
-}
+  border:1px solid #D8D3C8;border-radius:2px;color:#5a5a5e}
 .chip--day{background:var(--red);border-color:var(--red);color:var(--white)}
-.chip--status{border-color:var(--red-bright);color:var(--red-bright)}
-.event__tagline{color:var(--red-bright);font-size:1rem;font-weight:700;
-  letter-spacing:.02em;text-transform:uppercase;margin-bottom:var(--sp-sm)}
+.chip--status{border-color:var(--red-deep);color:var(--red-deep)}
+.event__tagline{color:var(--red-deep);font-size:1rem;font-weight:700;
+  text-transform:uppercase;margin-bottom:var(--sp-sm)}
 .event__name{font-family:var(--display);font-weight:400;
   font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.06;text-transform:uppercase}
-.event__desc{margin-top:var(--sp-md);color:var(--ash);max-width:52ch}
-.event__cta{display:flex;flex-wrap:wrap;gap:var(--sp-md);margin-top:var(--sp-xl)}
+.event__desc{margin-top:var(--sp-md);color:#333336;max-width:52ch}
+.event__cta{display:flex;flex-wrap:wrap;gap:var(--sp-md);margin-top:var(--sp-xl);
+  align-items:flex-start}
 .event__onsale{margin-top:var(--sp-md);font-size:.76rem;letter-spacing:.14em;
-  text-transform:uppercase;font-weight:700;color:var(--red-bright)}
-
-.flyer{position:relative;overflow:hidden;border:1px solid var(--line);
-  background:var(--carbon)}
+  text-transform:uppercase;font-weight:700;color:var(--red-deep)}
+.flyer{position:relative;overflow:hidden;border:1px solid var(--rule-2);
+  background:var(--bone)}
 .flyer--ph{aspect-ratio:3/4}
 .flyer__ph{position:absolute;inset:var(--sp-md);display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;gap:var(--sp-md);
   border:2px dashed rgba(204,0,0,.5)}
 .flyer__ph-n{font-family:var(--display);font-size:1.4rem;text-transform:uppercase;
-  color:var(--ash)}
+  color:var(--ink-3)}
 .flyer__ph-s{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ash);font-weight:700}
+  color:var(--ink-3);font-weight:700}
 
 /* ===========================================================
    6  SCHEDULE / TIMELINE
    =========================================================== */
-.daygroup__label{
-  display:flex;align-items:baseline;gap:var(--sp-md);
-  padding-block:var(--sp-lg);border-top:2px solid var(--white);
-  font-family:var(--display);text-transform:uppercase;
-}
+.daygroup__label{display:flex;align-items:baseline;gap:var(--sp-md);
+  padding-block:var(--sp-lg);border-top:2px solid var(--ink);
+  font-family:var(--display);text-transform:uppercase}
 .daygroup__label .d{font-size:clamp(1.4rem,3.5vw,2rem);line-height:1}
 .daygroup__label .dt{font-family:var(--sans);font-weight:700;font-size:.72rem;
-  letter-spacing:.18em;color:var(--red-bright)}
-
+  letter-spacing:.18em;color:var(--red-deep)}
 .glance{display:grid;gap:var(--sp-md);align-items:start;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.glance__col{background:var(--carbon);border:1px solid var(--line);
-  border-top:4px solid var(--red);padding:var(--sp-lg)}
-.glance__day{font-family:var(--display);font-size:2rem;text-transform:uppercase;
-  line-height:1}
+.glance__col{background:var(--white);border:1px solid #E9E5DD;
+  border-top:4px solid var(--red);padding:var(--sp-lg);
+  box-shadow:0 2px 10px rgba(11,11,12,.04)}
+.glance__day{font-family:var(--display);font-size:2rem;text-transform:uppercase;line-height:1}
 .glance__date{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--red-bright);font-weight:700;margin-top:var(--sp-xs);
-  margin-bottom:var(--sp-md)}
-.glance__item{display:block;padding-block:var(--sp-md);
-  border-top:1px solid var(--line);text-decoration:none;
-  transition:padding-left .22s ease,color .2s}
-.glance__item:hover{color:var(--red-bright);padding-left:var(--sp-sm)}
+  color:var(--red-deep);font-weight:700;margin-top:var(--sp-xs);margin-bottom:var(--sp-md)}
+.glance__item{display:block;padding-block:var(--sp-md);border-top:1px solid #EFEBE3;
+  text-decoration:none;transition:padding-left .22s ease,color .2s}
+.glance__item:hover{color:var(--red);padding-left:var(--sp-sm)}
 .glance__time{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ash);font-weight:700}
-.glance__name{font-weight:800;font-size:1.05rem;margin-top:var(--sp-xs);
-  line-height:1.25}
-
+  color:var(--ink-3);font-weight:700}
+.glance__name{font-weight:800;font-size:1.05rem;margin-top:var(--sp-xs);line-height:1.25}
 .ev{display:grid;grid-template-columns:var(--rail) 1fr;padding-block:var(--sp-lg)}
 .ev__rail{position:relative}
-.ev__rail::before{content:'';position:absolute;left:7px;top:0;bottom:calc(-1 * var(--sp-lg));
-  width:1px;background:var(--line)}
+.ev__rail::before{content:'';position:absolute;left:7px;top:0;
+  bottom:calc(-1 * var(--sp-lg));width:1px;background:var(--line-dark)}
 .ev:last-child .ev__rail::before{bottom:50%}
 .ev__tick{position:absolute;left:0;top:.4em;width:15px;height:15px;
   background:var(--red);border-radius:2px}
 .ev__time{font-size:.76rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--red-bright)}
+  text-transform:uppercase;color:var(--red-deep)}
 .ev__name{font-family:var(--display);font-size:1.4rem;text-transform:uppercase;
   line-height:1.1;margin-top:var(--sp-xs)}
-.ev__where{color:var(--ash);font-size:.92rem;margin-top:var(--sp-xs)}
+.ev__where{color:var(--ink-2);font-size:.92rem;margin-top:var(--sp-xs)}
 
 /* ===========================================================
-   7  BIO CARDS  (new)
+   7  ADD TO CALENDAR  (new)
    =========================================================== */
-.bio-grid{display:grid;gap:var(--sp-lg);
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.bio{display:flex;flex-direction:column;gap:var(--sp-md);
-  padding:var(--sp-lg);border:1px solid var(--line);background:var(--carbon)}
-.bio__media{width:96px;height:96px;border-radius:50%;overflow:hidden;flex:none;
-  background:var(--carbon-2);display:flex;align-items:center;justify-content:center}
-.bio__media img{width:100%;height:100%;object-fit:cover}
-.bio__initials{font-family:var(--display);font-size:1.8rem;color:var(--ash)}
-.bio__name{font-family:var(--display);font-size:1.25rem;text-transform:uppercase;
-  line-height:1.1}
-.bio__role{font-size:.68rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ash);margin-top:var(--sp-xs)}
-.bio__class{font-size:.68rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--red-bright);margin-top:var(--sp-xs)}
-.bio__text{font-size:.92rem;color:var(--ash);max-width:46ch}
-.bio__links{display:flex;gap:var(--sp-md);margin-top:auto;padding-top:var(--sp-md);
-  border-top:1px solid var(--line)}
-.bio__links a{font-size:.68rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;text-decoration:none;color:var(--ash)}
-.bio__links a:hover{color:var(--white)}
-.bio--row{flex-direction:row;align-items:flex-start;gap:var(--sp-lg)}
-.bio--row .bio__body{display:flex;flex-direction:column;gap:var(--sp-sm)}
+.cal{position:relative;display:inline-block}
+.cal__trigger{list-style:none;cursor:pointer;user-select:none}
+.cal__trigger::-webkit-details-marker{display:none}
+.cal__trigger::after{content:'▾';margin-left:var(--sp-xs);font-size:.9em}
+.cal[open] .cal__trigger::after{content:'▴'}
+.cal__menu{position:absolute;z-index:20;top:calc(100% + var(--sp-sm));left:0;
+  min-width:230px;background:var(--white);border:1px solid var(--rule-2);
+  box-shadow:0 14px 34px rgba(11,11,12,.16);padding:var(--sp-sm)}
+.on-dark .cal__menu{background:var(--carbon);border-color:var(--line)}
+.cal__opt{display:flex;align-items:center;gap:var(--sp-md);
+  padding:var(--sp-md);min-height:44px;text-decoration:none;font-size:.9rem;
+  font-weight:600;border-radius:2px}
+.cal__opt:hover{background:var(--bone)}
+.on-dark .cal__opt:hover{background:var(--carbon-2)}
+.cal__opt small{display:block;font-weight:400;font-size:.75rem;color:var(--ink-3)}
+.on-dark .cal__opt small{color:var(--ash)}
+.cal__ico{flex:none;width:22px;text-align:center;font-size:1rem}
+@media(max-width:479px){ .cal{display:block} .cal__menu{left:0;right:0} }
 
 /* ===========================================================
    8  FORMS  (new)
    =========================================================== */
 .form{display:grid;gap:var(--sp-lg);max-width:var(--wrap-narrow)}
 .field{display:grid;gap:var(--sp-sm)}
-.field__label{font-size:.74rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase}
-.field__req{color:var(--red-bright)}
-.field__hint{font-size:.85rem;color:var(--ash)}
-.input,.select,.textarea{
-  font-family:var(--sans);font-size:1rem;width:100%;
-  padding:var(--sp-md);min-height:48px;
-  background:var(--carbon);color:var(--white);
-  border:1px solid var(--line);border-radius:2px;transition:border-color .2s;
-}
+.field__label{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.field__req{color:var(--red-deep)}
+.field__hint{font-size:.85rem;color:var(--ink-3)}
+.input,.select,.textarea{font-family:var(--sans);font-size:1rem;width:100%;
+  padding:var(--sp-md);min-height:48px;background:var(--white);color:var(--ink);
+  border:1px solid #D8D3C8;border-radius:2px;transition:border-color .2s}
 .textarea{min-height:120px;resize:vertical}
-.input::placeholder{color:var(--ash);opacity:1}
-.input:hover,.select:hover,.textarea:hover{border-color:var(--ash)}
-.field--error .input{border-color:var(--red-bright);border-width:2px}
+.input::placeholder{color:var(--ink-3);opacity:1}
+.input:hover,.select:hover,.textarea:hover{border-color:var(--ink-3)}
+.field--error .input{border-color:var(--red);border-width:2px}
 .field__error{display:flex;align-items:center;gap:var(--sp-xs);font-size:.85rem;
-  color:var(--red-bright);font-weight:600}
+  color:var(--red-deep);font-weight:600}
 .check{display:flex;align-items:flex-start;gap:var(--sp-md);min-height:44px;
   cursor:pointer;font-size:.95rem}
 .check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--red)}
 .subscribe{display:flex;flex-wrap:wrap;gap:var(--sp-md)}
 .subscribe .input{flex:1 1 240px}
-.pv-bone .input,.pv-bone .textarea{background:var(--white);color:var(--ink);
-  border-color:var(--line-dark)}
-.pv-bone .field__hint{color:#6c6c6f}
+.on-dark .input,.on-dark .textarea{background:var(--carbon);color:var(--white);
+  border-color:var(--line)}
+.on-dark .field__hint{color:var(--ash)}
 
 /* ===========================================================
    9  EVENT DETAIL BOX
    =========================================================== */
-.xtra{margin-top:var(--sp-lg);border:1px solid var(--line);background:var(--carbon)}
-.xtra summary{
-  list-style:none;cursor:pointer;user-select:none;
+.xtra{margin-top:var(--sp-lg);border:1px solid var(--rule-2);background:#FBFAF7}
+.xtra summary{list-style:none;cursor:pointer;user-select:none;
   display:flex;align-items:center;justify-content:space-between;gap:var(--sp-md);
   padding:var(--sp-md) var(--sp-lg);min-height:44px;
-  font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;
-}
+  font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
 .xtra summary::-webkit-details-marker{display:none}
+.xtra summary:hover{background:#F3F0E9}
 .xtra summary::after{content:'+';font-family:var(--display);font-size:1.3rem;
-  color:var(--red-bright);line-height:1;transition:transform .2s}
+  color:var(--red);line-height:1;transition:transform .2s}
 .xtra[open] summary::after{transform:rotate(45deg)}
-.xtra__body{padding:0 var(--sp-lg) var(--sp-lg);border-top:1px solid var(--line)}
-.xtra__h{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
-  font-weight:700;color:var(--red-bright);margin:var(--sp-lg) 0 var(--sp-sm)}
+.xtra__body{padding:0 var(--sp-lg) var(--sp-lg);border-top:1px solid var(--rule-2)}
+.xtra__h{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--red);margin:var(--sp-lg) 0 var(--sp-sm)}
 .xtra__body ul{list-style:none;display:grid;gap:var(--sp-sm)}
-.xtra__body li{position:relative;padding-left:var(--sp-md);color:var(--ash);
-  font-size:.95rem}
-.xtra__body li::before{content:'';position:absolute;left:0;top:.6em;width:6px;
-  height:6px;background:var(--red)}
-
+.xtra__body li{position:relative;padding-left:var(--sp-md);color:#333336;font-size:.95rem}
+.xtra__body li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;
+  background:var(--red)}
 .facts{list-style:none;display:grid;gap:var(--sp-sm);margin-top:var(--sp-lg)}
 .facts li{display:flex;gap:var(--sp-md)}
-.facts .k{flex:none;min-width:74px;font-size:.7rem;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--ash);padding-top:3px}
-.facts a{text-decoration:underline;text-decoration-color:var(--red);
-  text-underline-offset:3px}
+.facts .k{flex:none;min-width:74px;font-size:.7rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:#8a8a8e;padding-top:3px}
+.facts a{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
 
 /* ===========================================================
    10  GALLERY  (new)
@@ -410,23 +362,23 @@ img{max-width:100%;display:block}
 @media(min-width:768px){.gallery{grid-template-columns:repeat(3,1fr);gap:var(--sp-md)}}
 @media(min-width:1024px){.gallery{grid-template-columns:repeat(4,1fr)}}
 .gallery__item{position:relative;aspect-ratio:1;overflow:hidden;display:block;
-  background:var(--carbon-2);border:1px solid var(--line)}
+  background:var(--bone);border:1px solid var(--rule-2)}
 .gallery__item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .gallery__item:hover img,.gallery__item:focus-visible img{transform:scale(1.04)}
 .gallery__ph{position:absolute;inset:0;display:flex;align-items:center;
-  justify-content:center;font-family:var(--display);font-size:1.4rem;color:#3a3c40}
+  justify-content:center;font-family:var(--display);font-size:1.4rem;color:#C9C2B4}
 .gallery--feature .gallery__item:first-child{grid-column:span 2;grid-row:span 2;
   aspect-ratio:auto}
 
 /* ===========================================================
    11  CTA BLOCK  (new)
    =========================================================== */
-.cta{padding-block:var(--sp-4xl);text-align:center;background:var(--carbon)}
+.cta{padding-block:var(--sp-4xl);text-align:center;background:var(--bone)}
 .cta__inner{max-width:var(--wrap-narrow);margin-inline:auto;padding-inline:var(--pad);
   display:flex;flex-direction:column;align-items:center;gap:var(--sp-lg)}
 .cta__title{font-family:var(--display);text-transform:uppercase;line-height:1.05;
   font-size:clamp(1.8rem,5vw,3rem)}
-.cta__note{font-size:.85rem;color:var(--ash)}
+.cta__note{font-size:.85rem;color:var(--ink-3)}
 .cta--split{text-align:left}
 .cta--split .cta__inner{max-width:var(--wrap);flex-direction:row;
   justify-content:space-between;align-items:center}
@@ -435,21 +387,20 @@ img{max-width:100%;display:block}
   .cta--split .cta__inner{flex-direction:column}
 }
 
-/* ===========================================================
-   SPACING SCALE SWATCH
-   =========================================================== */
+/* ---------- SCALE + GRID DEMO ---------- */
 .scale{display:grid;gap:var(--sp-md)}
 .scale__row{display:flex;align-items:center;gap:var(--sp-lg)}
 .scale__k{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ash);min-width:120px}
+  color:var(--ink-3);min-width:120px}
 .scale__bar{height:16px;background:var(--red)}
-.scale__v{font-size:.8rem;color:var(--ash);font-variant-numeric:tabular-nums}
-
-/* ---------- GRID DEMO ---------- */
+.scale__v{font-size:.8rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .grid-auto{display:grid;gap:var(--sp-lg);
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.grid-demo{background:var(--carbon);border:1px solid var(--line);
-  padding:var(--sp-lg);text-align:center;font-size:.8rem;color:var(--ash)}
+.grid-demo{background:var(--bone);border:1px solid var(--rule-2);
+  padding:var(--sp-lg);text-align:center;font-size:.8rem;color:var(--ink-3)}
+.ground{display:grid;gap:var(--sp-md);grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.ground__s{padding:var(--sp-lg);border:1px solid var(--rule-2);font-size:.8rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase}
 
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important;transition:none !important}
@@ -465,19 +416,11 @@ img{max-width:100%;display:block}
   <div class="pv-bar__in">
     <span class="pv-bar__t">Pack Out <span>State</span> · UI System</span>
     <nav class="pv-nav" aria-label="Preview sections">
-      <a href="#scale">Scale</a>
-      <a href="#grid">Grid</a>
-      <a href="#buttons">Buttons</a>
-      <a href="#nav">Nav</a>
-      <a href="#hero">Hero</a>
-      <a href="#countdown">Countdown</a>
-      <a href="#events">Events</a>
-      <a href="#schedule">Schedule</a>
-      <a href="#bios">Bios</a>
-      <a href="#forms">Forms</a>
-      <a href="#details">Details</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#cta">CTA</a>
+      <a href="#grounds">Grounds</a><a href="#scale">Scale</a><a href="#grid">Grid</a>
+      <a href="#buttons">Buttons</a><a href="#calendar">Calendar</a><a href="#nav">Nav</a>
+      <a href="#hero">Hero</a><a href="#countdown">Countdown</a><a href="#events">Events</a>
+      <a href="#schedule">Schedule</a><a href="#forms">Forms</a><a href="#details">Details</a>
+      <a href="#gallery">Gallery</a><a href="#cta">CTA</a>
     </nav>
   </div>
 </header>
@@ -487,26 +430,45 @@ img{max-width:100%;display:block}
   <section class="pv-sec" style="border-top:0">
     <div class="pv-sec__n">Internal reference</div>
     <h1 class="pv-sec__h">Component showcase</h1>
-    <p class="pv-sec__d">Every component in the UI system, rendered with the
-      existing Anton and Archivo fonts and the existing palette. Nothing here
-      redefines a font or a color.</p>
+    <p class="pv-sec__d">Every component in the UI system, using the existing Anton
+      and Archivo fonts and the existing palette. Nothing here redefines a font or a
+      color.</p>
     <div class="pv-note" style="margin-top:var(--sp-lg)">
       <b>This page is not the live site.</b> It is a standalone reference at
       <code>ui-preview.html</code>. It does not touch <code>index.html</code>, and
       packoutstate.com is unchanged. Components tagged
-      <span class="pv-tag pv-tag--has">In use</span> already exist in the site;
-      those tagged <span class="pv-tag pv-tag--new">New</span> have no
-      implementation yet.
+      <span class="pv-tag pv-tag--has">In use</span> already exist;
+      <span class="pv-tag pv-tag--new">New</span> means no implementation yet.
     </div>
   </section>
 
-  <!-- ================= SPACING SCALE ================= -->
+  <!-- ================= GROUNDS ================= -->
+  <section class="pv-sec" id="grounds">
+    <div class="pv-sec__n">Foundation</div>
+    <h2 class="pv-sec__h">Backgrounds — unchanged</h2>
+    <p class="pv-sec__d">The site keeps its existing structure: a dark nav, hero and
+      footer wrapping <strong>white</strong> content sections. Nothing in this system
+      changes that. This page is white for the same reason the lineup is white.</p>
+    <div class="pv-sec__body ground">
+      <div class="ground__s" style="background:var(--ink);color:var(--white)">
+        Nav / Hero / Footer<br><small style="font-weight:400;letter-spacing:0;text-transform:none;color:var(--ash)">--ink · #0B0B0C</small>
+      </div>
+      <div class="ground__s" style="background:var(--white);color:var(--ink)">
+        Content sections<br><small style="font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink-3)">--white · #FFFFFF</small>
+      </div>
+      <div class="ground__s" style="background:var(--bone);color:var(--ink)">
+        Panels / CTA bands<br><small style="font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink-3)">--bone · #F4F0E8</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SPACING ================= -->
   <section class="pv-sec" id="scale">
     <div class="pv-sec__n">Foundation</div>
     <h2 class="pv-sec__h">Spacing scale</h2>
-    <p class="pv-sec__d">Every margin, padding and gap on this page comes from
-      these steps. The last two are documented extensions — 64px alone is not
-      enough for desktop section rhythm.</p>
+    <p class="pv-sec__d">Every margin, padding and gap on this page comes from these
+      steps. The last two are documented extensions — 64px alone is not enough for
+      desktop section rhythm.</p>
     <div class="pv-sec__body scale" id="scaleOut"></div>
   </section>
 
@@ -515,8 +477,8 @@ img{max-width:100%;display:block}
     <div class="pv-sec__n">Foundation</div>
     <h2 class="pv-sec__h">Layout grid</h2>
     <p class="pv-sec__d">Container 1200px, narrow 760px for prose and forms.
-      Breakpoints 480 / 768 / 1024 / 1280. Resize the window — the listing below
-      reflows on its own with no media queries.</p>
+      Breakpoints 480 / 768 / 1024 / 1280. Resize the window — the listing reflows
+      with no media queries.</p>
     <div class="pv-sec__body">
       <div class="pv-lab">.grid-auto — auto-fit listing</div>
       <div class="grid-auto">
@@ -534,26 +496,21 @@ img{max-width:100%;display:block}
   <section class="pv-sec" id="buttons">
     <div class="pv-sec__n">Component 01</div>
     <h2 class="pv-sec__h">Buttons <span class="pv-tag pv-tag--has">In use</span></h2>
-    <p class="pv-sec__d">One primary per view. Ticket purchase is primary;
-      everything else is ghost. 44px minimum height throughout.</p>
+    <p class="pv-sec__d">One primary per view. Ticket purchase is primary; everything
+      else is ghost. 44px minimum height throughout, including the small variant.</p>
     <div class="pv-sec__body">
       <div class="pv-row">
-        <div class="pv-lab">Variants</div>
+        <div class="pv-lab">On white — the content ground</div>
         <div class="btnrow">
           <a href="#buttons" class="btn btn--primary">Get tickets</a>
           <a href="#buttons" class="btn btn--ghost">Event details</a>
           <a href="#buttons" class="btn btn--primary btn--lg">RSVP free</a>
-          <a href="#buttons" class="btn btn--ghost btn--sm">Add to calendar</a>
           <span class="btn btn--primary" aria-disabled="true">Sold out</span>
         </div>
       </div>
       <div class="pv-row">
-        <div class="pv-lab">Full width — under 480px all buttons go block</div>
-        <a href="#buttons" class="btn btn--primary btn--block">Get tickets</a>
-      </div>
-      <div class="pv-row">
-        <div class="pv-lab">On the bone ground</div>
-        <div class="pv-bone">
+        <div class="pv-lab">On dark — hero and footer only</div>
+        <div class="on-dark">
           <div class="btnrow">
             <a href="#buttons" class="btn btn--primary">Get tickets</a>
             <a href="#buttons" class="btn btn--ghost">Event details</a>
@@ -563,13 +520,76 @@ img{max-width:100%;display:block}
     </div>
   </section>
 
+  <!-- ================= ADD TO CALENDAR ================= -->
+  <section class="pv-sec" id="calendar">
+    <div class="pv-sec__n">Component 02</div>
+    <h2 class="pv-sec__h">Add to calendar <span class="pv-tag pv-tag--new">New</span></h2>
+    <p class="pv-sec__d">Working, not a mockup — open the menu and try either option.
+      Google opens a pre-filled event; the <code>.ics</code> downloads and opens in
+      Apple Calendar or Outlook. Everything is generated in the browser from the
+      event data, so there is no service to sign up for and nothing to maintain.</p>
+    <div class="pv-sec__body">
+      <div class="pv-row">
+        <div class="pv-lab">Single event</div>
+        <details class="cal" id="cal1">
+          <summary class="btn btn--ghost cal__trigger">Add to calendar</summary>
+          <div class="cal__menu">
+            <a class="cal__opt" data-cal="google" target="_blank" rel="noopener">
+              <span class="cal__ico" aria-hidden="true">◈</span>
+              <span>Google Calendar<small>Opens in a new tab</small></span></a>
+            <a class="cal__opt" data-cal="ics">
+              <span class="cal__ico" aria-hidden="true">↓</span>
+              <span>Apple / Outlook<small>Downloads a .ics file</small></span></a>
+          </div>
+        </details>
+        <p class="pv-sec__d" style="margin-top:var(--sp-md);font-size:.88rem">
+          Demo event: <strong>The Warm Up</strong> · Thu Oct 29 2026, 9:00 PM – 1:00 AM ET
+          · Primrose Bar &amp; Lounge, Durham.</p>
+      </div>
+      <div class="pv-row">
+        <div class="pv-lab">Whole weekend — one file, all four events</div>
+        <a class="btn btn--ghost" id="calAll">
+          <span aria-hidden="true">↓</span>&nbsp; Add the whole weekend</a>
+        <p class="pv-sec__d" style="margin-top:var(--sp-md);font-size:.88rem">
+          A single <code>.ics</code> containing every event, so someone can commit to
+          the weekend in one tap instead of four.</p>
+      </div>
+      <div class="pv-row">
+        <div class="pv-lab">In place on an event card</div>
+        <div class="event__cta" style="margin-top:0">
+          <a href="#calendar" class="btn btn--primary">RSVP free</a>
+          <details class="cal">
+            <summary class="btn btn--ghost cal__trigger">Add to calendar</summary>
+            <div class="cal__menu">
+              <a class="cal__opt" data-cal="google" target="_blank" rel="noopener">
+                <span class="cal__ico" aria-hidden="true">◈</span>
+                <span>Google Calendar<small>Opens in a new tab</small></span></a>
+              <a class="cal__opt" data-cal="ics">
+                <span class="cal__ico" aria-hidden="true">↓</span>
+                <span>Apple / Outlook<small>Downloads a .ics file</small></span></a>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="pv-note" style="margin-top:var(--sp-xl)">
+        <b>One data change needed to ship this.</b> The <code>EVENTS</code> array
+        stores times as display strings (<code>'9:00 PM – 1:00 AM'</code>), which a
+        calendar can't read. Each event needs two machine-readable fields —
+        <code>start</code> and <code>end</code> in ISO form, e.g.
+        <code>'2026-10-29T21:00:00-04:00'</code>. Parsing the display string instead
+        would be guesswork, particularly for events crossing midnight.
+      </div>
+    </div>
+  </section>
+
   <!-- ================= NAV ================= -->
   <section class="pv-sec" id="nav">
-    <div class="pv-sec__n">Component 02</div>
+    <div class="pv-sec__n">Component 03</div>
     <h2 class="pv-sec__h">Navigation <span class="pv-tag pv-tag--has">In use</span></h2>
-    <p class="pv-sec__d">Day pills scroll horizontally rather than wrapping, so the
-      bar never changes height. Tab to the top of this page to see the skip link.</p>
-    <div class="pv-sec__body demo-nav">
+    <p class="pv-sec__d">Dark, as on the live site. Day pills scroll horizontally
+      rather than wrapping, so the bar never changes height. Tab to the top of this
+      page to see the skip link.</p>
+    <div class="pv-sec__body on-dark">
       <div class="nav__inner">
         <a href="#nav" class="nav__brand">Pack Out <span>State</span></a>
         <nav class="nav__days" aria-label="Jump to a day">
@@ -583,15 +603,15 @@ img{max-width:100%;display:block}
 
   <!-- ================= HERO ================= -->
   <section class="pv-sec" id="hero">
-    <div class="pv-sec__n">Component 03</div>
+    <div class="pv-sec__n">Component 04</div>
     <h2 class="pv-sec__h">Hero <span class="pv-tag pv-tag--has">In use</span></h2>
-    <p class="pv-sec__d">Structure is eyebrow → headline → date/location →
-      countdown → one CTA. Date and location must be visible without scrolling.</p>
+    <p class="pv-sec__d">Eyebrow → headline → date/location → countdown → one CTA.
+      Date and location must be visible without scrolling.</p>
     <div class="pv-sec__body demo-hero">
       <div class="demo-hero__ghost" aria-hidden="true">'26</div>
       <div class="hero__inner">
         <div class="eyebrow hero__eyebrow">NC State Homecoming</div>
-        <h2>Pack <span class="accent">Out</span> State</h2>
+        <h3>Pack <span class="accent">Out</span> State</h3>
         <p class="hero__sub">NC State Homecoming <span class="dot">·</span>
           October 29 – 31, 2026</p>
         <p class="hero__meta">Raleigh, North Carolina</p>
@@ -604,15 +624,15 @@ img{max-width:100%;display:block}
 
   <!-- ================= COUNTDOWN ================= -->
   <section class="pv-sec" id="countdown">
-    <div class="pv-sec__n">Component 04</div>
+    <div class="pv-sec__n">Component 05</div>
     <h2 class="pv-sec__h">Countdown <span class="pv-tag pv-tag--has">In use</span></h2>
-    <p class="pv-sec__d">Tabular numerals stop the digits jittering. All three
-      states shown — counting, live, and over. A countdown frozen at zero after the
-      weekend is the classic abandoned-site look.</p>
-    <div class="pv-sec__body">
+    <p class="pv-sec__d">Tabular numerals stop the digits jittering. All three states
+      shown. A countdown frozen at zero after the weekend is the classic
+      abandoned-site look.</p>
+    <div class="pv-sec__body on-dark">
       <div class="pv-row">
         <div class="pv-lab">Counting down</div>
-        <div class="board" style="margin-top:0">
+        <div class="board">
           <div class="board__plate">Kickoff countdown</div>
           <div class="board__shell"><div class="count" id="cd"></div></div>
         </div>
@@ -628,13 +648,13 @@ img{max-width:100%;display:block}
     </div>
   </section>
 
-  <!-- ================= EVENT CARDS ================= -->
+  <!-- ================= EVENTS ================= -->
   <section class="pv-sec" id="events">
-    <div class="pv-sec__n">Component 05</div>
+    <div class="pv-sec__n">Component 06</div>
     <h2 class="pv-sec__h">Event cards <span class="pv-tag pv-tag--has">In use</span></h2>
-    <p class="pv-sec__d">Every card answers the same four questions in the same
-      order: when, where, what it costs, how to get in. Real artwork keeps its
-      native ratio; placeholders lock to 3:4 so nothing shifts when art lands.</p>
+    <p class="pv-sec__d">White ground, as on the live lineup. Every card answers the
+      same four questions in the same order: when, where, what it costs, how to get
+      in.</p>
     <div class="pv-sec__body">
       <article class="event" style="border-top:0">
         <div class="event__body">
@@ -673,10 +693,10 @@ img{max-width:100%;display:block}
 
   <!-- ================= SCHEDULE ================= -->
   <section class="pv-sec" id="schedule">
-    <div class="pv-sec__n">Component 06</div>
+    <div class="pv-sec__n">Component 07</div>
     <h2 class="pv-sec__h">Schedule &amp; timeline <span class="pv-tag pv-tag--has">In use</span></h2>
-    <p class="pv-sec__d">Three separate jobs — day grouping, at-a-glance columns,
-      and the itinerary spine. Don't merge them.</p>
+    <p class="pv-sec__d">Three separate jobs — day grouping, at-a-glance columns, and
+      the itinerary spine. Don't merge them.</p>
     <div class="pv-sec__body">
       <div class="pv-row">
         <div class="pv-lab">Day group label</div>
@@ -686,15 +706,13 @@ img{max-width:100%;display:block}
         <div class="pv-lab">At a glance</div>
         <div class="glance">
           <div class="glance__col">
-            <div class="glance__day">Thu</div>
-            <div class="glance__date">Oct 29</div>
+            <div class="glance__day">Thu</div><div class="glance__date">Oct 29</div>
             <a class="glance__item" href="#schedule">
               <span class="glance__time">9:00 PM</span>
               <span class="glance__name">The Warm Up</span></a>
           </div>
           <div class="glance__col">
-            <div class="glance__day">Fri</div>
-            <div class="glance__date">Oct 30</div>
+            <div class="glance__day">Fri</div><div class="glance__date">Oct 30</div>
             <a class="glance__item" href="#schedule">
               <span class="glance__time">4:00 PM</span>
               <span class="glance__name">Clocked Out</span></a>
@@ -703,8 +721,7 @@ img{max-width:100%;display:block}
               <span class="glance__name">The Talley Tapes</span></a>
           </div>
           <div class="glance__col">
-            <div class="glance__day">Sat</div>
-            <div class="glance__date">Oct 31</div>
+            <div class="glance__day">Sat</div><div class="glance__date">Oct 31</div>
             <a class="glance__item" href="#schedule">
               <span class="glance__time">2:30 PM</span>
               <span class="glance__name">Block Party</span></a>
@@ -715,64 +732,16 @@ img{max-width:100%;display:block}
         <div class="pv-lab">Itinerary spine — doubles as scroll position</div>
         <div class="ev">
           <div class="ev__rail" aria-hidden="true"><span class="ev__tick"></span></div>
-          <div>
-            <p class="ev__time">Thu Oct 29 · 9:00 PM</p>
+          <div><p class="ev__time">Thu Oct 29 · 9:00 PM</p>
             <h4 class="ev__name">The Warm Up</h4>
-            <p class="ev__where">Primrose Bar &amp; Lounge · Durham</p>
-          </div>
+            <p class="ev__where">Primrose Bar &amp; Lounge · Durham</p></div>
         </div>
         <div class="ev">
           <div class="ev__rail" aria-hidden="true"><span class="ev__tick"></span></div>
-          <div>
-            <p class="ev__time">Fri Oct 30 · 4:00 PM</p>
+          <div><p class="ev__time">Fri Oct 30 · 4:00 PM</p>
             <h4 class="ev__name">Clocked Out</h4>
-            <p class="ev__where">District Bar &amp; Lounge · Raleigh</p>
-          </div>
+            <p class="ev__where">District Bar &amp; Lounge · Raleigh</p></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= BIOS ================= -->
-  <section class="pv-sec" id="bios">
-    <div class="pv-sec__n">Component 07</div>
-    <h2 class="pv-sec__h">Organizer bios <span class="pv-tag pv-tag--new">New</span></h2>
-    <p class="pv-sec__d">No implementation exists today. Class year is the
-      highest-value field on an alumni site. Links sit on <code>margin-top:auto</code>
-      so they stay baseline-aligned across bios of unequal length.</p>
-    <div class="pv-sec__body bio-grid">
-      <div class="bio">
-        <div class="bio__media"><span class="bio__initials">DC</span></div>
-        <div>
-          <div class="bio__name">Darryl Coleman</div>
-          <div class="bio__role">Organizer</div>
-          <div class="bio__class">Class of '09</div>
-        </div>
-        <p class="bio__text">Bio copy sits here — 25 to 40 words is the target.
-          Long enough to be human, short enough that a row of cards stays even.</p>
-        <div class="bio__links"><a href="#bios">Instagram</a><a href="#bios">Email</a></div>
-      </div>
-      <div class="bio">
-        <div class="bio__media"><span class="bio__initials">CP</span></div>
-        <div>
-          <div class="bio__name">Colton Palmer</div>
-          <div class="bio__role">Organizer</div>
-          <div class="bio__class">Class of '12</div>
-        </div>
-        <p class="bio__text">A deliberately shorter bio, to show the links staying
-          aligned with the card beside it.</p>
-        <div class="bio__links"><a href="#bios">Instagram</a></div>
-      </div>
-      <div class="bio">
-        <div class="bio__media"><span class="bio__initials">SC</span></div>
-        <div>
-          <div class="bio__name">The Slim Creative</div>
-          <div class="bio__role">Creative</div>
-          <div class="bio__class">Class of '15</div>
-        </div>
-        <p class="bio__text">Where no headshot exists, omit the media block
-          entirely rather than shipping a grey silhouette placeholder.</p>
-        <div class="bio__links"><a href="#bios">Portfolio</a><a href="#bios">Instagram</a></div>
       </div>
     </div>
   </section>
@@ -781,9 +750,9 @@ img{max-width:100%;display:block}
   <section class="pv-sec" id="forms">
     <div class="pv-sec__n">Component 08</div>
     <h2 class="pv-sec__h">Form inputs <span class="pv-tag pv-tag--new">New</span></h2>
-    <p class="pv-sec__d">No inputs exist on the site today. Font size is 16px
-      minimum — anything smaller makes iOS Safari zoom on focus and yank the layout
-      sideways. Hints sit above the field, never below.</p>
+    <p class="pv-sec__d">No inputs exist on the site today. Font size is 16px minimum
+      — anything smaller makes iOS Safari zoom on focus and yank the layout sideways.
+      Hints sit above the field, never below.</p>
     <div class="pv-sec__body">
       <form class="form" onsubmit="return false">
         <div class="field">
@@ -808,17 +777,10 @@ img{max-width:100%;display:block}
           <p class="field__error" id="f-err-msg"><span aria-hidden="true">⚠</span>
             Enter an email address like you@example.com</p>
         </div>
-        <div class="field">
-          <label class="field__label" for="f-note">Anything we should know?</label>
-          <textarea class="textarea" id="f-note" placeholder="Accessibility needs, dietary requirements…"></textarea>
-        </div>
-        <label class="check">
-          <input type="checkbox">
-          <span>Email me when tickets go on sale for next year.</span>
-        </label>
+        <label class="check"><input type="checkbox">
+          <span>Email me when tickets go on sale for next year.</span></label>
         <div><button class="btn btn--primary" type="submit">Complete RSVP</button></div>
       </form>
-
       <div class="pv-row" style="margin-top:var(--sp-2xl)">
         <div class="pv-lab">Inline email capture</div>
         <form class="subscribe" onsubmit="return false">
@@ -827,36 +789,23 @@ img{max-width:100%;display:block}
           <button class="btn btn--primary" type="submit">Notify me</button>
         </form>
       </div>
-
-      <div class="pv-row">
-        <div class="pv-lab">On the bone ground</div>
-        <div class="pv-bone">
-          <div class="field">
-            <label class="field__label" for="f-b">Email</label>
-            <p class="field__hint">Same component, light ground.</p>
-            <input class="input" id="f-b" type="email" placeholder="you@example.com">
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- ================= DETAIL BOX ================= -->
+  <!-- ================= DETAILS ================= -->
   <section class="pv-sec" id="details">
     <div class="pv-sec__n">Component 09</div>
     <h2 class="pv-sec__h">Event detail boxes <span class="pv-tag pv-tag--has">In use</span></h2>
     <p class="pv-sec__d">Native <code>&lt;details&gt;</code> — no JS, keyboard
-      accessible for free. Never collapse essentials: date, time, venue and price
-      stay visible. Only parking, FAQ and policies go behind a disclosure.</p>
+      accessible for free. Never collapse essentials: date, time, venue and price stay
+      visible.</p>
     <div class="pv-sec__body">
       <details class="xtra" open>
         <summary>Full details, schedule &amp; FAQ</summary>
         <div class="xtra__body">
           <div class="xtra__h">Highlights</div>
-          <ul>
-            <li>Outdoor lot party with music and vendors</li>
-            <li>One band = flexible re-entry all day</li>
-          </ul>
+          <ul><li>Outdoor lot party with music and vendors</li>
+              <li>One band = flexible re-entry all day</li></ul>
           <div class="xtra__h">Parking</div>
           <ul><li>N West St. parking deck, steps from the venue</li></ul>
         </div>
@@ -876,11 +825,9 @@ img{max-width:100%;display:block}
     <div class="pv-sec__n">Component 10</div>
     <h2 class="pv-sec__h">Image gallery <span class="pv-tag pv-tag--new">New</span></h2>
     <p class="pv-sec__d">Fixed aspect ratio plus <code>object-fit:cover</code> means
-      mixed portrait and landscape photos never produce a ragged grid. Two columns
-      on mobile, three on tablet, four on desktop.</p>
-    <div class="pv-sec__body">
-      <div class="gallery gallery--feature" id="gal"></div>
-    </div>
+      mixed portrait and landscape photos never produce a ragged grid. Two columns on
+      mobile, three on tablet, four on desktop.</p>
+    <div class="pv-sec__body"><div class="gallery gallery--feature" id="gal"></div></div>
   </section>
 
   <!-- ================= CTA ================= -->
@@ -888,82 +835,173 @@ img{max-width:100%;display:block}
     <div class="pv-sec__n">Component 11</div>
     <h2 class="pv-sec__h">Call-to-action blocks <span class="pv-tag pv-tag--new">New</span></h2>
     <p class="pv-sec__d">One idea, one button. The friction-reducer sits directly
-      under the button. Don't repeat the same CTA band more than twice on a page.</p>
+      under the button.</p>
     <div class="pv-sec__body">
       <div class="pv-row">
         <div class="pv-lab">Centred</div>
-        <div class="cta">
-          <div class="cta__inner">
-            <h3 class="cta__title">Don't miss the block party</h3>
-            <a href="#cta" class="btn btn--primary btn--lg">Get tickets</a>
-            <p class="cta__note">On sale Sept 1 · capacity is limited</p>
-          </div>
-        </div>
+        <div class="cta"><div class="cta__inner">
+          <h3 class="cta__title">Don't miss the block party</h3>
+          <a href="#cta" class="btn btn--primary btn--lg">Get tickets</a>
+          <p class="cta__note">On sale Sept 1 · capacity is limited</p>
+        </div></div>
       </div>
       <div class="pv-row">
         <div class="pv-lab">Split</div>
-        <div class="cta cta--split">
-          <div class="cta__inner">
-            <div>
-              <h3 class="cta__title">Ready for homecoming?</h3>
-              <p class="cta__note">Free to RSVP · takes 30 seconds</p>
-            </div>
-            <a href="#cta" class="btn btn--primary">RSVP free</a>
-          </div>
-        </div>
+        <div class="cta cta--split"><div class="cta__inner">
+          <div><h3 class="cta__title">Ready for homecoming?</h3>
+            <p class="cta__note">Free to RSVP · takes 30 seconds</p></div>
+          <a href="#cta" class="btn btn--primary">RSVP free</a>
+        </div></div>
       </div>
     </div>
   </section>
 
   <section class="pv-sec">
-    <div class="pv-note">
-      <b>Reminder.</b> This is <code>ui-preview.html</code>, a reference page.
-      packoutstate.com is untouched and still serving the design you approved.
-      Nothing here has been applied to <code>index.html</code>.
-    </div>
+    <div class="pv-note"><b>Reminder.</b> This is <code>ui-preview.html</code>, a
+      reference page. packoutstate.com is untouched and still serving the design you
+      approved. Nothing here has been applied to <code>index.html</code>.</div>
   </section>
 
 </main>
 
 <script>
-/* ---- spacing scale swatch, generated from the tokens ---- */
-const STEPS = [['xs',4],['sm',8],['md',16],['lg',24],['xl',32],
-               ['2xl',48],['3xl',64],['4xl',96],['5xl',128]];
+/* ---- spacing scale swatch ---- */
+const STEPS=[['xs',4],['sm',8],['md',16],['lg',24],['xl',32],['2xl',48],['3xl',64],
+             ['4xl',96],['5xl',128]];
 document.getElementById('scaleOut').innerHTML = STEPS.map(([k,v])=>
-  `<div class="scale__row">
-     <span class="scale__k">--sp-${k}</span>
-     <span class="scale__bar" style="width:${v}px"></span>
-     <span class="scale__v">${v}px${v>64?'  · extension':''}</span>
-   </div>`).join('');
+  `<div class="scale__row"><span class="scale__k">--sp-${k}</span>
+   <span class="scale__bar" style="width:${v}px"></span>
+   <span class="scale__v">${v}px${v>64?'  · extension':''}</span></div>`).join('');
 
 /* ---- gallery placeholders ---- */
-document.getElementById('gal').innerHTML =
-  Array.from({length:7},(_,i)=>
-    `<a class="gallery__item" href="#gallery" aria-label="Gallery image ${i+1}">
-       <span class="gallery__ph">${i+1}</span></a>`).join('');
+document.getElementById('gal').innerHTML = Array.from({length:7},(_,i)=>
+  `<a class="gallery__item" href="#gallery" aria-label="Gallery image ${i+1}">
+     <span class="gallery__ph">${i+1}</span></a>`).join('');
 
-/* ---- live viewport readout ---- */
-const vp = document.getElementById('vp');
-function bp(w){ return w>=1280?'xl · desktop':w>=1024?'lg · small laptop'
-                : w>=768?'md · tablet':w>=480?'sm · large phone':'base · phone'; }
-function readout(){ vp.textContent = `${window.innerWidth}px — ${bp(window.innerWidth)}`; }
-readout(); addEventListener('resize', readout);
+/* ---- viewport readout ---- */
+const vp=document.getElementById('vp');
+const bp=w=>w>=1280?'xl · desktop':w>=1024?'lg · small laptop':w>=768?'md · tablet'
+          :w>=480?'sm · large phone':'base · phone';
+const readout=()=>vp.textContent=`${window.innerWidth}px — ${bp(window.innerWidth)}`;
+readout(); addEventListener('resize',readout);
+
+/* ===========================================================
+   ADD TO CALENDAR
+   Generated in the browser. No third-party service.
+   Requires machine-readable start/end on each event.
+   =========================================================== */
+const CAL_EVENTS = [
+  { id:'the-warm-up', name:'The Warm Up',
+    start:'2026-10-29T21:00:00-04:00', end:'2026-10-30T01:00:00-04:00',
+    venue:'Primrose Bar & Lounge, 111 W Main St, Durham, NC',
+    desc:'Pack Out State — NC State Homecoming 2026. Homecoming starts here.' },
+  { id:'clocked-out', name:'Clocked Out',
+    start:'2026-10-30T16:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
+    venue:'District Bar & Lounge, 222 Glenwood Ave, Raleigh, NC',
+    desc:'Pack Out State — official alumni kick-off and photoshoot.' },
+  { id:'talley-tapes', name:'The Talley Tapes [Untold]',
+    start:'2026-10-30T22:00:00-04:00', end:'2026-10-31T02:00:00-04:00',
+    venue:'Downtown Raleigh, NC',
+    desc:'Pack Out State — a homecoming original.' },
+  { id:'block-party', name:'Pack Out State Block Party',
+    start:'2026-10-31T14:30:00-04:00', end:'2026-11-01T01:00:00-04:00',
+    venue:'Killjoy Kitchen & Cocktails, 116 N West St, Raleigh, NC',
+    desc:'Pack Out State — this is how we homecoming, vol. 3.' }
+];
+const SITE = 'https://packoutstate.com/';
+
+/* ICS wants UTC basic format: 20261030T010000Z */
+const utc = s => new Date(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+/* ICS escaping: backslash, semicolon, comma, newline */
+const ice = s => String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;')
+                          .replace(/,/g,'\\,').replace(/\n/g,'\\n');
+/* Fold at 75 OCTETS per RFC 5545 — not characters. An em-dash is 3 bytes,
+   so a character-based fold silently overruns and strict clients reject it.
+   Never split a UTF-8 continuation byte. */
+const enc = new TextEncoder(), dec = new TextDecoder();
+function fold(line){
+  const b = enc.encode(line);
+  if(b.length <= 75) return line;
+  const out = []; let i = 0, limit = 75;
+  while(i < b.length){
+    let take = Math.min(limit, b.length - i);
+    while(take > 0 && i + take < b.length && (b[i+take] & 0xC0) === 0x80) take--;
+    out.push(dec.decode(b.slice(i, i+take)));
+    i += take; limit = 74;              /* continuation lines carry a leading space */
+  }
+  return out.join('\r\n ');
+}
+
+function vevent(ev){
+  return ['BEGIN:VEVENT',
+    `UID:${ev.id}@packoutstate.com`,
+    `DTSTAMP:${utc(new Date())}`,
+    `DTSTART:${utc(ev.start)}`,
+    `DTEND:${utc(ev.end)}`,
+    `SUMMARY:${ice(ev.name)}`,
+    `LOCATION:${ice(ev.venue)}`,
+    `DESCRIPTION:${ice(ev.desc)}`,
+    `URL:${SITE}`,
+    'END:VEVENT'].map(fold).join('\r\n');
+}
+function ics(events){
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Pack Out State//Homecoming//EN',
+    'CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    ...events.map(vevent),'END:VCALENDAR'].join('\r\n');
+}
+function icsHref(events){
+  return URL.createObjectURL(new Blob([ics(events)],
+    {type:'text/calendar;charset=utf-8'}));
+}
+function googleHref(ev){
+  const p = new URLSearchParams({
+    action:'TEMPLATE', text:ev.name,
+    dates:`${utc(ev.start)}/${utc(ev.end)}`,
+    details:`${ev.desc}\n\n${SITE}`, location:ev.venue, trp:'false'
+  });
+  return 'https://calendar.google.com/calendar/render?' + p.toString();
+}
+
+/* wire every .cal menu to the demo event, and the weekend button to all four */
+const demo = CAL_EVENTS[0];
+document.querySelectorAll('.cal').forEach(cal=>{
+  const g = cal.querySelector('[data-cal="google"]');
+  const i = cal.querySelector('[data-cal="ics"]');
+  if(g) g.href = googleHref(demo);
+  if(i){ i.href = icsHref([demo]);
+         i.setAttribute('download', demo.id + '.ics'); }
+});
+const all = document.getElementById('calAll');
+all.href = icsHref(CAL_EVENTS);
+all.setAttribute('download','pack-out-state-2026.ics');
+
+/* close an open menu on Esc or outside click */
+addEventListener('keydown', e=>{
+  if(e.key==='Escape') document.querySelectorAll('.cal[open]').forEach(d=>{
+    d.open=false; d.querySelector('summary').focus();
+  });
+});
+addEventListener('click', e=>{
+  document.querySelectorAll('.cal[open]').forEach(d=>{
+    if(!d.contains(e.target)) d.open=false;
+  });
+});
 
 /* ---- countdown demo ---- */
-const TARGET = new Date('2026-10-29T21:00:00-04:00');
-const cd = document.getElementById('cd');
-const pad = n => String(n).padStart(2,'0');
+const TARGET=new Date('2026-10-29T21:00:00-04:00');
+const cd=document.getElementById('cd');
+const pad=n=>String(n).padStart(2,'0');
 function tick(){
-  let d = Math.max(0, Math.floor((TARGET - new Date())/1000));
-  const days = Math.floor(d/86400); d-=days*86400;
-  const hrs = Math.floor(d/3600);   d-=hrs*3600;
-  const min = Math.floor(d/60), sec = d-min*60;
-  cd.innerHTML = [[pad(days),'Days'],[pad(hrs),'Hours'],[pad(min),'Minutes'],[pad(sec),'Seconds']]
+  let d=Math.max(0,Math.floor((TARGET-new Date())/1000));
+  const days=Math.floor(d/86400); d-=days*86400;
+  const hrs=Math.floor(d/3600);   d-=hrs*3600;
+  const min=Math.floor(d/60), sec=d-min*60;
+  cd.innerHTML=[[pad(days),'Days'],[pad(hrs),'Hours'],[pad(min),'Minutes'],[pad(sec),'Seconds']]
     .map(([v,l],i)=>`<div class="count__unit"><div class="count__num">${v}</div>
-       <div class="count__label">${l}</div></div>`
-       + (i<3?'<div class="count__colon" aria-hidden="true">:</div>':'')).join('');
+      <div class="count__label">${l}</div></div>`
+      +(i<3?'<div class="count__colon" aria-hidden="true">:</div>':'')).join('');
 }
-tick(); setInterval(tick, 1000);
+tick(); setInterval(tick,1000);
 </script>
 </body>
 </html>

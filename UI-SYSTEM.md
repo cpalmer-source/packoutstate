@@ -55,8 +55,8 @@ something new.
 | Event detail boxes | **Exists** — `.xtra`, `.faq`, `.event__details` (18 rules) |
 | CTA blocks | **Partial** — `.btnrow` only; needs a real block |
 | **Form inputs** | **New** — no `input`/`textarea`/`fieldset` anywhere |
-| **Bio cards** | **New** — no speaker/organizer markup anywhere |
 | **Image gallery** | **New** — no gallery markup anywhere |
+| **Add to calendar** | **New** — requested; needs `start`/`end` on each event |
 
 Existing components need *normalizing to the scale*, not rebuilding. New ones are
 specified in full.
@@ -389,37 +389,7 @@ position. Strong for a strictly chronological weekend:
 Set `--rail: clamp(32px, 6vw, 88px)`. Below 640px drop to 26px or the copy column
 gets squeezed.
 
-### 3.4 Organizer / speaker bio card — `.bio` *(new)*
-
-```css
-.bio-grid{ display:grid; gap:var(--sp-lg);
-           grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)) }
-
-.bio{ display:flex; flex-direction:column; gap:var(--sp-md);
-      padding:var(--sp-lg); border:1px solid var(--line) }
-.bio__media{ width:96px; height:96px; border-radius:50%; overflow:hidden;
-             flex:none; background:var(--carbon) }
-.bio__media img{ width:100%; height:100%; object-fit:cover; display:block }
-.bio__name { font-family:var(--display); font-size:1.25rem; text-transform:uppercase;
-             line-height:1.1 }
-.bio__role { font-size:.74rem; font-weight:700; letter-spacing:.14em;
-             text-transform:uppercase; color:var(--ash) }
-.bio__class{ font-size:.74rem; font-weight:700; letter-spacing:.14em }  /* "Class of '09" */
-.bio__text { font-size:.95rem; max-width:46ch }
-.bio__links{ display:flex; gap:var(--sp-md); margin-top:auto; padding-top:var(--sp-md) }
-
-/* horizontal variant for 1–3 people */
-.bio--row{ flex-direction:row; align-items:flex-start; gap:var(--sp-lg) }
-```
-
-**Rules.** `margin-top:auto` on `.bio__links` keeps links baseline-aligned across
-cards of unequal bio length — without it a row of bio cards looks broken. Crop
-headshots to a consistent square before upload; `object-fit:cover` handles the
-rest. Bios: 25–40 words. Class year is the highest-value field on an alumni site —
-include it. If you don't have a photo, omit `.bio__media` entirely rather than
-shipping a grey silhouette placeholder.
-
-### 3.5 Form inputs — `.field` *(new)*
+### 3.4 Form inputs — `.field` *(new)*
 
 No forms exist yet. This covers RSVP and email capture.
 
@@ -482,7 +452,7 @@ No forms exist yet. This covers RSVP and email capture.
 - Mark the required state in the label (`*` plus `aria-required`), and never rely
   on the asterisk's color to carry it.
 
-### 3.6 Navigation — `.nav` *(exists)*
+### 3.5 Navigation — `.nav` *(exists)*
 
 ```css
 .nav{ position:sticky; top:0; z-index:50;
@@ -519,7 +489,7 @@ changes height as it wraps causes layout shift. Always ship a skip link:
 Scroll-spy the day pills to the visible day. If you add a mobile menu, it must
 trap focus, close on `Esc`, and return focus to the trigger.
 
-### 3.7 Hero — `.hero` *(exists)*
+### 3.6 Hero — `.hero` *(exists)*
 
 Structure, in order:
 
@@ -552,7 +522,7 @@ eyebrow  →  h1  →  date/location line  →  countdown  →  primary CTA
   `pointer-events:none`.
 - Every hero animation must be disabled under `prefers-reduced-motion`.
 
-### 3.8 CTA block — `.cta` *(new — currently only `.btnrow` exists)*
+### 3.7 CTA block — `.cta` *(new — currently only `.btnrow` exists)*
 
 A full-width conversion band for between sections and above the footer.
 
@@ -577,7 +547,7 @@ A full-width conversion band for between sections and above the footer.
 as `.cta__note` — "Free to RSVP", "Takes 30 seconds", "On sale Sept 1". Don't
 repeat the same CTA band more than twice on a page.
 
-### 3.9 Event detail box — `.xtra`, `.faq` *(exists)*
+### 3.8 Event detail box — `.xtra`, `.faq` *(exists)*
 
 Progressive disclosure via native `<details>` — no JS, keyboard-accessible free.
 
@@ -607,7 +577,7 @@ visible; only parking, FAQ and policies go behind a disclosure. Use the same
 key order in `.facts` on every event. Address links open a map in a new tab.
 Keep `::after` rotation under `prefers-reduced-motion` guard.
 
-### 3.10 Image gallery — `.gallery` *(new)*
+### 3.9 Image gallery — `.gallery` *(new)*
 
 ```css
 .gallery{ display:grid; gap:var(--sp-sm);
@@ -637,7 +607,7 @@ phone photos will destroy mobile load time. Alt text describes the scene
 If you add a lightbox it must close on `Esc`, trap focus, and be reachable by
 keyboard.
 
-### 3.11 Countdown — `.board` *(exists)*
+### 3.10 Countdown — `.board` *(exists)*
 
 ```css
 .board{ margin-top:var(--sp-2xl); max-width:680px }
@@ -664,6 +634,55 @@ keyboard.
   never drifts by a day for out-of-state visitors.
 - Freeze the seconds digit under `prefers-reduced-motion`, or drop to minutes.
 - A countdown is not a scarcity device. Don't add one to a form.
+
+### 3.11 Add to calendar — `.cal` *(new)*
+
+Generated in the browser from the event data. No third-party service, no account,
+nothing to maintain. Two destinations cover effectively everyone: a Google
+Calendar URL, and a `.ics` download that Apple Calendar and Outlook both open.
+
+```css
+.cal        { position:relative; display:inline-block }
+.cal__trigger{ list-style:none; cursor:pointer; user-select:none }
+.cal__trigger::-webkit-details-marker{ display:none }
+.cal__menu  { position:absolute; z-index:20; top:calc(100% + var(--sp-sm)); left:0;
+              min-width:230px; padding:var(--sp-sm);
+              background:var(--white); border:1px solid var(--rule-2);
+              box-shadow:0 14px 34px rgba(11,11,12,.16) }
+.cal__opt   { display:flex; align-items:center; gap:var(--sp-md);
+              padding:var(--sp-md); min-height:44px; text-decoration:none }
+@media(max-width:479px){ .cal{ display:block } .cal__menu{ left:0; right:0 } }
+```
+
+Built on `<details>/<summary>`, so open/close, keyboard operation and screen
+reader semantics come free. Add `Esc` to close and an outside-click handler.
+
+**This needs one data change to ship.** `EVENTS` stores time as a display string
+(`'9:00 PM – 1:00 AM'`), which no calendar can parse. Each event needs two
+machine-readable fields:
+
+```js
+start:'2026-10-29T21:00:00-04:00',
+end  :'2026-10-30T01:00:00-04:00',
+```
+
+Parsing the display string instead would be guesswork — "9:00 PM – 1:00 AM"
+silently crosses midnight, and nothing in the string says which day the end time
+belongs to. Two explicit fields remove the ambiguity.
+
+**Rules.**
+- Times are converted to UTC for both destinations, so the entry lands correctly
+  regardless of the attendee's timezone.
+- `.ics` content must use CRLF line endings and escape `\ ; ,` and newlines.
+  Fold lines over 75 octets (RFC 5545) or strict clients reject the file.
+- Give every event a stable `UID` (`event-id@packoutstate.com`) so re-downloading
+  updates the existing entry rather than creating a duplicate.
+- Offer a **whole weekend** file as well as per-event: one `.ics` containing all
+  four `VEVENT` blocks lets someone commit to the weekend in one tap.
+- Put the venue in `LOCATION` as a full street address — calendar apps turn it
+  into a map link and a travel-time estimate.
+- This is secondary to ticketing. It is a ghost button next to the primary CTA,
+  never in place of it.
 
 ---
 
@@ -753,7 +772,7 @@ keyboard.
 ```
 
 Rules:
-- **One block per component.** `.event`, `.bio`, `.gallery`, `.field`.
+- **One block per component.** `.event`, `.cal`, `.gallery`, `.field`.
 - **Never nest elements in the name.** `.event__cta`, never
   `.event__body__cta__button`. If you need that depth, it's a new block.
 - **Modifiers change one thing.** `.btn--lg` changes size, `.btn--primary` changes
@@ -786,7 +805,7 @@ the top of `<style>` is enough:
 ```css
 /* ===========================================================
    1 TOKENS   2 LAYOUT   3 BUTTONS   4 NAV   5 HERO
-   6 COUNTDOWN   7 EVENTS   8 SCHEDULE   9 BIO
+   6 COUNTDOWN   7 EVENTS   8 SCHEDULE   9 CALENDAR
    10 FORMS   11 GALLERY   12 CTA   13 FOOTER   14 A11Y
    =========================================================== */
 ```
