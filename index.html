@@ -322,7 +322,29 @@ a{color:inherit}
 }
 .event__details a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
 
-.event__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.event__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:flex-start}
+
+/* ---------- ADD TO CALENDAR ---------- */
+.cal{position:relative;display:inline-block}
+.cal__trigger{list-style:none;cursor:pointer;user-select:none}
+.cal__trigger::-webkit-details-marker{display:none}
+.cal__trigger::after{content:'\25BE';margin-left:6px;font-size:.9em}
+.cal[open] .cal__trigger::after{content:'\25B4'}
+.cal__menu{
+  position:absolute;z-index:20;top:calc(100% + 8px);left:0;min-width:236px;
+  background:var(--white);border:1px solid #E5E1D8;padding:8px;
+  box-shadow:0 14px 34px rgba(11,11,12,.16);
+}
+.cal__opt{
+  display:flex;align-items:center;gap:12px;padding:12px;min-height:44px;
+  text-decoration:none;color:var(--ink);font-size:.92rem;font-weight:700;
+  border-radius:2px;
+}
+.cal__opt:hover{background:var(--bone)}
+.cal__opt small{display:block;font-weight:500;font-size:.74rem;color:#6c6c6f}
+.cal__ico{flex:none;width:20px;text-align:center;font-size:1rem;color:var(--red)}
+.cal__all{margin-top:20px}
+@media(max-width:479px){ .cal{display:block} .cal__menu{left:0;right:0} }
 .event__onsale{margin-top:12px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--red-deep)}
 
 /* flyer well — real art keeps its native ratio; placeholders lock to 3:4 */
@@ -466,6 +488,7 @@ a{color:inherit}
       <div class="eyebrow">The lineup</div>
       <h2 class="section__title">Every event, every night</h2>
       <p class="section__lead">From the Thursday warm up to the Saturday block party. Flyers drop as they are finalized.</p>
+      <div class="cal__all"><a class="btn btn--dark" id="calAll" download="pack-out-state-2026.ics">Add the whole weekend to your calendar</a></div>
     </div>
     <div id="events"></div>
   </div>
@@ -510,7 +533,8 @@ const DAYS = [
 
 const EVENTS = [
   {
-    id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',    name:'The Warm Up', tagline:'Homecoming Starts Here',
+    id:'the-warm-up', day:'thu', time:'9:00 PM – 1:00 AM',
+    start:'2026-10-29T21:00:00-04:00', end:'2026-10-30T01:00:00-04:00',    name:'The Warm Up', tagline:'Homecoming Starts Here',
     desc:'Enjoy craft cocktails, vibes, and a curated experience at the all-new Primrose location in downtown Durham. Owned and operated by two fellow Pack alums, Primrose opens its doors for a night that celebrates the Pack and sets the tone for the weekend ahead. Get warmed up for Homecoming with us. Homecoming starts here.',
     venue:'Primrose Bar & Lounge', address:'111 W Main St. Durham, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=Primrose+Bar+%26+Lounge+111+W+Main+St+Durham+NC',
@@ -521,6 +545,7 @@ const EVENTS = [
   },
   {
     id:'clocked-out', day:'fri', time:'4:00 PM – 8:00 PM',
+    start:'2026-10-30T16:00:00-04:00', end:'2026-10-30T20:00:00-04:00',
     name:'Clocked Out', tagline:'It\u2019s a Photoshoot',
     desc:[
       'Official Alumni kick-off. Get checked into your rooms, meet the crew at District, and capture the picture that belongs in this year\u2019s homecoming album. Reserve a 20-minute photo session for you and your friends with a professional photographer, then stay for a glass of wine, a craft cocktail, or a few shots as we kick off homecoming weekend',
@@ -532,7 +557,8 @@ const EVENTS = [
     flyer:'flyer-clocked-out.jpg'
   },
   {
-    id:'talley-tapes', day:'fri', time:'10:00 PM – 2:00 AM',    name:'The Talley Tapes [Untold]', tagline:'A Homecoming Original',
+    id:'talley-tapes', day:'fri', time:'10:00 PM – 2:00 AM',
+    start:'2026-10-30T22:00:00-04:00', end:'2026-10-31T02:00:00-04:00',    name:'The Talley Tapes [Untold]', tagline:'A Homecoming Original',
     desc:[
       'Before bottle service, before sections, there was Talley. Before the posts, before the stories, before nights became content. When flyers moved hand to hand and word of mouth was currency, Talley became a legendary party known round the state, with students traveling from their respective campuses to be part of it. Talley was not just a building; it was a rite of passage. If you knew, you went. If you missed it, you heard about it. Nights became lore, passed from generation to generation, sparking debate on who did it best. No matter the era, the nostalgia takes over, and one phrase emerges: Damn\u2026 I remember them Talley parties.',
       'Homecoming Friday night, The Talley Tapes brings the stories to life with a house party experience at [ Location TBA ]. A premiere night for the people who lived it, the people who heard about it, and everybody ready to be part of the next chapter.'
@@ -544,7 +570,8 @@ const EVENTS = [
     flyer:'flyer-talley-tapes.jpg'
   },
   {
-    id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
+    id:'block-party', day:'sat', time:'2:30 PM – 1:00 AM',
+    start:'2026-10-31T14:30:00-04:00', end:'2026-11-01T01:00:00-04:00',    name:'Pack Out State Block Party', tagline:'This is How We Homecoming Vol. 3',
     desc:'The Pack Out State Block Party is taking over Killjoy and the parking lot for an all-day Homecoming celebration. Pull up for an all-day experience that captures the essence of Homecoming in one event; tailgate, watch party, day party turned night party all in one. DJ sets running all day long with food, vendors, and curated vibes for you and your crew to celebrate together.',
     venue:'Killjoy Kitchen & Cocktails', address:'116 N West St. Raleigh, NC',
     mapUrl:'https://www.google.com/maps/search/?api=1&query=Killjoy+116+N+West+St+Raleigh+NC',
@@ -587,6 +614,78 @@ const EVENTS = [
    ================================================================ */
 const $ = (s, r=document)=>r.querySelector(s);
 const esc = (s)=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ================================================================
+   ADD TO CALENDAR
+   Generates a Google Calendar link and a .ics file in the browser.
+   No third-party service. Reads the start/end fields on each event —
+   the display 'time' string can't be parsed reliably because most of
+   these events cross midnight.
+   ================================================================ */
+const SITE = 'https://packoutstate.com/';
+const hasTimes = e => !!(e.start && e.end);
+
+/* ICS wants UTC basic format: 20261030T010000Z */
+const utc = s => new Date(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+/* ICS escaping: backslash, semicolon, comma, newline */
+const ice = s => String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;')
+                          .replace(/,/g,'\\,').replace(/\n/g,'\\n');
+/* Fold at 75 OCTETS per RFC 5545 — not characters. Multi-byte characters
+   would silently overrun a character count and strict clients reject it. */
+const _enc = new TextEncoder(), _dec = new TextDecoder();
+function fold(line){
+  const b = _enc.encode(line);
+  if(b.length <= 75) return line;
+  const out = []; let i = 0, limit = 75;
+  while(i < b.length){
+    let take = Math.min(limit, b.length - i);
+    while(take > 0 && i + take < b.length && (b[i+take] & 0xC0) === 0x80) take--;
+    out.push(_dec.decode(b.slice(i, i+take)));
+    i += take; limit = 74;            // continuation lines carry a leading space
+  }
+  return out.join('\r\n ');
+}
+const calWhere = e => e.address ? `${e.venue}, ${e.address}` : e.venue;
+const calWhat  = e => `${e.tagline}\n\n${e.ticketsUrl || SITE}`;
+
+function vevent(e){
+  return ['BEGIN:VEVENT',
+    `UID:${e.id}@packoutstate.com`,
+    `DTSTAMP:${utc(new Date())}`,
+    `DTSTART:${utc(e.start)}`,
+    `DTEND:${utc(e.end)}`,
+    `SUMMARY:${ice(e.name)}`,
+    `LOCATION:${ice(calWhere(e))}`,
+    `DESCRIPTION:${ice(calWhat(e))}`,
+    `URL:${e.ticketsUrl || e.detailsUrl || SITE}`,
+    'END:VEVENT'].map(fold).join('\r\n');
+}
+function icsHref(events){
+  const body = ['BEGIN:VCALENDAR','VERSION:2.0',
+    'PRODID:-//Pack Out State//Homecoming//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    ...events.map(vevent),'END:VCALENDAR'].join('\r\n');
+  return URL.createObjectURL(new Blob([body],{type:'text/calendar;charset=utf-8'}));
+}
+function googleHref(e){
+  return 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
+    action:'TEMPLATE', text:e.name, dates:`${utc(e.start)}/${utc(e.end)}`,
+    details:calWhat(e), location:calWhere(e), trp:'false'
+  }).toString();
+}
+function calMenu(e){
+  if(!hasTimes(e)) return '';
+  return `<details class="cal">
+    <summary class="btn btn--ghost cal__trigger">Add to calendar</summary>
+    <div class="cal__menu">
+      <a class="cal__opt" href="${esc(googleHref(e))}" target="_blank" rel="noopener">
+        <span class="cal__ico" aria-hidden="true">&#9670;</span>
+        <span>Google Calendar<small>Opens in a new tab</small></span></a>
+      <a class="cal__opt" data-ics="${esc(e.id)}" download="${esc(e.id)}.ics">
+        <span class="cal__ico" aria-hidden="true">&#8595;</span>
+        <span>Apple &amp; Outlook<small>Downloads a .ics file</small></span></a>
+    </div>
+  </details>`;
+}
 
 // group events by day, preserving day order
 const grouped = DAYS.map(d => ({...d, items: EVENTS.filter(e => e.day === d.key)}))
@@ -636,10 +735,12 @@ $('#events').innerHTML = grouped.map(d=>{
           e.mapUrl ? `<a href="${esc(e.mapUrl)}" target="_blank" rel="noopener">${esc(e.address)}</a>` : esc(e.address)
         }</span></li>` : '';
 
-    // CTA buttons render only when links exist
+    // CTA buttons render only when links exist. The calendar menu renders
+    // whenever the event has machine-readable start/end times.
     const ctas = [
       e.ticketsUrl ? `<a href="${esc(e.ticketsUrl)}" class="btn btn--primary" target="_blank" rel="noopener">${esc(e.ticketsLabel || 'Get tickets')}</a>` : '',
-      e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : ''
+      e.detailsUrl ? `<a href="${esc(e.detailsUrl)}" class="btn btn--ghost" target="_blank" rel="noopener">Event details</a>` : '',
+      calMenu(e)
     ].join('');
     const ctaRow = ctas ? `<div class="event__cta">${ctas}</div>` : '';
     const onSale = e.onSaleNote ? `<p class="event__onsale">${esc(e.onSaleNote)}</p>` : '';
@@ -694,6 +795,33 @@ $('#events').innerHTML = grouped.map(d=>{
   }).join('');
   return label + cards;
 }).join('');
+
+// ---- Wire calendar downloads (blob URLs must be made after render) ----
+(function(){
+  const dated = EVENTS.filter(hasTimes);
+  document.querySelectorAll('[data-ics]').forEach(a=>{
+    const ev = EVENTS.find(e => e.id === a.dataset.ics);
+    if(ev) a.href = icsHref([ev]);
+  });
+  const all = $('#calAll');
+  if(all){
+    if(dated.length) all.href = icsHref(dated);
+    else all.remove();
+  }
+  // Esc closes an open menu and returns focus to its trigger
+  document.addEventListener('keydown', e=>{
+    if(e.key !== 'Escape') return;
+    document.querySelectorAll('.cal[open]').forEach(d=>{
+      d.open = false; d.querySelector('summary').focus();
+    });
+  });
+  // clicking outside closes it
+  document.addEventListener('click', e=>{
+    document.querySelectorAll('.cal[open]').forEach(d=>{
+      if(!d.contains(e.target)) d.open = false;
+    });
+  });
+})();
 
 // ---- Countdown ----
 const cd = $('#countdown');
